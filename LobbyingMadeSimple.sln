@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LobbyingMadeSimple", "LobbyingMadeSimple\LobbyingMadeSimple.csproj", "{DC8B0F75-5ADB-437F-9F86-6FA507ED6B0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LobbyingMadeSimple.Tests", "LobbyingMadeSimple.Tests\LobbyingMadeSimple.Tests.csproj", "{5A539F00-A592-4187-B8BC-0F4868F404A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC8B0F75-5ADB-437F-9F86-6FA507ED6B0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC8B0F75-5ADB-437F-9F86-6FA507ED6B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC8B0F75-5ADB-437F-9F86-6FA507ED6B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC8B0F75-5ADB-437F-9F86-6FA507ED6B0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A539F00-A592-4187-B8BC-0F4868F404A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A539F00-A592-4187-B8BC-0F4868F404A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A539F00-A592-4187-B8BC-0F4868F404A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A539F00-A592-4187-B8BC-0F4868F404A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
