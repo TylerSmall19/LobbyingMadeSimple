@@ -16,6 +16,14 @@
     white-space: normal;
 }
 
+.navbar-inverse .navbar-nav > li > a.highlight{
+    color: #c09853;
+}
+
+.navbar-inverse .navbar-nav > li > a.highlight:hover{
+    color: white;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
