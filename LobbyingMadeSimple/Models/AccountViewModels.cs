@@ -79,6 +79,10 @@ namespace LobbyingMadeSimple.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "State")]
+        public string StateName { get; set; }
     }
 
     public class ResetPasswordViewModel
