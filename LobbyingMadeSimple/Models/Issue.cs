@@ -17,12 +17,12 @@ namespace LobbyingMadeSimple.Models
         [Display(Name = "Summary")]
         public string ShortDescription { get; set; }
         [Required]
-        [Display(Name = "Details of the Issue")]
+        [Display(Name = "Details")]
         public string LongDescription { get; set; }
         [Required]
         [Display(Name = "This issue is State-Level")]
         public bool IsStateIssue { get; set; }
-        [Display(Name = "Choose the Affected State")]
+        [Display(Name = "Affected State")]
         public string StateAbbrev { get; set; }
 
         // Associations

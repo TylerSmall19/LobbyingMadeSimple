@@ -40,7 +40,6 @@ namespace LobbyingMadeSimple.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.StateList = new SelectList(LobbyingMadeSimple.Helpers.StateListHelpers.GetAllStates(), issue.StateAbbrev);
             ViewBag.AuthorID = new SelectList(db.Users, "Id", "StateName");
             return View();
         }
