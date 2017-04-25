@@ -35,6 +35,6 @@ namespace LobbyingMadeSimple.Models
             return new ApplicationDbContext();
         }
 
-        object placeHolderVariable;
+        public DbSet<Issue> Issues { get; set; }
     }
 }

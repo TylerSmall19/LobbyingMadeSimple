@@ -1,0 +1,66 @@
+﻿@model LobbyingMadeSimple.Models.Issue
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Issue</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author.StateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.StateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LongDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LongDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsStateIssue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsStateIssue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateAbbrev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateAbbrev)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IssueID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
