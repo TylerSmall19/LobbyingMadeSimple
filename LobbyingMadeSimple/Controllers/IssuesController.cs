@@ -37,8 +37,10 @@ namespace LobbyingMadeSimple.Controllers
         }
 
         // GET: Issues/Create
+        [Authorize]
         public ActionResult Create()
         {
+            ViewBag.StateList = new SelectList(LobbyingMadeSimple.Helpers.StateListHelpers.GetAllStates(), issue.StateAbbrev);
             ViewBag.AuthorID = new SelectList(db.Users, "Id", "StateName");
             return View();
         }
@@ -48,7 +50,8 @@ namespace LobbyingMadeSimple.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IssueID,Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev,AuthorID")] Issue issue)
+        [Authorize]
+        public ActionResult Create([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev")] Issue issue)
         {
             if (ModelState.IsValid)
             {
@@ -56,12 +59,12 @@ namespace LobbyingMadeSimple.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.AuthorID = new SelectList(db.Users, "Id", "StateName", issue.AuthorID);
+            ViewBag.AuthorID  = new SelectList(db.Users, "Id", "StateName", issue.AuthorID);
             return View(issue);
         }
 
         // GET: Issues/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,7 +85,8 @@ namespace LobbyingMadeSimple.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IssueID,Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev,AuthorID")] Issue issue)
+        [Authorize]
+        public ActionResult Edit([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev")] Issue issue)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +99,7 @@ namespace LobbyingMadeSimple.Controllers
         }
 
         // GET: Issues/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +117,7 @@ namespace LobbyingMadeSimple.Controllers
         // POST: Issues/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Issue issue = db.Issues.Find(id);
