@@ -65,6 +65,11 @@ namespace LobbyingMadeSimple.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+        [MaxLength(30, ErrorMessage = "{0} must be less than {1} characters")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -81,7 +86,7 @@ namespace LobbyingMadeSimple.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "State")]
+        [Display(Name = "State of Residency")]
         public string StateName { get; set; }
     }
 
