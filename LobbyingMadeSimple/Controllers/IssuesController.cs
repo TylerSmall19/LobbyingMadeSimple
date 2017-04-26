@@ -18,6 +18,7 @@ namespace LobbyingMadeSimple.Controllers
         // GET: Issues
         public ActionResult Index()
         {
+            //List<Issue> issues = ListIssueRepository.GetAllIssues(); TODO: Look into Repository pattern
             var issues = db.Issues.Include(i => i.Author);
             return View(issues.ToList());
         }
