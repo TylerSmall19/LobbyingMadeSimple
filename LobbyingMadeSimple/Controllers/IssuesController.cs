@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LobbyingMadeSimple.Models;
+using Microsoft.AspNet.Identity;
 
 namespace LobbyingMadeSimple.Controllers
 {
@@ -40,7 +41,6 @@ namespace LobbyingMadeSimple.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.AuthorID = new SelectList(db.Users, "Id", "StateName");
             return View();
         }
 
@@ -52,13 +52,14 @@ namespace LobbyingMadeSimple.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev")] Issue issue)
         {
+            issue.AuthorID = User.Identity.GetUserId();
+
             if (ModelState.IsValid)
             {
                 db.Issues.Add(issue);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AuthorID  = new SelectList(db.Users, "Id", "StateName", issue.AuthorID);
             return View(issue);
         }
 
