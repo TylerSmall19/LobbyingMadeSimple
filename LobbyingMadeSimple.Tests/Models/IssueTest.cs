@@ -62,7 +62,7 @@ namespace LobbyingMadeSimple.Tests.Models
             Assert.AreEqual(0, issue.UpvoteCount);
             Assert.AreEqual(0, issue.DownVoteCount);
             Assert.AreEqual(1500, issue.VoteCountNeeded);
-            Assert.IsFalse(issue.IsApproved());
+            Assert.IsFalse(issue.IsApproved);
         }
 
         [TestMethod]
@@ -90,47 +90,55 @@ namespace LobbyingMadeSimple.Tests.Models
         [TestMethod]
         public void CanBeApprovedThroughVotes()
         {
-            Issue issue = new Issue();
+            Issue issue = new Issue()
+            {
+                UpvoteCount = 1499
+            };
 
-            issue.UpvoteCount = 1499;
             issue.AddVote(true);
 
-            Assert.IsTrue(issue.IsApproved());
+            Assert.IsTrue(issue.IsApproved);
         }
 
         [TestMethod]
         public void CanBeDeniedThroughVotes()
         {
-            Issue issue = new Issue();
+            Issue issue = new Issue()
+            {
+                DownVoteCount = 1499
+            };
 
-            issue.DownVoteCount = 1499;
             issue.AddVote(false);
 
-            Assert.IsFalse(issue.IsApproved());
+            Assert.IsFalse(issue.IsApproved);
         }
 
         [TestMethod]
         public void FalseIfLessThan67Percent()
         {
-            Issue issue = new Issue();
+            Issue issue = new Issue()
+            {
+                UpvoteCount = 999,
+                DownVoteCount = 500
+            };
 
-            issue.UpvoteCount   = 999;
-            issue.DownVoteCount = 500;
             issue.AddVote(false);
 
-            Assert.IsFalse(issue.IsApproved());
+            Assert.IsFalse(issue.IsApproved);
         }
 
         [TestMethod]
         public void TrueIf67PercentOrMore()
         {
-            Issue issue = new Issue();
+            Issue issue = new Issue()
+            {
+                UpvoteCount = 999,
+                DownVoteCount = 500
+            };
 
-            issue.UpvoteCount   = 999;
-            issue.DownVoteCount = 500;
             issue.AddVote(true);
 
-            Assert.IsTrue(issue.IsApproved());
+            Assert.IsTrue(issue.IsApproved);
         }
     }
 }

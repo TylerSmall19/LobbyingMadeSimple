@@ -1,0 +1,12 @@
+﻿@model IEnumerable<LobbyingMadeSimple.Models.Issue>
+
+@{
+    ViewBag.Title = "Vote";
+}
+
+@foreach (var issue in Model)
+{
+    <p>Title: @Html.DisplayFor(m => issue.Title)</p>
+    <p>Needed Votes: @Html.DisplayFor(m => issue.VoteCountNeeded)</p>
+}
+

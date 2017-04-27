@@ -18,7 +18,7 @@ namespace LobbyingMadeSimple.Controllers
         // GET: Issues
         public ActionResult Index()
         {
-            //List<Issue> issues = ListIssueRepository.GetAllIssues(); TODO: Look into Repository pattern
+            //List<Issue> issues = ListIssueRepository.GetAllIssues();
             var issues = db.Issues.Include(i => i.Author);
             return View(issues.ToList());
         }
@@ -125,6 +125,15 @@ namespace LobbyingMadeSimple.Controllers
             db.Issues.Remove(issue);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Issues/Vote
+        [HttpGet]
+        [Authorize]
+        public ActionResult Vote()
+        {
+            var issues = db.Issues.Where(v => v.IsApproved == true);
+            return View(issues.ToList());
         }
 
         protected override void Dispose(bool disposing)

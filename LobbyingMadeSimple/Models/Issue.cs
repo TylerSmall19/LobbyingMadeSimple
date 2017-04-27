@@ -17,44 +17,7 @@ namespace LobbyingMadeSimple.Models
             VoteCountNeeded = 1500;
         }
 
-        // Methods
-        public void AddVote(bool VoteWeight)
-        {
-            if (VoteWeight)
-            {
-                UpvoteCount++;
-            } else
-            {
-                DownVoteCount++;
-            }
-
-            UpdateIfApproved();
-        }
-
-        private void UpdateIfApproved()
-        {
-            if (HasEnoughVotes() && HasEnoughUpvotes())
-            {
-                IsApprovedForFunding = true;
-            }
-        }
-
-        private bool HasEnoughVotes()
-        {
-            return UpvoteCount + DownVoteCount >= VoteCountNeeded;
-        }
-
-        private bool HasEnoughUpvotes()
-        {
-            int totalVotes = UpvoteCount + DownVoteCount;
-            // Avoid Divide by Zero error
-            return UpvoteCount > 0 ? (double)UpvoteCount / totalVotes >= (double)2 / 3 : false;
-        }
-
-        public bool IsApproved()
-        {
-            return IsApprovedForFunding;
-        }
+        public bool IsApproved { get { return IsApprovedForFunding; } set { } }
 
         // Properties
         public int IssueID { get; set; }
@@ -89,5 +52,44 @@ namespace LobbyingMadeSimple.Models
         [ScaffoldColumn(false)]
         public string AuthorID { get; set; }
         public virtual ApplicationUser Author { get; set; }
+
+        // Methods
+        public void AddVote(bool VoteWeight)
+        {
+            if (VoteWeight)
+            {
+                UpvoteCount++;
+            }
+            else
+            {
+                DownVoteCount++;
+            }
+
+            UpdateIfApproved();
+        }
+
+        private void UpdateIfApproved()
+        {
+            if (HasEnoughVotes() && HasEnoughUpvotes())
+            {
+                IsApprovedForFunding = true;
+            }
+        }
+
+        private bool HasEnoughVotes()
+        {
+            return UpvoteCount + DownVoteCount >= VoteCountNeeded;
+        }
+
+        private bool HasEnoughUpvotes()
+        {
+            return HasHighEnoughPercentage();
+        }
+
+        private bool HasHighEnoughPercentage()
+        {
+            int totalVotes = UpvoteCount + DownVoteCount;
+            return (double)UpvoteCount / totalVotes >= (double)2 / 3;
+        }
     }
 }
