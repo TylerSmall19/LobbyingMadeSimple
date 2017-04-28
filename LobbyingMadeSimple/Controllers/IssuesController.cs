@@ -8,19 +8,25 @@ using System.Web;
 using System.Web.Mvc;
 using LobbyingMadeSimple.Models;
 using Microsoft.AspNet.Identity;
+using LobbyingMadeSimple.Repositories;
+using LobbyingMadeSimple.Interfaces;
 
 namespace LobbyingMadeSimple.Controllers
 {
     public class IssuesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private IIssueRepository _repo;
+
+        public IssuesController(IIssueRepository repo)
+        {
+            _repo = repo;
+        }
 
         // GET: Issues
         public ActionResult Index()
         {
-            //List<Issue> issues = ListIssueRepository.GetAllIssues();
-            var issues = db.Issues.Include(i => i.Author);
-            return View(issues.ToList());
+            List<Issue> issues = _repo.GetAll();
+            return View(issues);
         }
 
         // GET: Issues/Details/5
@@ -30,7 +36,9 @@ namespace LobbyingMadeSimple.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Issue issue = db.Issues.Find(id);
+
+            Issue issue = _repo.Find(id);
+
             if (issue == null)
             {
                 return HttpNotFound();
@@ -57,8 +65,7 @@ namespace LobbyingMadeSimple.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Issues.Add(issue);
-                db.SaveChanges();
+                _repo.Add(issue);
                 return RedirectToAction("Index");
             }
             return View(issue);
@@ -72,12 +79,14 @@ namespace LobbyingMadeSimple.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Issue issue = db.Issues.Find(id);
+
+            Issue issue = _repo.Find(id);
+
             if (issue == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorID = new SelectList(db.Users, "Id", "StateName", issue.AuthorID);
+
             return View(issue);
         }
 
@@ -91,11 +100,11 @@ namespace LobbyingMadeSimple.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(issue).State = EntityState.Modified;
-                db.SaveChanges();
+                _repo.Update(issue);
+
                 return RedirectToAction("Index");
             }
-            ViewBag.AuthorID = new SelectList(db.Users, "Id", "StateName", issue.AuthorID);
+
             return View(issue);
         }
 
@@ -107,11 +116,14 @@ namespace LobbyingMadeSimple.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Issue issue = db.Issues.Find(id);
+
+            Issue issue = _repo.Find(id);
+
             if (issue == null)
             {
                 return HttpNotFound();
             }
+
             return View(issue);
         }
 
@@ -121,26 +133,26 @@ namespace LobbyingMadeSimple.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Issue issue = db.Issues.Find(id);
-            db.Issues.Remove(issue);
-            db.SaveChanges();
+            Issue issue = _repo.Find(id);
+            _repo.Remove(issue);
+
             return RedirectToAction("Index");
         }
 
         // GET: Issues/Vote
         [HttpGet]
-        [Authorize]
+        //[Authorize] TODO: Uncomment before production
         public ActionResult Vote()
         {
-            var issues = db.Issues.Where(v => v.IsApproved == true);
-            return View(issues.ToList());
+            List<Issue> issues = _repo.GetAllVotableProducts();
+            return View(issues);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _repo.Dispose();
             }
             base.Dispose(disposing);
         }

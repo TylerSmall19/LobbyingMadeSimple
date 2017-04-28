@@ -207,10 +207,6 @@
     <Compile Include="Migrations\201704211526350_InitialCreate.Designer.cs">
       <DependentUpon>201704211526350_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704211847127_Issues.cs" />
-    <Compile Include="Migrations\201704211847127_Issues.Designer.cs">
-      <DependentUpon>201704211847127_Issues.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201704241526014_UserState.cs" />
     <Compile Include="Migrations\201704241526014_UserState.Designer.cs">
       <DependentUpon>201704241526014_UserState.cs</DependentUpon>
@@ -336,9 +332,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704211526350_InitialCreate.resx">
       <DependentUpon>201704211526350_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704211847127_Issues.resx">
-      <DependentUpon>201704211847127_Issues.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704241526014_UserState.resx">
       <DependentUpon>201704241526014_UserState.cs</DependentUpon>

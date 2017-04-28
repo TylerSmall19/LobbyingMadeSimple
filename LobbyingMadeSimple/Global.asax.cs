@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +21,11 @@ namespace LobbyingMadeSimple
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            // AutoFac Setup and Configuration
             var builder = new ContainerBuilder();
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterType<IssueRepository>().As<IIssueRepository>();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
