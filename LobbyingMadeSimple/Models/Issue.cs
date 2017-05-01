@@ -57,7 +57,7 @@ namespace LobbyingMadeSimple.Models
         // This should save a query to the DB after an issue
         // is found.
         // </summary>
-        public void AddVote(bool VoteWeight)
+        public virtual void AddVote(bool VoteWeight)
         {
             if (VoteWeight)
             {

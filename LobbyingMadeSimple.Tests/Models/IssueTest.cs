@@ -55,7 +55,7 @@ namespace LobbyingMadeSimple.Tests.Models
         #endregion
 
         [TestMethod]
-        public void ConstructorDefaults()
+        public void Issue_constructor_defaults_are_valid()
         {
             Issue issue = new Issue();
 
@@ -66,7 +66,7 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
-        public void CanBeUpVoted()
+        public void Issues_can_be_up_voted()
         {
             Issue issue = new Issue();
 
@@ -77,7 +77,7 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
-        public void CanBeDownVoted()
+        public void Issues_can_be_down_voted()
         {
             Issue issue = new Issue();
 
@@ -88,7 +88,7 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
-        public void CanBeApprovedThroughVotes()
+        public void Issues_can_be_approved_through_voting()
         {
             Issue issue = new Issue()
             {
@@ -101,7 +101,7 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
-        public void CanBeDeniedThroughVotes()
+        public void Issues_can_be_denied_through_voting()
         {
             Issue issue = new Issue()
             {
@@ -114,7 +114,7 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
-        public void FalseIfLessThan67Percent()
+        public void Issues_are_rejected_if_less_than_67_percent()
         {
             Issue issue = new Issue()
             {
@@ -128,7 +128,7 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
-        public void TrueIf67PercentOrMore()
+        public void Issues_are_accepted_if_greater_than_67_percent()
         {
             Issue issue = new Issue()
             {

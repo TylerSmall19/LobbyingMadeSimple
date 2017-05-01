@@ -1,16 +1,12 @@
 ﻿using LobbyingMadeSimple.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LobbyingMadeSimple.Interfaces
 {
-    public interface IIssueRepository : IDisposable
+    public interface IIssueRepository : IDisposable, IRepoBase<Issue>, IEditableBase<Issue>
     {
         List<Issue> GetAllVotableProducts();
-        List<Issue> GetAll();
-        Issue Find(int? id);
-        void Add(Issue issue);
-        void Update(Issue issue);
-        void Remove(Issue issue);
     }
 }

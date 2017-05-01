@@ -10,7 +10,7 @@ namespace LobbyingMadeSimple.Tests.Helpers
     public class StateListTest
     {
         [TestMethod]
-        public void Returns52StateOptions()
+        public void GetAllStates_returns_52_results()
         {
             List<SelectListItem> list = (List<SelectListItem>) StateListHelpers.GetAllStates();
 

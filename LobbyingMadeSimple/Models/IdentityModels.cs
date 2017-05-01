@@ -36,6 +36,7 @@ namespace LobbyingMadeSimple.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Issue> Issues { get; set; }
+        public virtual DbSet<Issue> Issues { get; set; }
+        public virtual DbSet<Vote> Votes { get; set; }
     }
 }

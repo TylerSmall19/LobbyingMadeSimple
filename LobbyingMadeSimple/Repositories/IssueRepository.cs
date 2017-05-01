@@ -20,7 +20,7 @@ namespace LobbyingMadeSimple.Repositories
             db.SaveChanges();
         }
 
-        public Issue Find(int? id)
+        public Issue Find(int id)
         {
             return db.Issues.Find(id);
         }

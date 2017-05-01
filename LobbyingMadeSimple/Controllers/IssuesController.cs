@@ -37,7 +37,7 @@ namespace LobbyingMadeSimple.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Issue issue = _repo.Find(id);
+            Issue issue = _repo.Find((int) id);
 
             if (issue == null)
             {
@@ -80,7 +80,7 @@ namespace LobbyingMadeSimple.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Issue issue = _repo.Find(id);
+            Issue issue = _repo.Find((int) id);
 
             if (issue == null)
             {
@@ -117,7 +117,7 @@ namespace LobbyingMadeSimple.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Issue issue = _repo.Find(id);
+            Issue issue = _repo.Find((int) id);
 
             if (issue == null)
             {
