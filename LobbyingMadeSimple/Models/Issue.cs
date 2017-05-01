@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace LobbyingMadeSimple.Models
 {
@@ -12,9 +9,9 @@ namespace LobbyingMadeSimple.Models
         public Issue()
         {
             IsApprovedForFunding = false;
+            VoteCountNeeded = 1500;
             UpvoteCount     = 0;
             DownVoteCount   = 0;
-            VoteCountNeeded = 1500;
         }
 
         public bool IsApproved { get { return IsApprovedForFunding; } set { } }
@@ -52,8 +49,14 @@ namespace LobbyingMadeSimple.Models
         [ScaffoldColumn(false)]
         public string AuthorID { get; set; }
         public virtual ApplicationUser Author { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
 
         // Methods
+        // <summary>
+        // Adds to vote count for current issue.
+        // This should save a query to the DB after an issue
+        // is found.
+        // </summary>
         public void AddVote(bool VoteWeight)
         {
             if (VoteWeight)

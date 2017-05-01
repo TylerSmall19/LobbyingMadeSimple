@@ -13,6 +13,7 @@ namespace LobbyingMadeSimple.Models
     {
         public string StateName { get; set; }
         public virtual ICollection<Issue> Issues { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
