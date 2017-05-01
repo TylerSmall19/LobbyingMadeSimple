@@ -18,6 +18,12 @@ namespace LobbyingMadeSimple
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "VoteRoute",
+                url: "Issues/{id}/{action}/{voteType}",
+                defaults: new { controller = "Votes", action = "Vote", id = "", voteType = "" }
+            );
         }
     }
 }

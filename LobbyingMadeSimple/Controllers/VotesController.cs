@@ -1,4 +1,6 @@
 ﻿using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +12,31 @@ namespace LobbyingMadeSimple.Controllers
 {
     public class VotesController : Controller
     {
-        private IVoteRepository _repo;
+        private IVoteRepository _voteRepo;
         public VotesController(IVoteRepository repo)
         {
             _repo = repo;
         }
 
         // TODO: Create Vote Repo; Get this into a working state
-        // POST: Votes
-        //[HttpPost]
-        //public ActionResult Vote(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
+        // POST: Issues/5/Vote/Up
+        [HttpPost]
+        public ActionResult Vote(int? id, string voteType)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //    _repo.Find(id);
+            new Vote()
+            {
+                AuthorID = User.Identity.GetUserId(),
+                IssueID = (int)id,
+                IsUpvote = voteType == "Up"
+            };
 
-        //    return RedirectToRoute("Issues/Vote");
-        //}
+            //_repo.Find((int) id);
+            return RedirectToRoute("Issues/Vote");
+        }
     }
 }
