@@ -3,14 +3,20 @@
 @{
     ViewBag.Title = "Index";
 }
+<noscript>
+    <h3 class="text-danger">Voting only works with Javascript Enabled</h3>
+</noscript>
 
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
+        <th></th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Author.StateName)
         </th>
@@ -34,6 +40,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+        </td>
+        <td></td>
         <td>
             @Html.DisplayFor(modelItem => item.Author.StateName)
         </td>

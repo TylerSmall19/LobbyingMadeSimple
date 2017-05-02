@@ -140,5 +140,42 @@ namespace LobbyingMadeSimple.Tests.Models
 
             Assert.IsTrue(issue.IsApproved);
         }
+
+        [TestMethod]
+        public void Issue_TotalVotes_shows_correct_count_when_voted()
+        {
+            // arrange
+            Issue issue = new Issue()
+            {
+                UpvoteCount = 5,
+                DownVoteCount = 5
+            };
+
+            Assert.AreEqual(10, issue.TotalVotes());
+        }
+
+        [TestMethod]
+        public void Issue_NetScore_shows_correct_value()
+        {
+            Issue issue = new Issue()
+            {
+                UpvoteCount = 5,
+                DownVoteCount = 3
+            };
+
+            Assert.AreEqual(2, issue.NetScore());
+        }
+
+        [TestMethod]
+        public void Issue_VotesLeftUntilApproved_returns_correct_amount()
+        {
+            Issue issue = new Issue()
+            {
+                UpvoteCount = 400,
+                DownVoteCount = 100
+            };
+
+            Assert.AreEqual(1000, issue.VotesLeftUntilApproval());
+        }
     }
 }

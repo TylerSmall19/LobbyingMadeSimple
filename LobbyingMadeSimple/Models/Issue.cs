@@ -71,6 +71,21 @@ namespace LobbyingMadeSimple.Models
             UpdateIfApproved();
         }
 
+        public int NetScore()
+        {
+            return UpvoteCount - DownVoteCount;
+        }
+
+        public int TotalVotes()
+        {
+            return UpvoteCount + DownVoteCount;
+        }
+
+        public int VotesLeftUntilApproval()
+        {
+            return VoteCountNeeded - TotalVotes();
+        }
+
         private void UpdateIfApproved()
         {
             if (HasEnoughVotes() && HasEnoughUpvotes())

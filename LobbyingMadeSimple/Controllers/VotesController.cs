@@ -13,30 +13,46 @@ namespace LobbyingMadeSimple.Controllers
     public class VotesController : Controller
     {
         private IVoteRepository _voteRepo;
-        public VotesController(IVoteRepository repo)
+        private IIssueRepository _issueRepo;
+        public VotesController(IVoteRepository voteRepo, IIssueRepository issueRepo)
         {
-            _repo = repo;
+            _voteRepo = voteRepo;
+            _issueRepo = issueRepo;
         }
 
-        // TODO: Create Vote Repo; Get this into a working state
         // POST: Issues/5/Vote/Up
         [HttpPost]
-        public ActionResult Vote(int? id, string voteType)
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(int? issueId, string voteType)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            bool isUpvote = voteType == "Up";
 
-            new Vote()
+            Vote vote = new Vote()
             {
                 AuthorID = User.Identity.GetUserId(),
-                IssueID = (int)id,
-                IsUpvote = voteType == "Up"
+                IssueID = (int)issueId,
+                IsUpvote = isUpvote
             };
 
-            //_repo.Find((int) id);
-            return RedirectToRoute("Issues/Vote");
+            _voteRepo.Add(vote);
+
+            if (vote.VoteID > 0)
+            { 
+                Issue issue = _issueRepo.Find(vote.IssueID);
+
+                var data = new {
+                    voteScore = issue.NetScore(),
+                    neededVotes = issue.VotesLeftUntilApproval(),
+                    totalVotes = issue.TotalVotes(),
+                    issueId = issue.IssueID,
+                    wasUpvote = isUpvote
+                };
+
+                return Json(data);
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
     }
 }

@@ -4,9 +4,54 @@
     ViewBag.Title = "Vote";
 }
 
+<h1>Recent Issues</h1>
+
+<hr />
+
 @foreach (var issue in Model)
 {
-    <p>Title: @Html.DisplayFor(m => issue.Title)</p>
-    <p>Needed Votes: @Html.DisplayFor(m => issue.VoteCountNeeded)</p>
+    <div id="@issue.IssueID" class="issue-view font-size-lg">
+        <div class="row">
+            <div class="col-md-5">
+                <span class="text-left font-size-lg">
+                    @Html.DisplayFor(m => issue.Title)
+                </span>
+            </div>
+            <div class="col-md-3 col-md-offset-4">
+                <span class="pull-right"> 
+                    <span class="vote-count-display"> @issue.VotesLeftUntilApproval() </span> Needed
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-lg-4 inline">
+                @issue.ShortDescription
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 btn-holder">
+                @using (Html.BeginRouteForm("VoteRoute",
+                new { issueId = issue.IssueID, voteType = "Up" },
+                FormMethod.Post, new { @class = "vote-btn" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input class="btn btn-primary up-vote" type="submit" value="I Agree">
+                }
+
+                @using (Html.BeginRouteForm("VoteRoute",
+                new { issueId = issue.IssueID, voteType = "Down" },
+                FormMethod.Post, new { @class="vote-btn" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input class="btn btn-primary down-vote" type="submit" value="I Disagree">
+                }
+            </div>
+        </div>
+    </div>
 }
 
+@section scripts{
+    @Scripts.Render("/Scripts/voting.js")
+}

@@ -24,6 +24,22 @@
     color: white;
 }
 
+.font-size-lg{
+    font-size: 1.3em;
+}
+
+.issue-view{
+    margin-bottom: 20px;
+}
+
+.vote-btn{
+    display: inline;
+}
+
+.vote-btn input {
+    margin-top: 10px;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
