@@ -10,8 +10,12 @@ function isStateIssue() {
 
 function toggleDropDown(isShown) {
     var $dropDown = $("#state-dropdown");
+    var $optionList = $("#state-dropdown select");
 
-    isShown ?
+    if (isShown) {
         $dropDown.removeClass('hidden')
-        : $dropDown.addClass('hidden');
+    } else {
+        $dropDown.addClass('hidden');
+        $optionList[0].selectedIndex = 0;
+    }
 }
