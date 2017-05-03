@@ -32,7 +32,7 @@ namespace LobbyingMadeSimple.Repositories
 
         public List<Issue> GetAllVotableProducts()
         {
-            return db.Issues.Where(r => r.IsApproved == false).ToList();
+            return db.Issues.Where(i => i.IsVotableIssue == true).ToList();
         }
 
         public void Update(Issue issue)

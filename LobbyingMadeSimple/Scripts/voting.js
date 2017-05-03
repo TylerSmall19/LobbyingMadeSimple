@@ -28,7 +28,6 @@ function voteSuccess(resp) {
         $(selector + " input.up-vote").addClass("btn btn-success");
     } else {
         // Turn button red
-        console.log($(selector + " input.up-vote"));
         $(selector + " input.down-vote").addClass("btn btn-danger");
     }
 

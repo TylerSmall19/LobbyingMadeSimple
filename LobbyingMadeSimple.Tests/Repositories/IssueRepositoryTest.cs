@@ -74,6 +74,10 @@ namespace LobbyingMadeSimple.Tests.Repositories
             List<Issue> issues = _repo.GetAllVotableProducts();
 
             Assert.IsTrue(issues.Count > 0, "No results returned from Votable");
+            foreach (Issue issue in issues)
+            {
+                Assert.IsTrue(issue.IsVotableIssue);
+            }
         }
 
         private void ReadAll()

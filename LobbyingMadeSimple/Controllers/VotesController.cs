@@ -24,23 +24,29 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int? issueId, string voteType)
+        public ActionResult Create(int issueId, string voteType)
         {
+            Issue issue = _issueRepo.Find(issueId);
+
+            if (issue == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             bool isUpvote = voteType == "Up";
 
             Vote vote = new Vote()
             {
                 AuthorID = User.Identity.GetUserId(),
-                IssueID = (int)issueId,
+                IssueID = issue.IssueID,
                 IsUpvote = isUpvote
             };
 
-            _voteRepo.Add(vote);
+            issue.Votes.Add(vote);
+            _issueRepo.Update(issue);
 
             if (vote.VoteID > 0)
-            { 
-                Issue issue = _issueRepo.Find(vote.IssueID);
-
+            {
                 var data = new {
                     voteScore = issue.NetScore(),
                     neededVotes = issue.VotesLeftUntilApproval(),

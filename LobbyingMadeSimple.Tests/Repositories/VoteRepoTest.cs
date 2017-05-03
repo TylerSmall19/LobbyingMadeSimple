@@ -60,10 +60,8 @@ namespace LobbyingMadeSimple.Tests.Repositories
 
             // Mocks the Issue
             mockIssue = new Mock<Issue>();
-            mockIssue.Setup(m => m.AddVote(isUpVote));
 
             issue = mockIssue.Object;
-
 
             // Mock the Votes DbSet to avoid changes to the real DB
             var mockVotes = new Mock<DbSet<Vote>>();
@@ -81,21 +79,6 @@ namespace LobbyingMadeSimple.Tests.Repositories
             mockIssueRepo = new Mock<IIssueRepository>();
             mockIssueRepo.Setup(m => m.Find(1))
                 .Returns(issue);
-        }
-
-        [TestMethod]
-        public void Add_calls_issue_AddVote()
-        {
-            AddAVote();
-        }
-
-        private void AddAVote()
-        {
-            // Act
-            _repo.Add(vote);
-
-            // Assert
-            mockIssue.Verify(mockIssue => mockIssue.AddVote(isUpVote), Times.Exactly(1));
         }
 
         [TestMethod]

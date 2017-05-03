@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace LobbyingMadeSimple.Models
 {
@@ -8,13 +9,9 @@ namespace LobbyingMadeSimple.Models
         // Constructor
         public Issue()
         {
-            IsApprovedForFunding = false;
             VoteCountNeeded = 1500;
-            UpvoteCount     = 0;
-            DownVoteCount   = 0;
+            Votes = new List<Vote>();
         }
-
-        public bool IsApproved { get { return IsApprovedForFunding; } set { } }
 
         // Properties
         public int IssueID { get; set; }
@@ -40,10 +37,10 @@ namespace LobbyingMadeSimple.Models
         public string StateAbbrev { get; set; }
 
         // Non-User-Input properties
-        private bool IsApprovedForFunding { get; set; } // Defaults to false
         public int VoteCountNeeded { get; set; }        // Defaults to 1500
-        public int UpvoteCount { get; set; }            // Defaults to 0
-        public int DownVoteCount { get; set; }          // Defaults to 0
+        public int UpvoteCount { get { return Votes.Where(v => v.IsUpvote == true).Count(); } }
+        public int DownVoteCount { get { return Votes.Where(v => v.IsUpvote == false).Count(); } }
+        public bool IsVotableIssue { get { return !HasBeenApproved() && !HasBeenDenied(); } set { } }
 
         // Associations
         [ScaffoldColumn(false)]
@@ -51,63 +48,69 @@ namespace LobbyingMadeSimple.Models
         public virtual ApplicationUser Author { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
 
-        // Methods
-        // <summary>
-        // Adds to vote count for current issue.
-        // This should save a query to the DB after an issue
-        // is found.
-        // </summary>
-        public virtual void AddVote(bool VoteWeight)
-        {
-            if (VoteWeight)
-            {
-                UpvoteCount++;
-            }
-            else
-            {
-                DownVoteCount++;
-            }
-
-            UpdateIfApproved();
-        }
-
+        /// <summary>
+        /// Gives the net upvote/downvote score of the issue
+        /// </summary>
+        /// <returns>The overall score of upvotes minus downvotes</returns>
         public int NetScore()
         {
             return UpvoteCount - DownVoteCount;
         }
 
+        /// <summary>
+        /// Used to get the total number of votes (both up and down) for an issue
+        /// </summary>
+        /// <returns>The number of votes for the issue after being totaled</returns>
         public int TotalVotes()
         {
             return UpvoteCount + DownVoteCount;
         }
 
+        /// <summary>
+        /// Determines the numer of votes left for the issue before voting will end
+        /// </summary>
+        /// <returns>The number of votes needed until it can reach approval stage</returns>
         public int VotesLeftUntilApproval()
         {
             return VoteCountNeeded - TotalVotes();
         }
 
-        private void UpdateIfApproved()
+        /// <summary>
+        /// Determines if the issue has enouogh votes and upvotes to get approval for funding
+        /// </summary>
+        /// <returns>true if the issue has enough votes and is upvoted enough to get approval for funding</returns>
+        public bool HasBeenApproved()
         {
-            if (HasEnoughVotes() && HasEnoughUpvotes())
-            {
-                IsApprovedForFunding = true;
-            }
+            return HasEnoughVotes() && HasHighEnoughPercentage();
         }
 
+        /// <summary>
+        /// Determines if the issue has enough votes but not enough of a percentage to get approved
+        /// </summary>
+        /// <returns>true if the issue has enough votes to qualify for approval but not a high enough rating to get approved</returns>
+        public bool HasBeenDenied()
+        {
+            return HasEnoughVotes() && !HasHighEnoughPercentage();
+        }
+
+        /// <summary>
+        /// Determines if the issue has enough votes for approval based on its vote count needed and its total vote score
+        /// </summary>
+        /// <returns>true if the issue has enough votes</returns>
         private bool HasEnoughVotes()
         {
-            return UpvoteCount + DownVoteCount >= VoteCountNeeded;
+            return TotalVotes() >= VoteCountNeeded;
         }
 
-        private bool HasEnoughUpvotes()
-        {
-            return HasHighEnoughPercentage();
-        }
-
+        /// <summary>
+        /// Determines if an issue has a high enough percentage of upvotes.
+        /// 
+        /// Currently that percentage is 2/3 majority (~.667)
+        /// </summary>
+        /// <returns>true is an issue's vote score is higher than the needed majority</returns>
         private bool HasHighEnoughPercentage()
         {
-            int totalVotes = UpvoteCount + DownVoteCount;
-            return (double)UpvoteCount / totalVotes >= (double)2 / 3;
+            return (double)UpvoteCount / TotalVotes() >= (double)2 / 3;
         }
     }
 }

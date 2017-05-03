@@ -23,7 +23,7 @@ namespace LobbyingMadeSimple
             routes.MapRoute(
                 name: "VoteRoute",
                 url: "Issues/{issueId}/Vote/{voteType}",
-                defaults: new { controller = "Votes", action = "Create", issueId = "", voteType = "" }
+                defaults: new { controller = "Votes", action = "Create", issueId = "0", voteType = "" }
             );
         }
     }

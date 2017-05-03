@@ -37,10 +37,6 @@ namespace LobbyingMadeSimple.Repositories
         {
             _db.Votes.Add(vote);
 
-            Issue issue = _issueRepo.Find(vote.IssueID);
-            issue.AddVote(vote.IsUpvote);
-            _issueRepo.Update(issue);
-
             _db.SaveChanges();
         }
 

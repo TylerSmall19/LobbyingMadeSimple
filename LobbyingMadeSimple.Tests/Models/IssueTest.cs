@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Models;
+using Moq;
 
 namespace LobbyingMadeSimple.Tests.Models
 {
@@ -14,168 +15,148 @@ namespace LobbyingMadeSimple.Tests.Models
 [TestClass]
     public class IssueTest
     {
-        private TestContext testContextInstance;
+        private Vote upVote;
+        private Vote downVote;
+        private Issue issue;
 
-        /// <summary>
-        /// Gets or sets the test context which provides
-        /// information about and functionality for the current test run.
-        /// </summary>
-        public TestContext TestContext
+        [TestInitialize]
+        public void TestInit()
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+            PropertyInit();
         }
 
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
+        private void PropertyInit()
+        {
+            issue = new Issue();
+            upVote = Mock.Of<Vote>(v => v.IsUpvote == true);
+            downVote =  Mock.Of<Vote>(v => v.IsUpvote == false);
+        }
 
+        /// <summary>
+        /// Tests the constructor defaults of the issue
+        /// Any new construtor defaults should get Asserted here
+        /// </summary>
         [TestMethod]
         public void Issue_constructor_defaults_are_valid()
         {
-            Issue issue = new Issue();
-
-            Assert.AreEqual(0, issue.UpvoteCount);
-            Assert.AreEqual(0, issue.DownVoteCount);
+            // Assert
             Assert.AreEqual(1500, issue.VoteCountNeeded);
-            Assert.IsFalse(issue.IsApproved);
+            Assert.IsTrue(issue.IsVotableIssue);
         }
 
         [TestMethod]
-        public void Issues_can_be_up_voted()
+        public void Issues_can_have_up_votes()
         {
-            Issue issue = new Issue();
+            // Act
+            issue.Votes = new List<Vote>()
+            {
+                upVote, upVote, upVote
+            };
 
-            issue.AddVote(true);
-
-            Assert.AreEqual(1, issue.UpvoteCount);
+            // Assert
+            Assert.AreEqual(3, issue.UpvoteCount);
             Assert.AreEqual(0, issue.DownVoteCount);
         }
 
         [TestMethod]
         public void Issues_can_be_down_voted()
         {
-            Issue issue = new Issue();
-
-            issue.AddVote(false);
-
-            Assert.AreEqual(1, issue.DownVoteCount);
+            // Act
+            issue.Votes = new List<Vote>()
+            {
+                downVote, downVote, downVote
+            };
+            
+            // Assert
+            Assert.AreEqual(3, issue.DownVoteCount);
             Assert.AreEqual(0, issue.UpvoteCount);
+        }
+
+        [TestMethod]
+        public void Issues_voting_is_turned_off_when_enough_votes_are_cast()
+        {
+            // Arrange
+            issue.VoteCountNeeded = 6;
+
+            // Act
+            issue.Votes = new List<Vote>()
+            {
+                upVote, upVote, upVote, upVote, downVote, downVote
+            };
+
+            // Assert
+            Assert.IsFalse(issue.IsVotableIssue);
         }
 
         [TestMethod]
         public void Issues_can_be_approved_through_voting()
         {
-            Issue issue = new Issue()
+            // Arrange
+            issue.VoteCountNeeded = 6;
+
+            // Act
+            issue.Votes = new List<Vote>()
             {
-                UpvoteCount = 1499
+                upVote, upVote, upVote, upVote, downVote, downVote
             };
 
-            issue.AddVote(true);
-
-            Assert.IsTrue(issue.IsApproved);
+            // Assert
+            Assert.IsTrue(issue.HasBeenApproved());
         }
 
         [TestMethod]
         public void Issues_can_be_denied_through_voting()
         {
-            Issue issue = new Issue()
+            // Arrange
+            issue.VoteCountNeeded = 6;
+
+            // Act
+            issue.Votes = new List<Vote>()
             {
-                DownVoteCount = 1499
+                upVote, upVote, upVote, downVote, downVote, downVote
             };
 
-            issue.AddVote(false);
-
-            Assert.IsFalse(issue.IsApproved);
-        }
-
-        [TestMethod]
-        public void Issues_are_rejected_if_less_than_67_percent()
-        {
-            Issue issue = new Issue()
-            {
-                UpvoteCount = 999,
-                DownVoteCount = 500
-            };
-
-            issue.AddVote(false);
-
-            Assert.IsFalse(issue.IsApproved);
-        }
-
-        [TestMethod]
-        public void Issues_are_accepted_if_greater_than_67_percent()
-        {
-            Issue issue = new Issue()
-            {
-                UpvoteCount = 999,
-                DownVoteCount = 500
-            };
-
-            issue.AddVote(true);
-
-            Assert.IsTrue(issue.IsApproved);
+            // Assert
+            Assert.IsTrue(issue.HasBeenDenied());
         }
 
         [TestMethod]
         public void Issue_TotalVotes_shows_correct_count_when_voted()
         {
             // arrange
-            Issue issue = new Issue()
+            issue.Votes = new List<Vote>()
             {
-                UpvoteCount = 5,
-                DownVoteCount = 5
+                upVote, upVote, upVote, downVote, downVote
             };
 
-            Assert.AreEqual(10, issue.TotalVotes());
+            // Assert
+            Assert.AreEqual(5, issue.TotalVotes());
         }
 
         [TestMethod]
         public void Issue_NetScore_shows_correct_value()
         {
-            Issue issue = new Issue()
+            // Act
+            issue.Votes = new List<Vote>()
             {
-                UpvoteCount = 5,
-                DownVoteCount = 3
+                upVote, upVote, downVote, downVote, downVote
             };
 
-            Assert.AreEqual(2, issue.NetScore());
+            // Assert
+            Assert.AreEqual(-1, issue.NetScore());
         }
 
         [TestMethod]
         public void Issue_VotesLeftUntilApproved_returns_correct_amount()
         {
-            Issue issue = new Issue()
+            // Act
+            issue.Votes = new List<Vote>()
             {
-                UpvoteCount = 400,
-                DownVoteCount = 100
+                upVote, upVote, upVote, upVote
             };
 
-            Assert.AreEqual(1000, issue.VotesLeftUntilApproval());
+            // Assert
+            Assert.AreEqual(1496, issue.VotesLeftUntilApproval());
         }
     }
 }
