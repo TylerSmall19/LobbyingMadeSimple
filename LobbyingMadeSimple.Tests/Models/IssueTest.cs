@@ -162,5 +162,51 @@ namespace LobbyingMadeSimple.Tests.Models
             // Assert
             Assert.AreEqual("67", percent);
         }
+
+        [TestMethod]
+        public void Issue_GetPercentage_returns_0_when_no_votes_are_cast()
+        {
+            // Arrange
+            issue.Votes = new List<Vote>();
+
+            //  Act
+            string percent = issue.GetPrettyPercentage();
+
+            // Assert
+            Assert.AreEqual("0", percent);
+        }
+
+        [TestMethod]
+        public void Issue_GetVoteForUser_returns_one_vote_if_it_exists_for_userId()
+        {
+            // Arrange
+            var uId = "test";
+            upVote.AuthorID = uId;
+            issue.Votes = new List<Vote>()
+            {
+                upVote
+            };
+
+            // Act
+            Vote result = issue.GetVoteForUser(uId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(uId, result.AuthorID);
+        }
+
+        [TestMethod]
+        public void Issue_GetVoteForUser_returns_null_if_no_votes_exist()
+        {
+            // Arrange
+            var uId = "test";
+            issue.Votes = new List<Vote>();
+
+            // Act
+            Vote result = issue.GetVoteForUser(uId);
+
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }

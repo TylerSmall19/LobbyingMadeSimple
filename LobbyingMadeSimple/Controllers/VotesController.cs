@@ -26,38 +26,55 @@ namespace LobbyingMadeSimple.Controllers
         public ActionResult Create(int issueId, string voteType)
         {
             Issue issue = _issueRepo.Find(issueId);
+            var userId = User.Identity.GetUserId();
 
             if (issue == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            var usersVotes = issue.Votes.Where(v => v.AuthorID == userId);
+            Vote vote;
             bool isUpvote = voteType == "Up";
 
-            Vote vote = new Vote()
+            if (usersVotes.Count() > 0)
             {
-                AuthorID = User.Identity.GetUserId(),
-                IssueID = issue.IssueID,
-                IsUpvote = isUpvote
-            };
+                vote = usersVotes.First();
+                vote.IsUpvote = isUpvote;
+            } else
+            {
+                vote = new Vote()
+                {
+                    AuthorID = userId,
+                    IssueID = issue.IssueID,
+                    IsUpvote = isUpvote
+                };
 
-            issue.Votes.Add(vote);
+                issue.Votes.Add(vote);
+            }
+
             _issueRepo.Update(issue);
 
             if (vote.VoteID > 0)
             {
-                string votePercent = issue.GetPrettyPercentage();
-                var data = new
+                if (Request.IsAjaxRequest())
                 {
-                    votePercent = votePercent,
-                    neededVotes = issue.VotesLeftUntilApproval(),
-                    totalVotes = issue.TotalVotes(),
-                    issueId = issue.IssueID,
-                    wasUpvote = isUpvote,
-                    votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent)
-                };
+                    string votePercent = issue.GetPrettyPercentage();
+                    var data = new
+                    {
+                        votePercent = votePercent,
+                        neededVotes = issue.VotesLeftUntilApproval(),
+                        totalVotes = issue.TotalVotes(),
+                        issueId = issue.IssueID,
+                        wasUpvote = isUpvote,
+                        votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent)
+                    };
 
-                return Json(data);
+                    return Json(data);
+                } else
+                {
+                    return Redirect("/Issues/Vote");
+                }
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);

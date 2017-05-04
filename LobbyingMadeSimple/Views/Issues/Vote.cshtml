@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<LobbyingMadeSimple.Models.Issue>
+@using LobbyingMadeSimple.Helpers
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Vote";
@@ -10,11 +12,9 @@
     </div>
 </div>
 
-<hr />
-
 @foreach (var issue in Model)
 {
-    <div id="@issue.IssueID" class="issue-view font-size-lg">
+    <div id="@issue.IssueID" class="issue border-bottom font-size-lg">
         <div class="row">
             <div class="col-md-5 col-md-offset-1">
                 <span class="text-left font-size-lg">
@@ -23,7 +23,10 @@
             </div>
             <div class="col-md-3 col-md-offset-3">
                 <span class="vote-count-display text-right highlight"> @issue.VotesLeftUntilApproval() </span> Needed
-                <span class="text-primary vote-percentage-string"><span class="vote-percentage text-right">@issue.GetPrettyPercentage()</span>%</span>
+
+                <span class="@HtmlHelpers.GetCssClassForVotePercentage(issue.GetPrettyPercentage()) vote-percentage-string">
+                    <span class="vote-percentage text-right">@issue.GetPrettyPercentage()</span>%
+                </span>
             </div>
         </div>
 
@@ -40,7 +43,7 @@
                 FormMethod.Post, new { @class = "vote-btn" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input class="btn btn-primary up-vote" type="submit" value="I Agree">
+                    <input class="btn up-vote btn-default @HtmlHelpers.GetVoteButtonColor(HttpContext.Current.User.Identity.GetUserId(), issue, true)" type="submit" value="I Agree">
                 }
 
                 @using (Html.BeginRouteForm("VoteRoute",
@@ -48,7 +51,7 @@
                 FormMethod.Post, new { @class="vote-btn" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input class="btn btn-primary down-vote" type="submit" value="I Disagree">
+                    <input class="btn down-vote btn-default @HtmlHelpers.GetVoteButtonColor(HttpContext.Current.User.Identity.GetUserId(), issue, false)" type="submit" value="I Disagree">
                 }
             </div>
         </div>

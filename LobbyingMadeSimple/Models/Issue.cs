@@ -55,7 +55,18 @@ namespace LobbyingMadeSimple.Models
         /// <returns>A string representing the percetange of the issue's upvotes versus total votes </returns>
         public string GetPrettyPercentage()
         {
-            return Math.Round(GetPercentage() * 100).ToString();
+            string result = Math.Round(GetPercentage() * 100).ToString();
+            return result == "NaN" ? "0" : result;
+        }
+
+        /// <summary>
+        /// Finds the existing vote with a matching UserId if any vote exists in the collection
+        /// </summary>
+        /// <param name="uid">UserId to match in the search</param>
+        /// <returns>The Vote instance found matching the ID from Issue's collection or null if non is found</returns>
+        public Vote GetVoteForUser(string uid)
+        {
+            return Votes.Where(v => v.AuthorID == uid).FirstOrDefault();
         }
 
         /// <summary>
