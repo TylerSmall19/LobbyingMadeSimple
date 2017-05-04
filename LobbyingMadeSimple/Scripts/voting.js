@@ -18,20 +18,16 @@ function voteSuccess(resp) {
     var selector = '#' + id;
     var votePercent = resp.votePercent;
 
-    console.log(resp.votePercentageCssClass);
-
     // Remove button colors from each button in the voted issue's div
     $(selector + " input").each(function (i, item) {
         $(item)
-            .removeClass("btn-primary")
-            .removeClass("btn-danger")
-            .removeClass("btn-success");
+            .removeClass("btn-primary btn-danger btn-success");
     });
 
     // Remove the color from the percentage
     $(selector + " .vote-percentage-string")
-        .addClass(resp.votePercentageCssClass)
-        .removeClass("text-primary");
+        .removeClass("text-success text-danger")
+        .addClass(resp.votePercentageCssClass);
 
     if (resp.wasUpvote) {
         // Turn button green

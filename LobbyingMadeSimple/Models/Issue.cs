@@ -60,6 +60,16 @@ namespace LobbyingMadeSimple.Models
         }
 
         /// <summary>
+        /// Finds the existing vote with a matching UserId if any vote exists in the collection
+        /// </summary>
+        /// <param name="uid">UserId to match in the search</param>
+        /// <returns>The Vote instance found matching the ID from Issue's collection or null if non is found</returns>
+        public Vote GetVoteForUser(string uid)
+        {
+            return Votes.Where(v => v.AuthorID == uid).FirstOrDefault();
+        }
+
+        /// <summary>
         /// Gives the percentage of upvotes that an issue has out of all votes
         /// </summary>
         /// <returns>The overall score of upvotes minus downvotes</returns>

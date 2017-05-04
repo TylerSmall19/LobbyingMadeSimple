@@ -16,23 +16,23 @@
     white-space: normal;
 }
 
-.navbar-inverse .navbar-nav > li > a.highlight{
+.navbar-inverse .navbar-nav > li > a.highlight {
     color: #c09853;
 }
 
-.navbar-inverse .navbar-nav > li > a.highlight:hover{
+.navbar-inverse .navbar-nav > li > a.highlight:hover {
     color: white;
 }
 
-.font-size-lg{
+.font-size-lg {
     font-size: 1.3em;
 }
 
-.issue-view{
+.issue {
     margin-bottom: 20px;
 }
 
-.vote-btn{
+.vote-btn {
     display: inline;
 }
 
@@ -40,12 +40,13 @@
     margin-top: 10px;
 }
 
-.highlight{
+.highlight {
     font-weight: 600;
 }
 
-.issue{
-    margin-top: 25px;
+.border-bottom {
+    border-top: outset 1px #f2f2f2;
+    padding-top: 7px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

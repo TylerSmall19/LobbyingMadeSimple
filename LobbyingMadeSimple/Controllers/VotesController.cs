@@ -26,13 +26,14 @@ namespace LobbyingMadeSimple.Controllers
         public ActionResult Create(int issueId, string voteType)
         {
             Issue issue = _issueRepo.Find(issueId);
+            var userId = User.Identity.GetUserId();
 
             if (issue == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usersVotes = issue.Votes.Where(v => v.AuthorID == User.Identity.GetUserId());
+            var usersVotes = issue.Votes.Where(v => v.AuthorID == userId);
             Vote vote;
             bool isUpvote = voteType == "Up";
 
@@ -44,7 +45,7 @@ namespace LobbyingMadeSimple.Controllers
             {
                 vote = new Vote()
                 {
-                    AuthorID = User.Identity.GetUserId(),
+                    AuthorID = userId,
                     IssueID = issue.IssueID,
                     IsUpvote = isUpvote
                 };
@@ -72,7 +73,7 @@ namespace LobbyingMadeSimple.Controllers
                     return Json(data);
                 } else
                 {
-                    return RedirectToRoute("/Issues/Vote");
+                    return Redirect("/Issues/Vote");
                 }
             }
 
