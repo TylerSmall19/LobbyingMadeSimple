@@ -55,7 +55,8 @@ namespace LobbyingMadeSimple.Models
         /// <returns>A string representing the percetange of the issue's upvotes versus total votes </returns>
         public string GetPrettyPercentage()
         {
-            return Math.Round(GetPercentage() * 100).ToString();
+            string result = Math.Round(GetPercentage() * 100).ToString();
+            return result == "NaN" ? "0" : result;
         }
 
         /// <summary>
