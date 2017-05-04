@@ -162,5 +162,18 @@ namespace LobbyingMadeSimple.Tests.Models
             // Assert
             Assert.AreEqual("67", percent);
         }
+
+        [TestMethod]
+        public void Issue_GetPercentage_returns_0_when_no_votes_are_cast()
+        {
+            // Arrange
+            issue.Votes = new List<Vote>();
+
+            //  Act
+            string percent = issue.GetPrettyPercentage();
+
+            // Assert
+            Assert.AreEqual("0", percent);
+        }
     }
 }
