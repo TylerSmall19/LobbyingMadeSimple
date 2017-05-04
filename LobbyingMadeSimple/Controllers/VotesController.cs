@@ -12,11 +12,9 @@ namespace LobbyingMadeSimple.Controllers
 {
     public class VotesController : Controller
     {
-        private IVoteRepository _voteRepo;
         private IIssueRepository _issueRepo;
-        public VotesController(IVoteRepository voteRepo, IIssueRepository issueRepo)
+        public VotesController(IIssueRepository issueRepo)
         {
-            _voteRepo = voteRepo;
             _issueRepo = issueRepo;
         }
 
@@ -47,7 +45,8 @@ namespace LobbyingMadeSimple.Controllers
 
             if (vote.VoteID > 0)
             {
-                var data = new {
+                var data = new
+                {
                     voteScore = issue.NetScore(),
                     neededVotes = issue.VotesLeftUntilApproval(),
                     totalVotes = issue.TotalVotes(),
