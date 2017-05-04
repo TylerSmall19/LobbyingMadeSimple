@@ -134,19 +134,6 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
-        public void Issue_NetScore_shows_correct_value()
-        {
-            // Act
-            issue.Votes = new List<Vote>()
-            {
-                upVote, upVote, downVote, downVote, downVote
-            };
-
-            // Assert
-            Assert.AreEqual(-1, issue.NetScore());
-        }
-
-        [TestMethod]
         public void Issue_VotesLeftUntilApproved_returns_correct_amount()
         {
             // Act
@@ -157,6 +144,23 @@ namespace LobbyingMadeSimple.Tests.Models
 
             // Assert
             Assert.AreEqual(1496, issue.VotesLeftUntilApproval());
+        }
+
+        [TestMethod]
+        public void Issue_GetPercentage_shows_correct_value_rounded_to_2_decimals()
+        {
+            // Arrange
+            issue.Votes = new List<Vote>()
+            {
+                upVote, upVote, upVote, upVote,
+                downVote, downVote
+            };
+
+            // Act 
+            string percent = issue.GetPrettyPercentage();
+
+            // Assert
+            Assert.AreEqual("67", percent);
         }
     }
 }

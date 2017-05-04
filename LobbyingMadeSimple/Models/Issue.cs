@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -49,12 +50,21 @@ namespace LobbyingMadeSimple.Models
         public virtual ICollection<Vote> Votes { get; set; }
 
         /// <summary>
-        /// Gives the net upvote/downvote score of the issue
+        /// Formats the double percentage to a displayable string percentage 
+        /// </summary>
+        /// <returns>A string representing the percetange of the issue's upvotes versus total votes </returns>
+        public string GetPrettyPercentage()
+        {
+            return Math.Round(GetPercentage() * 100).ToString();
+        }
+
+        /// <summary>
+        /// Gives the percentage of upvotes that an issue has out of all votes
         /// </summary>
         /// <returns>The overall score of upvotes minus downvotes</returns>
-        public int NetScore()
+        private double GetPercentage()
         {
-            return UpvoteCount - DownVoteCount;
+            return (double)UpvoteCount / TotalVotes();
         }
 
         /// <summary>
@@ -110,7 +120,7 @@ namespace LobbyingMadeSimple.Models
         /// <returns>true is an issue's vote score is higher than the needed majority</returns>
         private bool HasHighEnoughPercentage()
         {
-            return (double)UpvoteCount / TotalVotes() >= (double)2 / 3;
+            return GetPercentage() >= (double)2 / 3;
         }
     }
 }

@@ -40,6 +40,10 @@
     margin-top: 10px;
 }
 
+.highlight{
+    font-weight: 600;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,

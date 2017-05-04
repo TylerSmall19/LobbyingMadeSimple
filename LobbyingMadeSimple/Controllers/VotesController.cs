@@ -47,7 +47,7 @@ namespace LobbyingMadeSimple.Controllers
             {
                 var data = new
                 {
-                    voteScore = issue.NetScore(),
+                    votePercent = issue.GetPrettyPercentage(),
                     neededVotes = issue.VotesLeftUntilApproval(),
                     totalVotes = issue.TotalVotes(),
                     issueId = issue.IssueID,

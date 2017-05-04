@@ -4,7 +4,11 @@
     ViewBag.Title = "Vote";
 }
 
-<h1>Recent Issues</h1>
+<div class="row">
+    <div class="col-md-offset-1">
+        <h1>Recent Issues</h1>
+    </div>
+</div>
 
 <hr />
 
@@ -12,26 +16,25 @@
 {
     <div id="@issue.IssueID" class="issue-view font-size-lg">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-5 col-md-offset-1">
                 <span class="text-left font-size-lg">
                     @Html.DisplayFor(m => issue.Title)
                 </span>
             </div>
-            <div class="col-md-3 col-md-offset-4">
-                <span class="pull-right"> 
-                    <span class="vote-count-display"> @issue.VotesLeftUntilApproval() </span> Needed
-                </span>
+            <div class="col-md-3 col-md-offset-3">
+                <span class="vote-count-display text-right highlight"> @issue.VotesLeftUntilApproval() </span> Needed
+                <span class="text-primary vote-percentage-string"><span class="vote-percentage text-right">@issue.GetPrettyPercentage()</span>%</span>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-4 col-lg-4 inline">
+            <div class="col-md-4 col-lg-4 inline col-md-offset-1">
                 @issue.ShortDescription
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-5 btn-holder">
+            <div class="col-md-5 btn-holder col-md-offset-1">
                 @using (Html.BeginRouteForm("VoteRoute",
                 new { issueId = issue.IssueID, voteType = "Up" },
                 FormMethod.Post, new { @class = "vote-btn" }))
