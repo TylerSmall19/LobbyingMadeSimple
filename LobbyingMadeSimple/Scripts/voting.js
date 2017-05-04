@@ -12,16 +12,24 @@ function vote(e) {
 }
 
 function voteSuccess(resp) {
+    // Capture the variables needed for selection
     var id = resp.issueId;
     var voteCount = resp.neededVotes;
-    var selector = '#' + id
+    var selector = '#' + id;
+    var votePercent = resp.votePercent;
 
+    // Remove button colors from each button in the voted issue's div
     $(selector + " input").each(function (i, item) {
-        var $item = $(item);
-        $item.removeClass("btn-primary");
-        $item.removeClass("btn-danger");
-        $item.removeClass("btn-success");
+        $(item)
+            .removeClass("btn-primary")
+            .removeClass("btn-danger")
+            .removeClass("btn-success");
     });
+
+    // Remove the color from the percentage
+    $(selector + " .vote-percentage-string")
+        .addClass(getCssClassForVotePercentage(votePercent))
+        .removeClass("text-primary");
 
     if (resp.wasUpvote) {
         // Turn button green
@@ -31,5 +39,16 @@ function voteSuccess(resp) {
         $(selector + " input.down-vote").addClass("btn btn-danger");
     }
 
+    // Update Vote Total
     $(selector + " .vote-count-display").text(voteCount);
+    // Update percentage display
+    $(selector + " .vote-percentage").text(votePercent);
+}
+
+function getCssClassForVotePercentage(percent) {
+    if (percent >= "67") {
+        return "text-success";
+    } else {
+        return "text-danger";
+    }
 }
