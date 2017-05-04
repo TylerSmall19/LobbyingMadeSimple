@@ -1,0 +1,15 @@
+﻿@model LobbyingMadeSimple.Models.Issue
+@using LobbyingMadeSimple.Helpers
+
+<div class="issue col-md-6">
+    <h4>@Model.Title</h4>
+    <p class="approval">
+        Approval Rating: 
+        <span class="approval-rating @HtmlHelpers.GetCssClassForVotePercentage(Model.GetPrettyPercentage())">@Model.GetPrettyPercentage()%</span>
+    </p>
+    <p class="votes">Votes Needed: <span class="votes-needed">@Model.VotesLeftUntilApproval()</span></p>
+    <p>
+        @Model.ShortDescription
+    </p>
+    @Html.ActionLink("Read Specifics", "Details", "Issues", new { id = Model.IssueID }, new { @class = "btn btn-default" })
+</div>

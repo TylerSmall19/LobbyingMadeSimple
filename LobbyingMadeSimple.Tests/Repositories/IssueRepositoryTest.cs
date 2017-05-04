@@ -71,7 +71,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
 
         private void ReadVotable()
         {
-            List<Issue> issues = _repo.GetAllVotableProducts();
+            List<Issue> issues = _repo.GetAllVotableIssues();
 
             Assert.IsTrue(issues.Count > 0, "No results returned from Votable");
             foreach (Issue issue in issues)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,15 @@ namespace LobbyingMadeSimple.Controllers
 {
     public class HomeController : Controller
     {
+        private IIssueRepository _issueRepo;
+        public HomeController(IIssueRepository repo)
+        {
+            _issueRepo = repo;
+        }
         public ActionResult Index()
         {
-            return View();
+            List<Issue> votableIssues = _issueRepo.GetAllVotableIssues();
+            return View(votableIssues);
         }
 
         public ActionResult Contact()

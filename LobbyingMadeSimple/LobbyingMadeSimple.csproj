@@ -202,6 +202,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\StateListHelpers.cs" />
     <Compile Include="Interfaces\IEditableBase.cs" />
     <Compile Include="Interfaces\IIssueRepository.cs" />
@@ -329,6 +330,7 @@
     <Content Include="Views\Issues\Index.cshtml" />
     <Content Include="Views\Issues\IssueFields.cshtml" />
     <Content Include="Views\Issues\Vote.cshtml" />
+    <Content Include="Views\Shared\_HomepageIssue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

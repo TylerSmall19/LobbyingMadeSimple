@@ -7,6 +7,6 @@ namespace LobbyingMadeSimple.Interfaces
 {
     public interface IIssueRepository : IDisposable, IRepoBase<Issue>, IEditableBase<Issue>
     {
-        List<Issue> GetAllVotableProducts();
+        List<Issue> GetAllVotableIssues();
     }
 }

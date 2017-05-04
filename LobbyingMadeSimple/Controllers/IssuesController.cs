@@ -144,7 +144,7 @@ namespace LobbyingMadeSimple.Controllers
         //[Authorize] TODO: Uncomment before production
         public ActionResult Vote()
         {
-            List<Issue> issues = _repo.GetAllVotableProducts();
+            List<Issue> issues = _repo.GetAllVotableIssues();
             return View(issues);
         }
 

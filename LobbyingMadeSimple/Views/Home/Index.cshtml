@@ -1,4 +1,7 @@
-﻿@{
+﻿@using LobbyingMadeSimple.Models
+@model List<Issue>
+
+@{
     ViewBag.Title = "Home";
 }
 
@@ -8,17 +11,12 @@
     </div>
     <div class="col-xs-12 col-sm-8">
         <h3>Recently Posed Issues</h3>
+        <p>(Must be above 67% to get approval)</p>
         <hr />
-        <div class="issue">
-            <h4>Dakota Access Pipeline</h4>
-            <p class="approval">Approval Percentage: <span class="approval-rating">65</span>%</p>
-            <p class="votes">Votes Needed: <span class="votes-needed">125</span></p>
-            <p>
-                This issue has plagued our city for long enough! I would like to issue a call to action
-                to all politicians to end this issue!
-            </p>
-            <p><a class="btn btn-default" href="#">Read Specifics</a></p>
-        </div>
+        @foreach (var issue in Model)
+        {
+            @Html.Partial("_HomepageIssue", issue);
+        }
     </div>
     <div class="col-xs-12 col-sm-4">
         <h3>Fundable Issues</h3>

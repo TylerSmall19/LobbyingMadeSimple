@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple;
 using LobbyingMadeSimple.Controllers;
+using Moq;
+using LobbyingMadeSimple.Interfaces;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {
@@ -16,7 +18,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(new Mock<IIssueRepository>().Object);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
@@ -29,7 +31,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         public void Contact()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(new Mock<IIssueRepository>().Object);
 
             // Act
             ViewResult result = controller.Contact() as ViewResult;

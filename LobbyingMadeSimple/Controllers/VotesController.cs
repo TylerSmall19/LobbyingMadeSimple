@@ -1,4 +1,5 @@
-﻿using LobbyingMadeSimple.Interfaces;
+﻿using LobbyingMadeSimple.Helpers;
+using LobbyingMadeSimple.Interfaces;
 using LobbyingMadeSimple.Models;
 using Microsoft.AspNet.Identity;
 using System;
@@ -45,13 +46,15 @@ namespace LobbyingMadeSimple.Controllers
 
             if (vote.VoteID > 0)
             {
+                string votePercent = issue.GetPrettyPercentage();
                 var data = new
                 {
-                    votePercent = issue.GetPrettyPercentage(),
+                    votePercent = votePercent,
                     neededVotes = issue.VotesLeftUntilApproval(),
                     totalVotes = issue.TotalVotes(),
                     issueId = issue.IssueID,
-                    wasUpvote = isUpvote
+                    wasUpvote = isUpvote,
+                    votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent)
                 };
 
                 return Json(data);

@@ -30,7 +30,7 @@ namespace LobbyingMadeSimple.Repositories
             return db.Issues.ToList();
         }
 
-        public List<Issue> GetAllVotableProducts()
+        public List<Issue> GetAllVotableIssues()
         {
             return db.Issues.Where(i => i.IsVotableIssue == true).ToList();
         }

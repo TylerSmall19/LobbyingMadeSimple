@@ -44,6 +44,10 @@
     font-weight: 600;
 }
 
+.issue{
+    margin-top: 25px;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
