@@ -260,8 +260,13 @@
     <Compile Include="Migrations\201705051804428_LetUpdatedAtBeNullable.Designer.cs">
       <DependentUpon>201705051804428_LetUpdatedAtBeNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705052109400_AddFundablePropertyToIssue.cs" />
+    <Compile Include="Migrations\201705052109400_AddFundablePropertyToIssue.Designer.cs">
+      <DependentUpon>201705052109400_AddFundablePropertyToIssue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -338,7 +343,9 @@
     <Content Include="Views\Issues\Index.cshtml" />
     <Content Include="Views\Issues\IssueFields.cshtml" />
     <Content Include="Views\Issues\Vote.cshtml" />
-    <Content Include="Views\Shared\_HomepageIssue.cshtml" />
+    <Content Include="Views\Shared\_VotableHomepageIssue.cshtml" />
+    <Content Include="Views\Shared\_FundableHomePageIssue.cshtml" />
+    <Content Include="Views\Shared\_DetailsButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -398,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705051804428_LetUpdatedAtBeNullable.resx">
       <DependentUpon>201705051804428_LetUpdatedAtBeNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705052109400_AddFundablePropertyToIssue.resx">
+      <DependentUpon>201705052109400_AddFundablePropertyToIssue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

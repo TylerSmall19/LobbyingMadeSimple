@@ -12,28 +12,38 @@ namespace LobbyingMadeSimple.Repositories
 
     public class IssueRepository : IIssueRepository
     {   
-        ApplicationDbContext db = new ApplicationDbContext();
+        ApplicationDbContext _db;
+
+        public IssueRepository()
+        {
+            _db = new ApplicationDbContext();
+        }
+
+        public IssueRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
         public void Add(Issue issue)
         {
             issue.CreatedAt = DateTime.UtcNow;
-            db.Issues.Add(issue);
-            db.SaveChanges();
+            _db.Issues.Add(issue);
+            _db.SaveChanges();
         }
 
         public Issue Find(int id)
         {
-            return db.Issues.Find(id);
+            return _db.Issues.Find(id);
         }
 
         public List<Issue> GetAll()
         {
-            return db.Issues.ToList();
+            return _db.Issues.ToList();
         }
 
         public virtual List<Issue> GetAllVotableIssues()
         {
-            return db.Issues.Where(i => i.IsVotableIssue == true).ToList();
+            return _db.Issues.Where(i => i.IsVotableIssue == true).ToList();
         }
 
         public List<Issue> GetAllVotableIssuesSortedByDate()
@@ -49,18 +59,29 @@ namespace LobbyingMadeSimple.Repositories
             list.Sort((x, y) => y.Votes.Count.CompareTo(x.Votes.Count));
             return list;
         }
+        public virtual List<Issue> GetAllFundableIssues()
+        {
+            return _db.Issues.Where(i => i.IsFundable == true).ToList();
+        }
+
+        public List<Issue> GetAllFundableIssuesSortedByDate()
+        {
+            var list = GetAllFundableIssues();
+            list.Sort((x, y) => y.CreatedAt.CompareTo(x.CreatedAt));
+            return list;
+        }
 
         public void Update(Issue issue)
         {
             issue.UpdatedAt = DateTime.UtcNow;
-            db.Entry(issue).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(issue).State = EntityState.Modified;
+            _db.SaveChanges();
         }
 
         public void Remove(Issue issue)
         {
-            db.Issues.Remove(issue);
-            db.SaveChanges();
+            _db.Issues.Remove(issue);
+            _db.SaveChanges();
         }
 
         private bool disposed = false;
@@ -71,7 +92,7 @@ namespace LobbyingMadeSimple.Repositories
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    _db.Dispose();
                 }
             }
             disposed = true;

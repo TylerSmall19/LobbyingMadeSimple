@@ -17,8 +17,13 @@ namespace LobbyingMadeSimple.Controllers
         }
         public ActionResult Index()
         {
-            List<Issue> votableIssues = _issueRepo.GetAllVotableIssues();
-            return View(votableIssues);
+            var viewModel = new HomePageViewModel()
+            {
+                VotableIssues = _issueRepo.GetAllVotableIssuesSortedByVoteCount(),
+                FundableIssues = _issueRepo.GetAllFundableIssuesSortedByDate()
+            };
+            
+            return View(viewModel);
         }
 
         public ActionResult Contact()

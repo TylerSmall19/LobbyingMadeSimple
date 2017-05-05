@@ -1,5 +1,5 @@
 ﻿@using LobbyingMadeSimple.Models
-@model List<Issue>
+@model HomePageViewModel
 
 @{
     ViewBag.Title = "Home";
@@ -10,21 +10,21 @@
         <h1>Lobbying Made Easy</h1>
     </div>
     <div class="col-xs-12 col-sm-6">
-        <h3>Recently Posed Issues</h3>
+        <h3>Most Voted Issues</h3>
         <p>(Must be above 67% to get approval)</p>
         <hr />
-        @foreach (var issue in Model)
+        @foreach (var issue in Model.VotableIssues)
         {
-            @Html.Partial("_HomepageIssue", issue);
+            @Html.Partial("_VotableHomepageIssue", issue);
         }
     </div>
     <div class="col-xs-12 col-sm-6">
         <h3>Fundable Issues</h3>
+        <p>(Donate to issues you want to see dealt with)</p>
         <hr />
-        <h4>Get Lobbyists out of Washington</h4>
-        <p>
-            It's ironic I'm paying a lobbyist to lobby for removing lobbyists, but it's the world I live in.
-        </p>
-        <p><a class="btn btn-default" href="#">Contribute</a></p>
+        @foreach (var fundableIssue in Model.FundableIssues)
+        {
+            @Html.Partial("_FundableHomepageIssue", fundableIssue)
+        }
     </div>
 </div>

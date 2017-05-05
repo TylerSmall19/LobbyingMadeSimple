@@ -5,6 +5,7 @@ using LobbyingMadeSimple.Models;
 using System.Collections.Generic;
 using System.Collections;
 using System.Data.Entity;
+using System.Linq;
 using Moq;
 
 namespace LobbyingMadeSimple.Tests.Repositories
@@ -112,6 +113,52 @@ namespace LobbyingMadeSimple.Tests.Repositories
 
             // Assert
             Assert.IsTrue(result.Count == 0);
+        }
+
+        [TestMethod]
+        public void IssueRepo_GetAllFundableIssues_returns_all_fundable_issues_from_db()
+        {
+            // Arrange
+            Issue fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true);
+            Issue nonFundableIssue = Mock.Of<Issue>(i => i.IsFundable == false);
+            var data = new List<Issue>() { fundableIssue, fundableIssue, fundableIssue, nonFundableIssue, nonFundableIssue }.AsQueryable();
+
+            var mockDbSet = new Mock<DbSet<Issue>>();
+                mockDbSet.As<IQueryable<Issue>>().Setup(m => m.Provider).Returns(data.Provider);
+                mockDbSet.As<IQueryable<Issue>>().Setup(m => m.Expression).Returns(data.Expression);
+                mockDbSet.As<IQueryable<Issue>>().Setup(m => m.ElementType).Returns(data.ElementType);
+                mockDbSet.As<IQueryable<Issue>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            var mockContext = new Mock<ApplicationDbContext>();
+                mockContext.Setup(c => c.Issues).Returns(mockDbSet.Object);
+
+            var repo = new IssueRepository(mockContext.Object);
+
+            // Act
+            List<Issue> results = repo.GetAllFundableIssues();
+
+            // Assert
+            Assert.AreEqual(3, results.Count);
+        }
+
+        [TestMethod]
+        public void IssueRepo_GetAllFundableIssuesSortedByDate_returns_all_fundable_issues_sorted_by_date()
+        {
+            // Arrange
+            Issue firstIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2));
+            Issue secondIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(1));
+            Issue thirdIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now);
+
+            List<Issue> issues = new List<Issue>() { thirdIssue, firstIssue, secondIssue };
+            IssueRepository repo = Mock.Of<IssueRepository>(r => r.GetAllFundableIssues() == issues);
+
+            // Act
+            var results = repo.GetAllFundableIssuesSortedByDate();
+
+            // Assert
+            Assert.AreEqual(firstIssue, results[0]);
+            Assert.AreEqual(secondIssue, results[1]);
+            Assert.AreEqual(thirdIssue, results[2]);
         }
 
         [TestMethod]

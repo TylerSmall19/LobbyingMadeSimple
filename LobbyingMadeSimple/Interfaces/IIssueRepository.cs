@@ -10,5 +10,7 @@ namespace LobbyingMadeSimple.Interfaces
         List<Issue> GetAllVotableIssues();
         List<Issue> GetAllVotableIssuesSortedByDate();
         List<Issue> GetAllVotableIssuesSortedByVoteCount();
+        List<Issue> GetAllFundableIssues();
+        List<Issue> GetAllFundableIssuesSortedByDate();
     }
 }

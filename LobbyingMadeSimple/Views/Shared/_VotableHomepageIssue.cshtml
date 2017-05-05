@@ -17,5 +17,5 @@
             <span>Federal Issue</span>
         }
     </p>
-    @Html.ActionLink("Read Specifics", "Details", "Issues", new { id = Model.IssueID }, new { @class = "btn btn-default" })
+    @Html.Partial("_DetailsButton", Model)
 </div>

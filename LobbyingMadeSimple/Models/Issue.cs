@@ -50,6 +50,7 @@ namespace LobbyingMadeSimple.Models
         public int UpvoteCount { get { return Votes.Where(v => v.IsUpvote == true).Count(); } }
         public int DownVoteCount { get { return Votes.Where(v => v.IsUpvote == false).Count(); } }
         public bool IsVotableIssue { get { return !HasBeenApproved() && !HasBeenDenied(); } set { } }
+        public virtual bool IsFundable { get { return HasBeenApproved(); } set { } }
 
         // Associations
         public string AuthorID { get; set; }
