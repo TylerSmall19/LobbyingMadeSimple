@@ -37,14 +37,19 @@ namespace LobbyingMadeSimple.Models
         [Display(Name = "Affected State")]
         public string StateAbbrev { get; set; }
 
+        [Display(Name = "Created At")]
+        public DateTime CreatedAt { get; set; }
+
+        [Display(Name = "Updated At")]
+        public DateTime UpdatedAt { get; set; }
+
         // Non-User-Input properties
-        public int VoteCountNeeded { get; set; }        // Defaults to 1500
+        public int VoteCountNeeded { get; set; } // Defaults to 1500
         public int UpvoteCount { get { return Votes.Where(v => v.IsUpvote == true).Count(); } }
         public int DownVoteCount { get { return Votes.Where(v => v.IsUpvote == false).Count(); } }
         public bool IsVotableIssue { get { return !HasBeenApproved() && !HasBeenDenied(); } set { } }
 
         // Associations
-        [ScaffoldColumn(false)]
         public string AuthorID { get; set; }
         public virtual ApplicationUser Author { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }

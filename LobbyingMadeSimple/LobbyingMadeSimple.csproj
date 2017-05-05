@@ -252,6 +252,10 @@
     <Compile Include="Migrations\201705032020288_AddIsVotableIssueProperty.Designer.cs">
       <DependentUpon>201705032020288_AddIsVotableIssueProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705051617371_AddTimeStampsToIssues.cs" />
+    <Compile Include="Migrations\201705051617371_AddTimeStampsToIssues.Designer.cs">
+      <DependentUpon>201705051617371_AddTimeStampsToIssues.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -384,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705032020288_AddIsVotableIssueProperty.resx">
       <DependentUpon>201705032020288_AddIsVotableIssueProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705051617371_AddTimeStampsToIssues.resx">
+      <DependentUpon>201705051617371_AddTimeStampsToIssues.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
