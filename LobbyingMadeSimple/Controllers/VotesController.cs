@@ -64,7 +64,6 @@ namespace LobbyingMadeSimple.Controllers
                     {
                         votePercent = votePercent,
                         neededVotes = issue.VotesLeftUntilApproval(),
-                        totalVotes = issue.TotalVotes(),
                         issueId = issue.IssueID,
                         wasUpvote = isUpvote,
                         votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent)
@@ -73,7 +72,7 @@ namespace LobbyingMadeSimple.Controllers
                     return Json(data);
                 } else
                 {
-                    return Redirect("/Issues/Vote");
+                    return Redirect("/Issues/Vote#" + issueId);
                 }
             }
 
