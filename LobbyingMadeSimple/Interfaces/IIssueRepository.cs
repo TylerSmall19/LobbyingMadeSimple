@@ -8,5 +8,7 @@ namespace LobbyingMadeSimple.Interfaces
     public interface IIssueRepository : IDisposable, IRepoBase<Issue>, IEditableBase<Issue>
     {
         List<Issue> GetAllVotableIssues();
+        List<Issue> GetAllVotableIssuesSortedByDate();
+        List<Issue> GetAllVotableIssuesSortedByVoteCount();
     }
 }
