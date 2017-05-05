@@ -38,7 +38,9 @@ namespace LobbyingMadeSimple.Repositories
 
         public List<Issue> GetAllVotableIssuesSortedByDate()
         {
-            return GetAllVotableIssues().OrderByDescending(i => i.CreatedAt).ToList();
+            var list = GetAllVotableIssues();
+            list.Sort((x, y) => y.CreatedAt.CompareTo(x.CreatedAt));
+            return list;
         }
 
         public void Update(Issue issue)
