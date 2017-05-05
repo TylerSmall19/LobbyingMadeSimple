@@ -256,6 +256,10 @@
     <Compile Include="Migrations\201705051617371_AddTimeStampsToIssues.Designer.cs">
       <DependentUpon>201705051617371_AddTimeStampsToIssues.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705051804428_LetUpdatedAtBeNullable.cs" />
+    <Compile Include="Migrations\201705051804428_LetUpdatedAtBeNullable.Designer.cs">
+      <DependentUpon>201705051804428_LetUpdatedAtBeNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -391,6 +395,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705051617371_AddTimeStampsToIssues.resx">
       <DependentUpon>201705051617371_AddTimeStampsToIssues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705051804428_LetUpdatedAtBeNullable.resx">
+      <DependentUpon>201705051804428_LetUpdatedAtBeNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

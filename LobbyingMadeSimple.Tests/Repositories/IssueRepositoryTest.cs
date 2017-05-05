@@ -4,6 +4,8 @@ using LobbyingMadeSimple.Repositories;
 using LobbyingMadeSimple.Models;
 using System.Collections.Generic;
 using System.Collections;
+using System.Data.Entity;
+using Moq;
 
 namespace LobbyingMadeSimple.Tests.Repositories
 {
@@ -42,6 +44,32 @@ namespace LobbyingMadeSimple.Tests.Repositories
             ReadVotable();
             Update(issueId);
             Delete(issueId);
+        }
+
+        [TestMethod]
+        public void IssueRepo_GetAllVotableIssuesSortedByDate_returns_sorted_list_of_votable_issues()
+        {
+            // Arrange
+            var firstIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2));
+            var secondIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(1));
+            var thirdIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now);
+
+            List<Issue> issues = new List<Issue>()
+            {
+                firstIssue,
+                thirdIssue,
+                secondIssue
+            };
+
+            IssueRepository mockRepo = Mock.Of<IssueRepository>(r => r.GetAllVotableIssues() == issues);
+
+            // Act
+            var result = mockRepo.GetAllVotableIssuesSortedByDate();
+
+            // Assert
+            Assert.AreEqual(firstIssue, result[0]);
+            Assert.AreEqual(secondIssue, result[1]);
+            Assert.AreEqual(thirdIssue, result[2]);
         }
 
         private int Create()

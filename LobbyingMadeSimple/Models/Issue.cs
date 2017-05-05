@@ -12,6 +12,7 @@ namespace LobbyingMadeSimple.Models
         {
             VoteCountNeeded = 1500;
             Votes = new List<Vote>();
+            CreatedAt = DateTime.Now;
         }
 
         // Properties
@@ -37,11 +38,12 @@ namespace LobbyingMadeSimple.Models
         [Display(Name = "Affected State")]
         public string StateAbbrev { get; set; }
 
-        [Display(Name = "Created At")]
+        [Required]
+        [Display(Name = "Date Added")]
         public DateTime CreatedAt { get; set; }
 
-        [Display(Name = "Updated At")]
-        public DateTime UpdatedAt { get; set; }
+        [Display(Name = "Last Edited")]
+        public DateTime? UpdatedAt { get; set; }
 
         // Non-User-Input properties
         public int VoteCountNeeded { get; set; } // Defaults to 1500

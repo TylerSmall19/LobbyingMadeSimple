@@ -16,6 +16,7 @@ namespace LobbyingMadeSimple.Repositories
 
         public void Add(Issue issue)
         {
+            issue.CreatedAt = DateTime.UtcNow;
             db.Issues.Add(issue);
             db.SaveChanges();
         }
@@ -30,13 +31,19 @@ namespace LobbyingMadeSimple.Repositories
             return db.Issues.ToList();
         }
 
-        public List<Issue> GetAllVotableIssues()
+        public virtual List<Issue> GetAllVotableIssues()
         {
             return db.Issues.Where(i => i.IsVotableIssue == true).ToList();
         }
 
+        public List<Issue> GetAllVotableIssuesSortedByDate()
+        {
+            return GetAllVotableIssues().OrderByDescending(i => i.CreatedAt).ToList();
+        }
+
         public void Update(Issue issue)
         {
+            issue.UpdatedAt = DateTime.UtcNow;
             db.Entry(issue).State = EntityState.Modified;
             db.SaveChanges();
         }
