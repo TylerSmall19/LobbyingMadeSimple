@@ -28,7 +28,7 @@ namespace LobbyingMadeSimple.Controllers
             Issue issue = _issueRepo.Find(issueId);
             var userId = User.Identity.GetUserId();
 
-            if (issue == null)
+            if (issue == null || !issue.IsVotableIssue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
