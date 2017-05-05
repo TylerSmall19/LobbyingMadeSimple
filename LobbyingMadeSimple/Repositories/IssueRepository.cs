@@ -43,6 +43,13 @@ namespace LobbyingMadeSimple.Repositories
             return list;
         }
 
+        public List<Issue> GetAllVotableIssuesSortedByVoteCount()
+        {
+            var list = GetAllVotableIssues();
+            list.Sort((x, y) => y.Votes.Count.CompareTo(x.Votes.Count));
+            return list;
+        }
+
         public void Update(Issue issue)
         {
             issue.UpdatedAt = DateTime.UtcNow;
