@@ -28,9 +28,25 @@ namespace LobbyingMadeSimple.Controllers
             Issue issue = _issueRepo.Find(issueId);
             var userId = User.Identity.GetUserId();
 
-            if (issue == null || !issue.IsVotableIssue)
+            if (issue == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (!issue.IsVotableIssue)
+            {
+                Response.StatusCode = 422;
+                if (Request.IsAjaxRequest())
+                {
+                    var data = new
+                    {
+                        issueId = issue.IssueID,
+                        isVotable = false
+                    };
+
+                    return Json(data);
+                }
+                return View("../Issues/Vote", _issueRepo.GetAllVotableIssuesSortedByDate());
             }
 
             var usersVotes = issue.Votes.Where(v => v.AuthorID == userId);
@@ -66,7 +82,8 @@ namespace LobbyingMadeSimple.Controllers
                         neededVotes = issue.VotesLeftUntilApproval(),
                         issueId = issue.IssueID,
                         wasUpvote = isUpvote,
-                        votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent)
+                        votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent),
+                        isVotable = true
                     };
 
                     return Json(data);

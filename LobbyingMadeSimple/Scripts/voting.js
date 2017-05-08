@@ -8,7 +8,9 @@ function vote(e) {
     var action = this.action;
     var data = $(this).serialize();
 
-    $.post(action, data, voteSuccess);
+    $.post(action, data)
+        .done(voteSuccess)
+        .fail(voteFailed);
 }
 
 function voteSuccess(resp) {
@@ -41,4 +43,12 @@ function voteSuccess(resp) {
     $(selector + " .vote-count-display").text(voteCount);
     // Update percentage display
     $(selector + " .vote-percentage").text(votePercent);
+}
+
+function voteFailed(xhr) {
+    var resp = xhr.responseJSON;
+
+    if (!resp.isVotable) {
+        $('#' + resp.issueId).remove();
+    }
 }
