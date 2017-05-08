@@ -64,5 +64,16 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Assert
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public void IssuesController_Create_Get_returns_view()
+        {
+            // Act
+            var result = controller.Create() as ViewResult;
+
+            // Assert
+            Assert.AreEqual("", result.ViewName);
+            Assert.IsNotNull(result);
+        }
     }
 }
