@@ -93,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\IssuesControllerTest.cs" />
     <Compile Include="Helpers\StateListTest.cs" />
     <Compile Include="Helpers\HtmlHelpersTest.cs" />
     <Compile Include="Models\IssueTest.cs" />
