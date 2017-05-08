@@ -6,6 +6,8 @@ using Moq;
 using System.Collections.Generic;
 using LobbyingMadeSimple.Controllers;
 using System.Web.Mvc;
+using System.Web;
+using System.Security.Principal;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {
@@ -16,23 +18,32 @@ namespace LobbyingMadeSimple.Tests.Controllers
         private List<Issue> fundableIssues;
         private Issue votableIssue;
         private Issue fundableIssue;
+        private Issue newIssue;
         private IssuesController controller;
+        private Mock<IIssueRepository> _repo;
 
         [TestInitialize]
         public void TestInit()
         {
             votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true);
             fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true);
-            var _repo =
-                Mock.Of<IIssueRepository>(r =>
-                    r.Find(1) == votableIssue
+            newIssue = Mock.Of<Issue>();
+
+            _repo = new Mock<IIssueRepository>();
+            _repo.Setup(r => r.Find(1)).Returns(votableIssue);
+            _repo.Setup(r => r.Add(newIssue)).Verifiable();
                 //&& r.GetAllVotableIssuesSortedByDate() == votableIssues
                 //&& r.GetAllFundableIssuesSortedByDate() == fundableIssues
-                //&& r.Add(newIssue) == null
                 //&& r.GetAllVotableIssuesSortedByVoteCount() == votableIssues
-                );
 
-            controller = new IssuesController(_repo);
+            controller = new IssuesController(_repo.Object);
+
+            var user = Mock.Of<IPrincipal>(p => p.Identity.Name == "TestUid");
+            var httpContextMock = Mock.Of<HttpContextBase>(ctx => ctx.User == user);
+
+            var controllerContext = new ControllerContext { HttpContext = httpContextMock };
+            controllerContext.Controller = controller;
+            controller.ControllerContext = controllerContext;
         }
 
         [TestMethod]
@@ -74,6 +85,17 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Assert
             Assert.AreEqual("", result.ViewName);
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void IssuesController_Create_Post_creates_a_new_object_and_redirects_when_passed_valid_data()
+        {
+            // Act
+            var result = controller.Create(newIssue) as RedirectToRouteResult;
+
+            // Assert
+            _repo.Verify(r => r.Add(newIssue), Times.Exactly(1));
+            Assert.IsTrue(result.RouteValues.ContainsValue("Index"));
         }
     }
 }
