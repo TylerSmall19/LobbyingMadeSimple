@@ -42,6 +42,8 @@ namespace LobbyingMadeSimple.Tests.Models
             // Assert
             Assert.AreEqual(1500, issue.VoteCountNeeded);
             Assert.IsTrue(issue.IsVotableIssue);
+            Assert.AreEqual(50000.00, issue.FundingGoal);
+            Assert.AreEqual(0, issue.FundingRaised);
         }
 
         [TestMethod]

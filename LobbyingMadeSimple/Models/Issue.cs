@@ -13,6 +13,8 @@ namespace LobbyingMadeSimple.Models
             VoteCountNeeded = 1500;
             Votes = new List<Vote>();
             CreatedAt = DateTime.Now;
+            FundingGoal = 50000.00;
+            FundingRaised = 0.00;
         }
 
         // Properties
@@ -38,6 +40,17 @@ namespace LobbyingMadeSimple.Models
         [Display(Name = "Affected State")]
         public string StateAbbrev { get; set; }
 
+        // Non-User-Input properties
+        [Required]
+        [DataType(DataType.Currency)]
+        [Display(Name = "Lobbying Amount Needed")]
+        public double FundingGoal { get; set; } // Defaults to 50000.00
+
+        [Required]
+        [DataType(DataType.Currency)]
+        [Display(Name = "Funded So Far")]
+        public double FundingRaised { get; set; } // Defaults to 0.00
+
         [Required]
         [Display(Name = "Date Added")]
         public DateTime CreatedAt { get; set; }
@@ -45,7 +58,6 @@ namespace LobbyingMadeSimple.Models
         [Display(Name = "Last Edited")]
         public DateTime? UpdatedAt { get; set; }
 
-        // Non-User-Input properties
         public int VoteCountNeeded { get; set; } // Defaults to 1500
         public int UpvoteCount { get { return Votes.Where(v => v.IsUpvote == true).Count(); } }
         public int DownVoteCount { get { return Votes.Where(v => v.IsUpvote == false).Count(); } }

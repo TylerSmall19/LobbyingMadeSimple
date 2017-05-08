@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201705052109400_AddFundablePropertyToIssue.Designer.cs">
       <DependentUpon>201705052109400_AddFundablePropertyToIssue.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705081623320_AddFundingGoalsAndAmounts.cs" />
+    <Compile Include="Migrations\201705081623320_AddFundingGoalsAndAmounts.Designer.cs">
+      <DependentUpon>201705081623320_AddFundingGoalsAndAmounts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
@@ -341,7 +345,7 @@
     <Content Include="Views\Issues\Details.cshtml" />
     <Content Include="Views\Issues\Edit.cshtml" />
     <Content Include="Views\Issues\Index.cshtml" />
-    <Content Include="Views\Issues\IssueFields.cshtml" />
+    <Content Include="Views\Issues\_IssueFields.cshtml" />
     <Content Include="Views\Issues\Vote.cshtml" />
     <Content Include="Views\Shared\_VotableHomepageIssue.cshtml" />
     <Content Include="Views\Shared\_FundableHomePageIssue.cshtml" />
@@ -408,6 +412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705052109400_AddFundablePropertyToIssue.resx">
       <DependentUpon>201705052109400_AddFundablePropertyToIssue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081623320_AddFundingGoalsAndAmounts.resx">
+      <DependentUpon>201705081623320_AddFundingGoalsAndAmounts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
