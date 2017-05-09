@@ -128,9 +128,19 @@ namespace LobbyingMadeSimple.Tests.Controllers
         {
             // Act
             var result = controller.Delete(null) as HttpStatusCodeResult;
-            
+
             // Assert
             Assert.AreEqual(400, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void IssuesController_Delete_Get_returns_404_when_issue_is_not_found()
+        {
+            // Act
+            var result = controller.Delete(2) as HttpNotFoundResult;
+
+            // Assert
+            Assert.AreEqual(404, result.StatusCode);
         }
     }
 }
