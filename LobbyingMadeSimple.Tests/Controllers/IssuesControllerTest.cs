@@ -122,5 +122,15 @@ namespace LobbyingMadeSimple.Tests.Controllers
             Assert.AreEqual("", result.ViewName); // Default View
             Assert.AreEqual(votableIssue, result.Model);
         }
+
+        [TestMethod]
+        public void IssuesController_Delete_Get_returns_400_when_id_is_null()
+        {
+            // Act
+            var result = controller.Delete(null) as HttpStatusCodeResult;
+            
+            // Assert
+            Assert.AreEqual(400, result.StatusCode);
+        }
     }
 }
