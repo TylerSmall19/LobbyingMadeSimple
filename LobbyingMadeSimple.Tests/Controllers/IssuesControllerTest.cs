@@ -88,7 +88,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Create_Post_creates_a_new_object_and_redirects_when_passed_valid_data()
+        public void IssuesController_Create_Post_creates_a_new_object_and_redirects_to_index_when_passed_valid_data()
         {
             // Act
             var result = controller.Create(newIssue) as RedirectToRouteResult;
@@ -96,6 +96,51 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Assert
             _repo.Verify(r => r.Add(newIssue), Times.Exactly(1));
             Assert.IsTrue(result.RouteValues.ContainsValue("Index"));
+        }
+
+        [TestMethod]
+        public void IssuesController_Create_Post_renders_view_when_invalid_data_is_passed()
+        {
+            // Arrange
+            controller.ModelState.AddModelError("testError", "You shall NOT pass!");
+
+            // Act
+            var result = controller.Create(newIssue) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("", result.ViewName); // Default View
+            Assert.AreEqual(newIssue, result.Model);
+        }
+
+        [TestMethod]
+        public void IssuesController_Delete_Get_returns_correct_view_and_model_when_called_with_valid_data()
+        {
+            // Act
+            var result = controller.Delete(1) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("", result.ViewName); // Default View
+            Assert.AreEqual(votableIssue, result.Model);
+        }
+
+        [TestMethod]
+        public void IssuesController_Delete_Get_returns_400_when_id_is_null()
+        {
+            // Act
+            var result = controller.Delete(null) as HttpStatusCodeResult;
+
+            // Assert
+            Assert.AreEqual(400, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void IssuesController_Delete_Get_returns_404_when_issue_is_not_found()
+        {
+            // Act
+            var result = controller.Delete(2) as HttpNotFoundResult;
+
+            // Assert
+            Assert.AreEqual(404, result.StatusCode);
         }
     }
 }
