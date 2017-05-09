@@ -88,7 +88,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Create_Post_creates_a_new_object_and_redirects_when_passed_valid_data()
+        public void IssuesController_Create_Post_creates_a_new_object_and_redirects_to_index_when_passed_valid_data()
         {
             // Act
             var result = controller.Create(newIssue) as RedirectToRouteResult;
@@ -96,6 +96,20 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Assert
             _repo.Verify(r => r.Add(newIssue), Times.Exactly(1));
             Assert.IsTrue(result.RouteValues.ContainsValue("Index"));
+        }
+
+        [TestMethod]
+        public void IssuesController_Create_Post_renders_view_when_invalid_data_is_passed()
+        {
+            // Arrange
+            controller.ModelState.AddModelError("testError", "You shall NOT pass!");
+
+            // Act
+            var result = controller.Create(newIssue) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("", result.ViewName); // Default View
+            Assert.AreEqual(newIssue, result.Model);
         }
     }
 }
