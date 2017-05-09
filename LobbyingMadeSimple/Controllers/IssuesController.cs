@@ -59,7 +59,7 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev")] Issue issue)
+        public ActionResult Create([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev,FundingGoal")] Issue issue)
         {
             issue.AuthorID = User.Identity.GetUserId();
 
@@ -96,7 +96,7 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev")] Issue issue)
+        public ActionResult Edit([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev,FundingGoal")] Issue issue)
         {
             if (ModelState.IsValid)
             {
