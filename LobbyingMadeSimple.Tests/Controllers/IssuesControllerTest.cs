@@ -8,6 +8,8 @@ using LobbyingMadeSimple.Controllers;
 using System.Web.Mvc;
 using System.Web;
 using System.Security.Principal;
+using System.Reflection;
+using System.Linq;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {
@@ -28,13 +30,14 @@ namespace LobbyingMadeSimple.Tests.Controllers
             votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true);
             fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true);
             newIssue = Mock.Of<Issue>();
+            votableIssues = new List<Issue>() { votableIssue, votableIssue, votableIssue };
 
             _repo = new Mock<IIssueRepository>();
             _repo.Setup(r => r.Find(1)).Returns(votableIssue);
             _repo.Setup(r => r.Add(newIssue)).Verifiable();
-                //&& r.GetAllVotableIssuesSortedByDate() == votableIssues
-                //&& r.GetAllFundableIssuesSortedByDate() == fundableIssues
-                //&& r.GetAllVotableIssuesSortedByVoteCount() == votableIssues
+            _repo.Setup(r => r.GetAllVotableIssuesSortedByDate()).Returns(votableIssues);
+            //&& r.GetAllFundableIssuesSortedByDate() == fundableIssues
+            //&& r.GetAllVotableIssuesSortedByVoteCount() == votableIssues
 
             controller = new IssuesController(_repo.Object);
 
@@ -112,6 +115,31 @@ namespace LobbyingMadeSimple.Tests.Controllers
             Assert.AreEqual(newIssue, result.Model);
         }
 
+        //[TestMethod]
+        //public void IssuesController_Create_Post_filters_allows_accepted_params_only()
+        //{
+        //    // Arrange
+        //    var issue = new Issue()
+        //    {
+        //        LongDescription = "L",
+        //        ShortDescription = "S",
+        //        Title = "T",
+        //        FundingGoal = 10,
+        //        IsStateIssue = true,
+        //        StateAbbrev = "MO",
+        //        IsVotableIssue = true
+        //    };
+        //    _repo.Setup(r => r.Add(issue)).Callback((Issue i) => Assert.AreEqual(null, i.IsVotableIssue));
+        //    IssuesController iController = new IssuesController(_repo.Object);
+
+        //    // Act
+        //    iController.PreBindModel(issue, "Create");
+        //    var result = iController.Create(issue) as RedirectToRouteResult;
+
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //}
+
         [TestMethod]
         public void IssuesController_Delete_Get_returns_correct_view_and_model_when_called_with_valid_data()
         {
@@ -142,5 +170,69 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Assert
             Assert.AreEqual(404, result.StatusCode);
         }
+
+        [TestMethod]
+        public void IssuesController_DeleteConfirmed_removes_and_redirects_when_issue_is_found()
+        {
+            // Act 
+            var result = controller.DeleteConfirmed(1) as RedirectToRouteResult;
+
+            // Assert 
+            Assert.AreEqual("Index", result.RouteValues["Action"]);
+            _repo.Verify(r => r.Remove(votableIssue), Times.Once);
+        }
+
+        [TestMethod]
+        public void IssuesController_DeleteConfirmed_doesnt_delete_when_id_not_valid()
+        {
+            // Act
+            var result = controller.DeleteConfirmed(2) as RedirectToRouteResult;
+
+            // Assert
+            _repo.Verify(r => r.Remove(votableIssue), Times.Never);
+            _repo.Verify(r => r.Remove(null), Times.Once);
+            Assert.AreEqual("Index", result.RouteValues["Action"]);
+        }
+
+        [TestMethod]
+        public void IssuesController_Vote_sets_model_to_AllVotable_and_renders_a_view()
+        {
+            // Act
+            var result = controller.Vote() as ViewResult;
+
+            // Assert
+            Assert.AreEqual("", result.ViewName);
+            Assert.AreEqual(votableIssues, result.Model);
+            _repo.Verify(r => r.GetAllVotableIssuesSortedByDate(), Times.Once);
+        }
     }
+
+    #region Test Helper Class
+    public static class TestHelpers {
+        public static void PreBindModel(this Controller controller, Issue model, string operationName)
+        {
+            // Find the params of the action that accepts a model (create/edit in this case can take models)
+            foreach (var paramToAction in controller.GetType().GetMethod(operationName,
+                BindingFlags.Public,
+                null,
+                CallingConventions.Any,
+                new Type[] { typeof(Issue) },
+                null)
+                .GetParameters())
+            {
+                // Get the attributes that can be written based on each param
+                foreach (BindAttribute bindAttribute in paramToAction.GetCustomAttributes(true))
+                {
+                    var propertiesToReset = typeof(Issue).GetProperties().Where(x => bindAttribute.IsPropertyAllowed(x.Name) == false);
+
+                    // Reset each Property if it's not included in the list of bound properties
+                    foreach (var propertyToReset in propertiesToReset)
+                    {
+                        propertyToReset.SetValue(model, null);
+                    }
+                }
+            }
+        }
+    }
+    #endregion
 }
