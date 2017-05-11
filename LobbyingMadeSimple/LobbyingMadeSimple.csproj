@@ -268,8 +268,17 @@
     <Compile Include="Migrations\201705081623320_AddFundingGoalsAndAmounts.Designer.cs">
       <DependentUpon>201705081623320_AddFundingGoalsAndAmounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705111615384_Contribution.cs" />
+    <Compile Include="Migrations\201705111615384_Contribution.Designer.cs">
+      <DependentUpon>201705111615384_Contribution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705111645024_ContributionAnotations.cs" />
+    <Compile Include="Migrations\201705111645024_ContributionAnotations.Designer.cs">
+      <DependentUpon>201705111645024_ContributionAnotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Contribution.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Issue.cs" />
@@ -415,6 +424,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705081623320_AddFundingGoalsAndAmounts.resx">
       <DependentUpon>201705081623320_AddFundingGoalsAndAmounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705111615384_Contribution.resx">
+      <DependentUpon>201705111615384_Contribution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705111645024_ContributionAnotations.resx">
+      <DependentUpon>201705111645024_ContributionAnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

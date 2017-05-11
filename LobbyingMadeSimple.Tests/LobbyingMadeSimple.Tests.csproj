@@ -118,6 +118,7 @@
     <Compile Include="Helpers\StateListTest.cs" />
     <Compile Include="Helpers\HtmlHelpersTest.cs" />
     <Compile Include="Models\IssueTest.cs" />
+    <Compile Include="Models\ContributionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Repositories\IssueRepositoryTest.cs" />

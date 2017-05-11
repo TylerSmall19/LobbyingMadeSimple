@@ -38,5 +38,6 @@ namespace LobbyingMadeSimple.Models
 
         public virtual DbSet<Issue> Issues { get; set; }
         public virtual DbSet<Vote> Votes { get; set; }
+        public virtual DbSet<Contribution> Contributions { get; set; }
     }
 }
