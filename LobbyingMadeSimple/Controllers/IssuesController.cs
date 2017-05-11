@@ -10,6 +10,7 @@ using LobbyingMadeSimple.Models;
 using Microsoft.AspNet.Identity;
 using LobbyingMadeSimple.Repositories;
 using LobbyingMadeSimple.Interfaces;
+using Core;
 
 namespace LobbyingMadeSimple.Controllers
 {

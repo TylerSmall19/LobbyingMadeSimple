@@ -1,6 +1,7 @@
 ﻿using LobbyingMadeSimple.Models;
 using System;
 using System.Collections.Generic;
+using Core;
 
 namespace LobbyingMadeSimple.Helpers
 {

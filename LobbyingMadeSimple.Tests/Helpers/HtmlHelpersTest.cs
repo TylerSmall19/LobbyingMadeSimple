@@ -4,6 +4,7 @@ using LobbyingMadeSimple.Helpers;
 using Moq;
 using LobbyingMadeSimple.Models;
 using System.Collections.Generic;
+using Core;
 
 namespace LobbyingMadeSimple.Tests.Helpers
 {

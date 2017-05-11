@@ -10,6 +10,7 @@ using System.Web;
 using System.Security.Principal;
 using System.Reflection;
 using System.Linq;
+using Core;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {

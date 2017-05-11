@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace LobbyingMadeSimple.Models
+namespace Core
 {
-    public class Issue
+    public class Issue : BaseEntity
     {
         // Constructor
         public Issue()
@@ -18,8 +20,6 @@ namespace LobbyingMadeSimple.Models
         }
 
         // Properties
-        public int IssueID { get; set; }
-
         [Required]
         [MaxLength(60, ErrorMessage = "Must be fewer than 60 characters")]
         public string Title { get; set; }
@@ -50,13 +50,6 @@ namespace LobbyingMadeSimple.Models
         [DataType(DataType.Currency)]
         [Display(Name = "Funded So Far")]
         public double FundingRaised { get; set; } // Defaults to 0.00
-
-        [Required]
-        [Display(Name = "Date Added")]
-        public DateTime CreatedAt { get; set; }
-
-        [Display(Name = "Last Edited")]
-        public DateTime? UpdatedAt { get; set; }
 
         public int VoteCountNeeded { get; set; } // Defaults to 1500
         public int UpvoteCount { get { return Votes.Where(v => v.IsUpvote == true).Count(); } }

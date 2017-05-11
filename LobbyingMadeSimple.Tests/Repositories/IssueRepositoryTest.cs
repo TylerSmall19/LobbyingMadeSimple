@@ -7,6 +7,7 @@ using System.Collections;
 using System.Data.Entity;
 using System.Linq;
 using Moq;
+using Core;
 
 namespace LobbyingMadeSimple.Tests.Repositories
 {
@@ -192,9 +193,9 @@ namespace LobbyingMadeSimple.Tests.Repositories
             _repo.Add(issue);
 
             // Assert
-            Assert.IsNotNull(issue.IssueID, "Issue ID is Null");
+            Assert.IsNotNull(issue.Id, "Issue ID is Null");
 
-            return issue.IssueID;
+            return issue.Id;
         }
 
         private void ReadOne(int id)
@@ -204,7 +205,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
 
             // Assert
             Assert.IsNotNull(issue, "Find returned null issue");
-            Assert.AreEqual(id, issue.IssueID, "IDs don't match");
+            Assert.AreEqual(id, issue.Id, "IDs don't match");
         }
 
         private void ReadVotable()

@@ -6,6 +6,7 @@ using System.Web;
 using System.Collections;
 using LobbyingMadeSimple.Models;
 using System.Data.Entity;
+using Core;
 
 namespace LobbyingMadeSimple.Repositories
 {

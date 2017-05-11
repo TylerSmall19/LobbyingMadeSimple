@@ -276,14 +276,16 @@
     <Compile Include="Migrations\201705111645024_ContributionAnotations.Designer.cs">
       <DependentUpon>201705111645024_ContributionAnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705112133596_RefactorDataBase.cs" />
+    <Compile Include="Migrations\201705112133596_RefactorDataBase.Designer.cs">
+      <DependentUpon>201705112133596_RefactorDataBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Contribution.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IssueRepository.cs" />
     <Compile Include="Repositories\VoteRepository.cs" />
@@ -431,6 +433,15 @@
     <EmbeddedResource Include="Migrations\201705111645024_ContributionAnotations.resx">
       <DependentUpon>201705111645024_ContributionAnotations.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705112133596_RefactorDataBase.resx">
+      <DependentUpon>201705112133596_RefactorDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\LobbyingMadeSimple.Core.csproj">
+      <Project>{8dfe2495-821f-4369-973d-eecc4d2c3e53}</Project>
+      <Name>LobbyingMadeSimple.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

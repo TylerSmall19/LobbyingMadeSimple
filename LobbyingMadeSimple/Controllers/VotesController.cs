@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Core;
 
 namespace LobbyingMadeSimple.Controllers
 {
@@ -40,7 +41,7 @@ namespace LobbyingMadeSimple.Controllers
                 {
                     var data = new
                     {
-                        issueId = issue.IssueID,
+                        issueId = issue.Id,
                         isVotable = false
                     };
 
@@ -62,7 +63,7 @@ namespace LobbyingMadeSimple.Controllers
                 vote = new Vote()
                 {
                     AuthorID = userId,
-                    IssueID = issue.IssueID,
+                    IssueID = issue.Id,
                     IsUpvote = isUpvote
                 };
 
@@ -80,7 +81,7 @@ namespace LobbyingMadeSimple.Controllers
                     {
                         votePercent = votePercent,
                         neededVotes = issue.VotesLeftUntilApproval(),
-                        issueId = issue.IssueID,
+                        issueId = issue.Id,
                         wasUpvote = isUpvote,
                         votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent),
                         isVotable = true

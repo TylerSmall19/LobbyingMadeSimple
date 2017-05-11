@@ -7,6 +7,7 @@ using Moq;
 using LobbyingMadeSimple.Interfaces;
 using System.Data.Entity;
 using System.Linq;
+using Core;
 
 namespace LobbyingMadeSimple.Tests.Repositories
 {

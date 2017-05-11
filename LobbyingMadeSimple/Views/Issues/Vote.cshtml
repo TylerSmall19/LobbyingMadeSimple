@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LobbyingMadeSimple.Models.Issue>
+﻿@model IEnumerable<Core.Issue>
 @using LobbyingMadeSimple.Helpers
 @using Microsoft.AspNet.Identity
 
@@ -14,7 +14,7 @@
 
 @foreach (var issue in Model)
 {
-    <div id="@issue.IssueID" class="issue border-bottom font-size-lg">
+    <div id="@issue.Id" class="issue border-bottom font-size-lg">
         <div class="row">
             <div class="col-md-5 col-md-offset-1">
                 <span class="text-left font-size-lg">
@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col-md-5 btn-holder col-md-offset-1">
                 @using (Html.BeginRouteForm("VoteRoute",
-                new { issueId = issue.IssueID, voteType = "Up" },
+                new { issueId = issue.Id, voteType = "Up" },
                 FormMethod.Post, new { @class = "vote-btn" }))
                 {
                     @Html.AntiForgeryToken()
@@ -47,7 +47,7 @@
                 }
 
                 @using (Html.BeginRouteForm("VoteRoute",
-                new { issueId = issue.IssueID, voteType = "Down" },
+                new { issueId = issue.Id, voteType = "Down" },
                 FormMethod.Post, new { @class="vote-btn" }))
                 {
                     @Html.AntiForgeryToken()

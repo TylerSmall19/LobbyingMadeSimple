@@ -135,9 +135,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LobbyingMadeSimple\LobbyingMadeSimple.csproj">
-      <Project>{DC8B0F75-5ADB-437F-9F86-6FA507ED6B0B}</Project>
-      <Name>LobbyingMadeSimple</Name>
+    <ProjectReference Include="..\Core\LobbyingMadeSimple.Core.csproj">
+      <Project>{8dfe2495-821f-4369-973d-eecc4d2c3e53}</Project>
+      <Name>LobbyingMadeSimple.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LobbyingMadeSimple\LobbyingMadeSimple.Web.csproj">
+      <Project>{dc8b0f75-5adb-437f-9f86-6fa507ed6b0b}</Project>
+      <Name>LobbyingMadeSimple.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

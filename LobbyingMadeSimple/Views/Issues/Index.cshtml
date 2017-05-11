@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LobbyingMadeSimple.Models.Issue>
+﻿@model IEnumerable<Core.Issue>
 
 @{
     ViewBag.Title = "Index";
@@ -62,9 +62,9 @@
             @Html.DisplayFor(modelItem => item.StateAbbrev)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IssueID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IssueID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IssueID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

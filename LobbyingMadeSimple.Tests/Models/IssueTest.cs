@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Models;
 using Moq;
+using Core;
 
 namespace LobbyingMadeSimple.Tests.Models
 {
