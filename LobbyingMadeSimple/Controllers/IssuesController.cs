@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Core;
+using LobbyingMadeSimple.Web.Models;
 
 namespace LobbyingMadeSimple.Controllers
 {
@@ -19,8 +20,10 @@ namespace LobbyingMadeSimple.Controllers
         // GET: Issues
         public ActionResult Index()
         {
-            List<Issue> issues = _repo.GetAll();
-            return View(issues);
+            List<IssueViewModel> issueViewModels = new List<IssueViewModel>();
+            _repo.GetAll().ForEach(i => issueViewModels.Add(i));
+
+            return View(issueViewModels);
         }
 
         // GET: Issues/Details/5
@@ -37,7 +40,7 @@ namespace LobbyingMadeSimple.Controllers
             {
                 return HttpNotFound();
             }
-            return View(issue);
+            return View(issue); // TODO: Make a IssueDetailsViewModel
         }
 
         // GET: Issues/Create
@@ -53,8 +56,9 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev,FundingGoal")] Issue issue)
+        public ActionResult Create(IssueViewModel vmIssue)
         {
+            Issue issue = vmIssue;
             issue.AuthorID = User.Identity.GetUserId();
 
             if (ModelState.IsValid)
@@ -81,7 +85,7 @@ namespace LobbyingMadeSimple.Controllers
                 return HttpNotFound();
             }
 
-            return View(issue);
+            return View((IssueViewModel)issue);
         }
 
         // POST: Issues/Edit/5
@@ -90,7 +94,7 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "Title,ShortDescription,LongDescription,IsStateIssue,StateAbbrev,FundingGoal")] Issue issue)
+        public ActionResult Edit(IssueViewModel issue)
         {
             if (ModelState.IsValid)
             {
