@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Models;
 using Moq;
 using System.Collections.Generic;

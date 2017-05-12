@@ -1,5 +1,5 @@
 ﻿using LobbyingMadeSimple.Helpers;
-using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Models;
 using Microsoft.AspNet.Identity;
 using System;

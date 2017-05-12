@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple;
 using LobbyingMadeSimple.Controllers;
 using Moq;
-using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Core.Interfaces;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {

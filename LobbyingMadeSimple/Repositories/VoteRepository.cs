@@ -1,4 +1,4 @@
-﻿using LobbyingMadeSimple.Interfaces;
+﻿using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Models;
 using System;
 using System.Collections.Generic;

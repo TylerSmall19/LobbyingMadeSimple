@@ -204,10 +204,6 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\StateListHelpers.cs" />
-    <Compile Include="Interfaces\IEditableBase.cs" />
-    <Compile Include="Interfaces\IIssueRepository.cs" />
-    <Compile Include="Interfaces\IRepoBase.cs" />
-    <Compile Include="Interfaces\IVoteRepository.cs" />
     <Compile Include="Migrations\201704211526350_InitialCreate.cs" />
     <Compile Include="Migrations\201704211526350_InitialCreate.Designer.cs">
       <DependentUpon>201704211526350_InitialCreate.cs</DependentUpon>

@@ -4,7 +4,7 @@ using LobbyingMadeSimple.Repositories;
 using LobbyingMadeSimple.Models;
 using System.Collections.Generic;
 using Moq;
-using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Core.Interfaces;
 using System.Data.Entity;
 using System.Linq;
 using Core;

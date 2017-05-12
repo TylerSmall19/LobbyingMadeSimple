@@ -1,10 +1,8 @@
-﻿using LobbyingMadeSimple.Models;
+﻿using Core;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Core;
 
-namespace LobbyingMadeSimple.Interfaces
+namespace LobbyingMadeSimple.Core.Interfaces
 {
     public interface IIssueRepository : IDisposable, IRepoBase<Issue>, IEditableBase<Issue>
     {

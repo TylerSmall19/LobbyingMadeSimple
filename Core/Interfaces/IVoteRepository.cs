@@ -1,8 +1,7 @@
-﻿using LobbyingMadeSimple.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core;
 
-namespace LobbyingMadeSimple.Interfaces
+namespace LobbyingMadeSimple.Core.Interfaces
 {
     public interface IVoteRepository : IRepoBase<Vote>, IEditableBase<Vote>
     {

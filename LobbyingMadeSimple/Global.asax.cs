@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using LobbyingMadeSimple.Interfaces;
+using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Models;
 using LobbyingMadeSimple.Repositories;
 using System;
