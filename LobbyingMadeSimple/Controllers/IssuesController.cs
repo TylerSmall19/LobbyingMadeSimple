@@ -66,7 +66,7 @@ namespace LobbyingMadeSimple.Controllers
                 _repo.Add(issue);
                 return RedirectToAction("Index");
             }
-            return View(issue);
+            return View((IssueViewModel)issue);
         }
 
         // GET: Issues/Edit/5
@@ -94,22 +94,24 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit(IssueViewModel issue)
+        public ActionResult Edit(IssueViewModel issueVm)
         {
+            // TODO: Refactor this 
             if (ModelState.IsValid)
             {
-                _repo.Update(issue);
+                _repo.Update(issueVm);
 
                 return RedirectToAction("Index");
             }
 
-            return View(issue);
+            return View(issueVm);
         }
 
         // GET: Issues/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            // TODO: Refactor into IssueDeleteViewModel
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -143,7 +145,10 @@ namespace LobbyingMadeSimple.Controllers
         public ActionResult Vote()
         {
             List<Issue> issues = _repo.GetAllVotableIssuesSortedByDate();
-            return View(issues);
+            List<IssueViewModel> issueVms = new List<IssueViewModel>();
+            issues.ForEach(i => issueVms.Add(i));
+
+            return View(issueVms);
         }
 
         protected override void Dispose(bool disposing)
