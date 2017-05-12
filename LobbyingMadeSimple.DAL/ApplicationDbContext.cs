@@ -1,8 +1,9 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Core;
+using LobbyingMadeSimple.Core;
 
-namespace LobbyingMadeSimple.Models
+namespace LobbyingMadeSimple.DAL
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

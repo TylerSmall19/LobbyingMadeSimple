@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using LobbyingMadeSimple.Models;
 using Core;
+using LobbyingMadeSimple.DAL;
 
 namespace LobbyingMadeSimple
 {

@@ -139,6 +139,10 @@
       <Project>{8dfe2495-821f-4369-973d-eecc4d2c3e53}</Project>
       <Name>LobbyingMadeSimple.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LobbyingMadeSimple.DAL\LobbyingMadeSimple.DAL.csproj">
+      <Project>{e3a24c23-4bab-416d-8f15-352dfce8f541}</Project>
+      <Name>LobbyingMadeSimple.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LobbyingMadeSimple\LobbyingMadeSimple.Web.csproj">
       <Project>{dc8b0f75-5adb-437f-9f86-6fa507ed6b0b}</Project>
       <Name>LobbyingMadeSimple.Web</Name>

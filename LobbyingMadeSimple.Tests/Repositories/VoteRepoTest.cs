@@ -8,6 +8,7 @@ using LobbyingMadeSimple.Core.Interfaces;
 using System.Data.Entity;
 using System.Linq;
 using Core;
+using LobbyingMadeSimple.DAL;
 
 namespace LobbyingMadeSimple.Tests.Repositories
 {

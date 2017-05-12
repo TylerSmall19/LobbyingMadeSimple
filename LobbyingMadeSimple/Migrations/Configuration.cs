@@ -5,7 +5,7 @@ namespace LobbyingMadeSimple.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LobbyingMadeSimple.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<LobbyingMadeSimple.DAL.ApplicationDbContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace LobbyingMadeSimple.Migrations
             ContextKey = "LobbyingMadeSimple.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(LobbyingMadeSimple.Models.ApplicationDbContext context)
+        protected override void Seed(LobbyingMadeSimple.DAL.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using Moq;
 using Core;
+using LobbyingMadeSimple.DAL;
 
 namespace LobbyingMadeSimple.Tests.Repositories
 {

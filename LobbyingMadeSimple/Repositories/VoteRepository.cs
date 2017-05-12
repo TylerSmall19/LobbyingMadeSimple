@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Core;
+using LobbyingMadeSimple.DAL;
 
 namespace LobbyingMadeSimple.Repositories
 {

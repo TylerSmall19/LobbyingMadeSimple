@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Models;
 using Moq;
 using Core;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Tests.Models
 {

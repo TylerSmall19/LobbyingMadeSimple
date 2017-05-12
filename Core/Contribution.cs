@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using Core;
 
-namespace LobbyingMadeSimple.Models
+namespace LobbyingMadeSimple.Core
 {
     public class Contribution
     {

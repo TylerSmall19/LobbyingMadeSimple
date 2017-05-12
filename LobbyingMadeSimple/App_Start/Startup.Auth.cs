@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using LobbyingMadeSimple.Models;
 using Core;
+using LobbyingMadeSimple.DAL;
 
 namespace LobbyingMadeSimple
 {
