@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Helpers;
 using System.Collections.Generic;
 using System.Web.Mvc;

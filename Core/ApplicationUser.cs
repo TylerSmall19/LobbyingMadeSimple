@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Core
+namespace LobbyingMadeSimple.Core
 {
     public class ApplicationUser : IdentityUser
     {

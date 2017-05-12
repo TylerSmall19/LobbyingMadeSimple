@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Core.Interfaces;
-using LobbyingMadeSimple.Models;
 using Moq;
 using System.Collections.Generic;
 using LobbyingMadeSimple.Controllers;
@@ -10,7 +9,7 @@ using System.Web;
 using System.Security.Principal;
 using System.Reflection;
 using System.Linq;
-using Core;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {

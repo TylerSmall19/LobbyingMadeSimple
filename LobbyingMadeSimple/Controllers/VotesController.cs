@@ -1,14 +1,10 @@
 ﻿using LobbyingMadeSimple.Helpers;
 using LobbyingMadeSimple.Core.Interfaces;
-using LobbyingMadeSimple.Models;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Core;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Controllers
 {

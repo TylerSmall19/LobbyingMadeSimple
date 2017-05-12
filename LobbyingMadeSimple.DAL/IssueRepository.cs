@@ -2,10 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Collections;
 using System.Data.Entity;
-using Core;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.DAL
 {

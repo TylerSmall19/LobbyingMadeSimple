@@ -1,8 +1,7 @@
 namespace LobbyingMadeSimple.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Vote : DbMigration
     {
         public override void Up()

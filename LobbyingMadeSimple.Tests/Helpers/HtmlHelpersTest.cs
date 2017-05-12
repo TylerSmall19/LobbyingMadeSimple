@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Helpers;
 using Moq;
-using LobbyingMadeSimple.Models;
 using System.Collections.Generic;
-using Core;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Tests.Helpers
 {

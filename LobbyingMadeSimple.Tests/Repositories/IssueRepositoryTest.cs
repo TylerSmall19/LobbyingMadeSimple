@@ -1,12 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LobbyingMadeSimple.Models;
 using System.Collections.Generic;
-using System.Collections;
 using System.Data.Entity;
 using System.Linq;
 using Moq;
-using Core;
+using LobbyingMadeSimple.Core;
 using LobbyingMadeSimple.DAL;
 
 namespace LobbyingMadeSimple.Tests.Repositories

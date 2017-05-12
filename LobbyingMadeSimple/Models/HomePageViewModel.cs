@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Core;
+﻿using System.Collections.Generic;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Models
 {

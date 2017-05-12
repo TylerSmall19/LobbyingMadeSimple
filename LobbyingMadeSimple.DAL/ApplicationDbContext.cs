@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Core;
 using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.DAL

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LobbyingMadeSimple.Models;
 using Moq;
-using Core;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Tests.Models
 {
 
-/// <summary>
-/// Tests functionality of the Issue Model including logic to set approval and disapproval ratings
-/// and determine if an Issue can be approved for funding by voting alone
-/// </summary>
-[TestClass]
+    /// <summary>
+    /// Tests functionality of the Issue Model including logic to set approval and disapproval ratings
+    /// and determine if an Issue can be approved for funding by voting alone
+    /// </summary>
+    [TestClass]
     public class IssueTest
     {
         private Vote upVote;
