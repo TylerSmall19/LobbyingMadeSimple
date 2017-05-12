@@ -38,12 +38,12 @@ namespace LobbyingMadeSimple.Core
         [Display(Name = "Affected State")]
         public string StateAbbrev { get; set; }
 
-        // Non-User-Input properties
         [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Lobbying Amount Needed")]
         public double FundingGoal { get; set; } // Defaults to 50000.00
 
+        // Non-User-Input properties
         [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Funded So Far")]
