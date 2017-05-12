@@ -2,7 +2,6 @@
 using Autofac.Integration.Mvc;
 using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Models;
-using LobbyingMadeSimple.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +27,6 @@ namespace LobbyingMadeSimple
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<IssueRepository>().As<IIssueRepository>();
-            builder.RegisterType<VoteRepository>().As<IVoteRepository>();
             builder.RegisterType<ApplicationDbContext>();
 
             var container = builder.Build();

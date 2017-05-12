@@ -122,7 +122,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Repositories\IssueRepositoryTest.cs" />
-    <Compile Include="Repositories\VoteRepoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config">
