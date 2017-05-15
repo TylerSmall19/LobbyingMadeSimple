@@ -3,9 +3,6 @@
 @{
     ViewBag.Title = "Index";
 }
-<noscript>
-    <h3 class="text-danger">Voting only works with Javascript Enabled</h3>
-</noscript>
 
 <h2>Index</h2>
 
@@ -14,38 +11,32 @@
 </p>
 
 <table class="table">
+@foreach (var item in Model) {
     <tr>
         <th></th>
         <th></th>
         <th>
-            @Html.DisplayNameFor(model => model.Author.StateName)
+            @Html.DisplayNameFor(model => item.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => item.ShortDescription)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShortDescription)
+            @Html.DisplayNameFor(model => item.LongDescription)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LongDescription)
+            @Html.DisplayNameFor(model => item.IsStateIssue)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsStateIssue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StateAbbrev)
+            @Html.DisplayNameFor(model => item.StateAbbrev)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
     <tr>
         <td>
         </td>
         <td></td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.StateName)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
