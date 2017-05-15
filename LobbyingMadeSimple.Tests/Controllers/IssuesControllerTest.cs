@@ -10,6 +10,7 @@ using System.Security.Principal;
 using System.Reflection;
 using System.Linq;
 using LobbyingMadeSimple.Core;
+using LobbyingMadeSimple.Web.Models;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {
@@ -20,16 +21,16 @@ namespace LobbyingMadeSimple.Tests.Controllers
         private List<Issue> fundableIssues;
         private Issue votableIssue;
         private Issue fundableIssue;
-        private Issue newIssue;
+        private IssueViewModel newIssue;
         private IssuesController controller;
         private Mock<IIssueRepository> _repo;
 
         [TestInitialize]
         public void TestInit()
         {
-            votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true);
-            fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true);
-            newIssue = Mock.Of<Issue>();
+            votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true && i.Author.Id == "AuthId");
+            fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true && i.Author.Id == "authId");
+            newIssue = Mock.Of<IssueViewModel>();
             votableIssues = new List<Issue>() { votableIssue, votableIssue, votableIssue };
 
             _repo = new Mock<IIssueRepository>();
@@ -97,7 +98,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
             var result = controller.Create(newIssue) as RedirectToRouteResult;
 
             // Assert
-            _repo.Verify(r => r.Add(newIssue), Times.Exactly(1));
+            _repo.Verify(r => r.Add(It.IsAny<Issue>()), Times.Once);
             Assert.IsTrue(result.RouteValues.ContainsValue("Index"));
         }
 
@@ -114,31 +115,6 @@ namespace LobbyingMadeSimple.Tests.Controllers
             Assert.AreEqual("", result.ViewName); // Default View
             Assert.AreEqual(newIssue, result.Model);
         }
-
-        //[TestMethod]
-        //public void IssuesController_Create_Post_filters_allows_accepted_params_only()
-        //{
-        //    // Arrange
-        //    var issue = new Issue()
-        //    {
-        //        LongDescription = "L",
-        //        ShortDescription = "S",
-        //        Title = "T",
-        //        FundingGoal = 10,
-        //        IsStateIssue = true,
-        //        StateAbbrev = "MO",
-        //        IsVotableIssue = true
-        //    };
-        //    _repo.Setup(r => r.Add(issue)).Callback((Issue i) => Assert.AreEqual(null, i.IsVotableIssue));
-        //    IssuesController iController = new IssuesController(_repo.Object);
-
-        //    // Act
-        //    iController.PreBindModel(issue, "Create");
-        //    var result = iController.Create(issue) as RedirectToRouteResult;
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //}
 
         [TestMethod]
         public void IssuesController_Delete_Get_returns_correct_view_and_model_when_called_with_valid_data()
@@ -195,44 +171,26 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Vote_sets_model_to_AllVotable_and_renders_a_view()
+        public void IssuesController_Vote_sets_model_to_AllVotableIssues()
         {
+            // Arrange
+            var votableIssueVms = new List<IssueViewModel>();
+            votableIssues.ForEach(i => votableIssueVms.Add(i));
+
             // Act
             var result = controller.Vote() as ViewResult;
+            var resultModel = result.Model as List<IssueViewModel>;
 
             // Assert
-            Assert.AreEqual("", result.ViewName);
-            Assert.AreEqual(votableIssues, result.Model);
-            _repo.Verify(r => r.GetAllVotableIssuesSortedByDate(), Times.Once);
-        }
-    }
-
-    #region Test Helper Class
-    public static class TestHelpers {
-        public static void PreBindModel(this Controller controller, Issue model, string operationName)
-        {
-            // Find the params of the action that accepts a model (create/edit in this case can take models)
-            foreach (var paramToAction in controller.GetType().GetMethod(operationName,
-                BindingFlags.Public,
-                null,
-                CallingConventions.Any,
-                new Type[] { typeof(Issue) },
-                null)
-                .GetParameters())
+            for(var i = 0; i < votableIssueVms.Count; i++)
             {
-                // Get the attributes that can be written based on each param
-                foreach (BindAttribute bindAttribute in paramToAction.GetCustomAttributes(true))
-                {
-                    var propertiesToReset = typeof(Issue).GetProperties().Where(x => bindAttribute.IsPropertyAllowed(x.Name) == false);
-
-                    // Reset each Property if it's not included in the list of bound properties
-                    foreach (var propertyToReset in propertiesToReset)
-                    {
-                        propertyToReset.SetValue(model, null);
-                    }
-                }
+                Assert.AreEqual(votableIssueVms[i].Id, resultModel[i].Id);
+                Assert.AreEqual(votableIssueVms[i].Title, resultModel[i].Title);
+                Assert.AreEqual(votableIssueVms[i].ShortDescription, resultModel[i].ShortDescription);
+                Assert.AreEqual(votableIssueVms[i].LongDescription, resultModel[i].LongDescription);
+                Assert.AreEqual(votableIssueVms[i].IsStateIssue, resultModel[i].IsStateIssue);
+                Assert.AreEqual(votableIssueVms[i].StateAbbrev, resultModel[i].StateAbbrev);
             }
         }
     }
-    #endregion
 }

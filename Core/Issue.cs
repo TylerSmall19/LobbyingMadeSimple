@@ -64,7 +64,7 @@ namespace LobbyingMadeSimple.Core
         /// Formats the double percentage to a displayable string percentage 
         /// </summary>
         /// <returns>A string representing the percetange of the issue's upvotes versus total votes </returns>
-        public string GetPrettyPercentage()
+        public virtual string GetPrettyPercentage()
         {
             string result = Math.Round(GetPercentage() * 100).ToString();
             return result == "NaN" ? "0" : result;
@@ -102,7 +102,7 @@ namespace LobbyingMadeSimple.Core
         /// Determines the numer of votes left for the issue before voting will end
         /// </summary>
         /// <returns>The number of votes needed until it can reach approval stage</returns>
-        public int VotesLeftUntilApproval()
+        public virtual int VotesLeftUntilApproval()
         {
             return VoteCountNeeded - TotalVotes();
         }

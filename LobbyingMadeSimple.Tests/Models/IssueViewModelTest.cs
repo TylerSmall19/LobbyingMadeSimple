@@ -36,24 +36,26 @@ namespace LobbyingMadeSimple.Tests.Models
         [TestMethod]
         public void IssueViewModel_can_be_assigned_from_raw_entity()
         {
-            Issue issueEntity = new Issue()
-            {
-                Title = "Title",
-                ShortDescription = "Short",
-                LongDescription = "Long",
-                StateAbbrev = "MO",
-                IsStateIssue = true,
-                FundingGoal = 75000.00,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                Id = 1,
-                AuthorID = "authorId",
-                FundingRaised = 2500,
-                IsFundable = true,
-                IsVotableIssue = false,
-                VoteCountNeeded = 0,
-                Votes = new List<Vote>()
-            };
+            Issue issueEntity = Mock.Of<Issue>(
+                i => i.Title == "Title"
+                && i.ShortDescription == "Short"
+                && i.LongDescription == "Long"
+                && i.StateAbbrev == "MO"
+                && i.IsStateIssue == true
+                && i.FundingGoal == 75000.00
+                && i.CreatedAt == DateTime.Now
+                && i.UpdatedAt == DateTime.Now
+                && i.Id == 1
+                && i.AuthorID == "authorId"
+                && i.FundingRaised == 2500
+                && i.IsFundable == true
+                && i.IsVotableIssue == false
+                && i.VoteCountNeeded == 0
+                && i.Votes == new List<Vote>()
+                && i.Author.Id == "AuthorID"
+                && i.GetPrettyPercentage() == "60"
+                && i.VotesLeftUntilApproval() == 1500
+            );
 
             IssueViewModel vm = issueEntity;
 
@@ -63,6 +65,9 @@ namespace LobbyingMadeSimple.Tests.Models
             Assert.AreEqual("MO", vm.StateAbbrev);
             Assert.IsTrue(vm.IsStateIssue);
             Assert.AreEqual(75000.00, vm.FundingGoal);
+            Assert.AreEqual("60", vm.ApprovalPercentage);
+            Assert.AreEqual(1500, vm.VotesLeftUntilApproval);
+            Assert.AreEqual(1, vm.Id);
         }
     }
 }

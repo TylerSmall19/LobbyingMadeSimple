@@ -49,19 +49,6 @@ namespace LobbyingMadeSimple.Web.Models
         public string DownvoteButtonColor { get; set; }
 
         // Conversion operators
-        public static implicit operator Issue(IssueViewModel vm)
-        {
-            return new Issue()
-            {
-                Title = vm.Title,
-                ShortDescription = vm.ShortDescription,
-                LongDescription = vm.LongDescription,
-                IsStateIssue = vm.IsStateIssue,
-                StateAbbrev = vm.StateAbbrev,
-                FundingGoal = vm.FundingGoal
-            };
-        }
-
         public static implicit operator IssueViewModel(Issue issue)
         {
             return new IssueViewModel()
@@ -77,6 +64,19 @@ namespace LobbyingMadeSimple.Web.Models
                 ApprovalPercentage = issue.GetPrettyPercentage(),
                 UpvoteButtonColor = HtmlHelpers.GetVoteButtonColor(issue.Author.Id, issue, true),
                 DownvoteButtonColor = HtmlHelpers.GetVoteButtonColor(issue.Author.Id, issue, false)
+            };
+        }
+
+        public static implicit operator Issue(IssueViewModel vm)
+        {
+            return new Issue()
+            {
+                Title = vm.Title,
+                ShortDescription = vm.ShortDescription,
+                LongDescription = vm.LongDescription,
+                IsStateIssue = vm.IsStateIssue,
+                StateAbbrev = vm.StateAbbrev,
+                FundingGoal = vm.FundingGoal
             };
         }
     }

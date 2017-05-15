@@ -66,7 +66,7 @@ namespace LobbyingMadeSimple.Controllers
                 _repo.Add(issue);
                 return RedirectToAction("Index");
             }
-            return View((IssueViewModel)issue);
+            return View(vmIssue);
         }
 
         // GET: Issues/Edit/5
