@@ -47,7 +47,7 @@ namespace LobbyingMadeSimple.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            return View();
+            return View(new IssueViewModel());
         }
 
         // POST: Issues/Create

@@ -1,4 +1,5 @@
 ﻿using LobbyingMadeSimple.Core;
+using LobbyingMadeSimple.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -44,6 +45,8 @@ namespace LobbyingMadeSimple.Web.Models
         public int Id { get; set; }
         public int VotesLeftUntilApproval { get; set; }
         public string ApprovalPercentage { get; set; }
+        public string UpvoteButtonColor { get; set; }
+        public string DownvoteButtonColor { get; set; }
 
         // Conversion operators
         public static implicit operator Issue(IssueViewModel vm)
@@ -71,7 +74,9 @@ namespace LobbyingMadeSimple.Web.Models
                 StateAbbrev = issue.StateAbbrev,
                 FundingGoal = issue.FundingGoal,
                 VotesLeftUntilApproval = issue.VotesLeftUntilApproval(),
-                ApprovalPercentage = issue.GetPrettyPercentage()
+                ApprovalPercentage = issue.GetPrettyPercentage(),
+                UpvoteButtonColor = HtmlHelpers.GetVoteButtonColor(issue.Author.Id, issue, true),
+                DownvoteButtonColor = HtmlHelpers.GetVoteButtonColor(issue.Author.Id, issue, false)
             };
         }
     }

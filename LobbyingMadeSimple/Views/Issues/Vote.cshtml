@@ -43,7 +43,7 @@
                 FormMethod.Post, new { @class = "vote-btn" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input class="btn up-vote btn-default @HtmlHelpers.GetVoteButtonColor(HttpContext.Current.User.Identity.GetUserId(), issue, true)" type="submit" value="I Agree">
+                    <input class="btn up-vote btn-default @issue.UpvoteButtonColor" type="submit" value="I Agree">
                 }
 
                 @using (Html.BeginRouteForm("VoteRoute",
@@ -51,7 +51,7 @@
                 FormMethod.Post, new { @class="vote-btn" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input class="btn down-vote btn-default @HtmlHelpers.GetVoteButtonColor(HttpContext.Current.User.Identity.GetUserId(), issue, false)" type="submit" value="I Disagree">
+                    <input class="btn down-vote btn-default @issue.DownvoteButtonColor" type="submit" value="I Disagree">
                 }
             </div>
         </div>
