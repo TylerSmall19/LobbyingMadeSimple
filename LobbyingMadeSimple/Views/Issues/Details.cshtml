@@ -1,4 +1,4 @@
-﻿@model LobbyingMadeSimple.Core.Issue
+﻿@model LobbyingMadeSimple.Web.Models.IssueViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -10,14 +10,6 @@
     <h4>Issue</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.StateName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.StateName)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>

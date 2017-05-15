@@ -1,4 +1,4 @@
-﻿@model LobbyingMadeSimple.Core.Issue
+﻿@model LobbyingMadeSimple.Web.Models.IssueViewModel
 @using LobbyingMadeSimple.Helpers
 
 
@@ -55,7 +55,7 @@
         <div class="form-group">
             <div class="col-md-6 col-sm-12 col-md-offset-3">
                 @Html.LabelFor(m => m.FundingGoal, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(m => m.FundingGoal, new { htmlAttributes = new { @class = "form-control", @Value = "50,000" } })
+                @Html.EditorFor(m => m.FundingGoal, new { htmlAttributes = new { @class = "form-control", @Value = Model.FundingGoal } })
                 @Html.ValidationMessageFor(m => m.FundingGoal, "", new { @class = "text-danger" })
             </div>
         </div>

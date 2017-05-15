@@ -40,6 +40,11 @@ namespace LobbyingMadeSimple.Web.Models
         [Display(Name = "Lobbying Amount Needed")]
         public double FundingGoal { get; set; } // Defaults to 50000.00
 
+        // Non-editable properties
+        public int Id { get; set; }
+        public int VotesLeftUntilApproval { get; set; }
+        public string ApprovalPercentage { get; set; }
+
         // Conversion operators
         public static implicit operator Issue(IssueViewModel vm)
         {
@@ -58,12 +63,15 @@ namespace LobbyingMadeSimple.Web.Models
         {
             return new IssueViewModel()
             {
+                Id = issue.Id,
                 Title = issue.Title,
                 ShortDescription = issue.ShortDescription,
                 LongDescription = issue.LongDescription,
                 IsStateIssue = issue.IsStateIssue,
                 StateAbbrev = issue.StateAbbrev,
-                FundingGoal = issue.FundingGoal
+                FundingGoal = issue.FundingGoal,
+                VotesLeftUntilApproval = issue.VotesLeftUntilApproval(),
+                ApprovalPercentage = issue.GetPrettyPercentage()
             };
         }
     }

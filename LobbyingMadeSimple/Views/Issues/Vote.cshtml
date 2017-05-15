@@ -22,10 +22,10 @@
                 </span>
             </div>
             <div class="col-md-3 col-md-offset-3">
-                <span class="vote-count-display text-right highlight"> @issue.VotesLeftUntilApproval() </span> Needed
+                <span class="vote-count-display text-right highlight"> @issue.VotesLeftUntilApproval </span> Needed
 
-                <span class="@HtmlHelpers.GetCssClassForVotePercentage(issue.GetPrettyPercentage()) vote-percentage-string">
-                    <span class="vote-percentage text-right">@issue.GetPrettyPercentage()</span>%
+                <span class="@HtmlHelpers.GetCssClassForVotePercentage(issue.ApprovalPercentage) vote-percentage-string">
+                    <span class="vote-percentage text-right">@issue.ApprovalPercentage</span>%
                 </span>
             </div>
         </div>
