@@ -5,11 +5,6 @@ using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Tests.Models
 {
-
-    /// <summary>
-    /// Tests functionality of the Issue Model including logic to set approval and disapproval ratings
-    /// and determine if an Issue can be approved for funding by voting alone
-    /// </summary>
     [TestClass]
     public class IssueTest
     {
@@ -30,10 +25,6 @@ namespace LobbyingMadeSimple.Tests.Models
             downVote =  Mock.Of<Vote>(v => v.IsUpvote == false);
         }
 
-        /// <summary>
-        /// Tests the constructor defaults of the issue
-        /// Any new construtor defaults should get Asserted here
-        /// </summary>
         [TestMethod]
         public void Issue_constructor_defaults_are_valid()
         {

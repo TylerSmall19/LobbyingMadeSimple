@@ -155,7 +155,7 @@ namespace LobbyingMadeSimple.Controllers
         public ActionResult Fund()
         {
             var fundableIssues = _repo.GetAllFundableIssuesSortedByDate();
-            var fundableIssueVms = new List<IssueViewModel>();
+            var fundableIssueVms = new List<FundViewModel>();
             fundableIssues.ForEach(i => fundableIssueVms.Add(i));
 
             return View(fundableIssueVms);

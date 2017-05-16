@@ -191,12 +191,12 @@ namespace LobbyingMadeSimple.Tests.Controllers
         public void IssuesController_Fund_Get_returns_a_view_containing_all_fundable_issues()
         {
             // Arrange
-            var fundableIssueVms = new List<IssueViewModel>();
+            var fundableIssueVms = new List<FundViewModel>();
             fundableIssues.ForEach(i => fundableIssueVms.Add(i));
 
             // Act
             var result = controller.Fund() as ViewResult;
-            var resultModel = result.Model as List<IssueViewModel>;
+            var resultModel = result.Model as List<FundViewModel>;
 
             // Assert
             Assert.AreEqual("", result.ViewName); // Using default view name Fund
