@@ -151,6 +151,16 @@ namespace LobbyingMadeSimple.Controllers
             return View(issueVms);
         }
 
+        [HttpGet]
+        public ActionResult Fund()
+        {
+            var fundableIssues = _repo.GetAllFundableIssuesSortedByDate();
+            var fundableIssueVms = new List<IssueViewModel>();
+            fundableIssues.ForEach(i => fundableIssueVms.Add(i));
+
+            return View(fundableIssueVms);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Linq;
 using LobbyingMadeSimple.Core;
 using LobbyingMadeSimple.Web.Models;
+using DeepEqual.Syntax;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {
@@ -29,15 +30,16 @@ namespace LobbyingMadeSimple.Tests.Controllers
         public void TestInit()
         {
             votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true && i.Author.Id == "AuthId");
-            fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true && i.Author.Id == "authId");
+            fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true && i.Author.Id == "AuthId");
             newIssue = Mock.Of<IssueViewModel>();
             votableIssues = new List<Issue>() { votableIssue, votableIssue, votableIssue };
+            fundableIssues = new List<Issue>() { fundableIssue, fundableIssue, fundableIssue };
 
             _repo = new Mock<IIssueRepository>();
             _repo.Setup(r => r.Find(1)).Returns(votableIssue);
             _repo.Setup(r => r.Add(newIssue)).Verifiable();
             _repo.Setup(r => r.GetAllVotableIssuesSortedByDate()).Returns(votableIssues);
-            //&& r.GetAllFundableIssuesSortedByDate() == fundableIssues
+            _repo.Setup(r => r.GetAllFundableIssuesSortedByDate()).Returns(fundableIssues);
             //&& r.GetAllVotableIssuesSortedByVoteCount() == votableIssues
 
             controller = new IssuesController(_repo.Object);
@@ -182,15 +184,23 @@ namespace LobbyingMadeSimple.Tests.Controllers
             var resultModel = result.Model as List<IssueViewModel>;
 
             // Assert
-            for(var i = 0; i < votableIssueVms.Count; i++)
-            {
-                Assert.AreEqual(votableIssueVms[i].Id, resultModel[i].Id);
-                Assert.AreEqual(votableIssueVms[i].Title, resultModel[i].Title);
-                Assert.AreEqual(votableIssueVms[i].ShortDescription, resultModel[i].ShortDescription);
-                Assert.AreEqual(votableIssueVms[i].LongDescription, resultModel[i].LongDescription);
-                Assert.AreEqual(votableIssueVms[i].IsStateIssue, resultModel[i].IsStateIssue);
-                Assert.AreEqual(votableIssueVms[i].StateAbbrev, resultModel[i].StateAbbrev);
-            }
+            resultModel.ShouldDeepEqual(votableIssueVms);
+        }
+        
+        [TestMethod]
+        public void IssuesController_Fund_Get_returns_a_view_containing_all_fundable_issues()
+        {
+            // Arrange
+            var fundableIssueVms = new List<IssueViewModel>();
+            fundableIssues.ForEach(i => fundableIssueVms.Add(i));
+
+            // Act
+            var result = controller.Fund() as ViewResult;
+            var resultModel = result.Model as List<IssueViewModel>;
+
+            // Assert
+            Assert.AreEqual("", result.ViewName); // Using default view name Fund
+            resultModel.ShouldDeepEqual(fundableIssueVms);
         }
     }
 }

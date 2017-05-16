@@ -278,6 +278,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FundViewModel.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IssueViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -354,6 +355,7 @@
     <Content Include="Views\Shared\_VotableHomepageIssue.cshtml" />
     <Content Include="Views\Shared\_FundableHomePageIssue.cshtml" />
     <Content Include="Views\Shared\_DetailsButton.cshtml" />
+    <Content Include="Views\Issues\Fund.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
