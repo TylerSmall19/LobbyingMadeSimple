@@ -4,5 +4,15 @@
     <h2>@Model.Title @Html.ActionLink("Contribute", "Fund", "Contributions", new { id = Model.Id }, new { @class = "btn btn-primary" })</h2>
     <p>@Model.ShortDescription</p>
     @Html.ActionLink("Read More", "Details", new { id = Model.Id }, new { @class="btn btn-default" })
-    <p class="funding-info"><span class="funding-goal">$@Model.FundingRaised</span> / $@Model.FundingGoal</p>
+    <p class="funding-info"><span class="funding-goal">$@Model.FundingRaised</span> / $@Model.FundingGoal</p> 
+    <div class="progress">
+        <div class="progress-bar progress-bar-custom" 
+                role="progressbar" 
+                aria-valuenow="@Model.GetPrettyFundingPercentage()" 
+                aria-valuemin="0" 
+                aria-valuemax="100" 
+                style="width: @Model.GetPrettyFundingPercentage();">
+            <span class="text-center">@Model.GetPrettyFundingPercentage()%</span>
+        </div>
+    </div>
 </div>

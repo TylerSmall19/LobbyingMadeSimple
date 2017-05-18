@@ -1,0 +1,23 @@
+﻿.progress {
+    background: rgba(219, 0, 0, 1);
+    background: -webkit-linear-gradient(top, rgba(153, 0, 0, 1) 0%, rgba(219, 0, 0, 1) 100%);
+    background: linear-gradient(to bottom, rgba(153, 0, 0, 1) 0%, rgba(219, 0, 0, 1) 100%);
+    border: 0px solid rgba(255, 255, 255, 1);
+    border-radius: 19px;
+    height: 34px;
+    position: relative;
+}
+
+/* Center DIV Text */
+.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    font-size: 1.4em;
+}
+
+.progress-bar-custom {
+    background: rgba(108, 204, 74, 1);
+    background: -webkit-linear-gradient(top, rgba(37, 105, 0, 1) 0%, rgba(108, 204, 74, 1) 100%);
+    background: linear-gradient(to bottom, rgba(37, 105, 0, 1) 0%, rgba(108, 204, 74, 1) 100%);
+}

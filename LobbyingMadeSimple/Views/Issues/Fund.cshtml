@@ -13,3 +13,8 @@
 {
     @Html.Partial("_FundIssue", vm)
 }
+
+@section scripts{
+    @Styles.Render("/Content/fund.css")
+    @Scripts.Render("/Scripts/progress-bar.js")
+}
