@@ -34,6 +34,52 @@ namespace LobbyingMadeSimple.Tests.Models
         }
 
         [TestMethod]
+        public void IssueViewModel_doesnt_set_StateAbbrev_if_IsStateIssue_false()
+        {
+            IssueViewModel vm = new IssueViewModel()
+            {
+                Title = "Title",
+                ShortDescription = "Short",
+                LongDescription = "Long",
+                StateAbbrev = "MO",
+                IsStateIssue = false,
+                FundingGoal = 75000.00
+            };
+
+            Issue issue = vm;
+
+            Assert.AreEqual("Title", issue.Title);
+            Assert.AreEqual("Short", issue.ShortDescription);
+            Assert.AreEqual("Long", issue.LongDescription);
+            Assert.IsNull(issue.StateAbbrev);
+            Assert.IsFalse(issue.IsStateIssue);
+            Assert.AreEqual(75000.00, issue.FundingGoal);
+        }
+
+        [TestMethod]
+        public void IssueViewModel_sets_StateAbbrev_when_IsStateIssue_true()
+        {
+            IssueViewModel vm = new IssueViewModel()
+            {
+                Title = "Title",
+                ShortDescription = "Short",
+                LongDescription = "Long",
+                StateAbbrev = "MO",
+                IsStateIssue = true,
+                FundingGoal = 75000.00
+            };
+
+            Issue issue = vm;
+
+            Assert.AreEqual("Title", issue.Title);
+            Assert.AreEqual("Short", issue.ShortDescription);
+            Assert.AreEqual("Long", issue.LongDescription);
+            Assert.AreEqual("MO", issue.StateAbbrev);
+            Assert.IsTrue(issue.IsStateIssue);
+            Assert.AreEqual(75000.00, issue.FundingGoal);
+        }
+
+        [TestMethod]
         public void IssueViewModel_can_be_assigned_from_raw_entity()
         {
             Issue issueEntity = Mock.Of<Issue>(

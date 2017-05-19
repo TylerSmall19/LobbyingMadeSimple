@@ -69,15 +69,20 @@ namespace LobbyingMadeSimple.Web.Models
 
         public static implicit operator Issue(IssueViewModel vm)
         {
-            return new Issue()
+            var issue = new Issue()
             {
                 Title = vm.Title,
                 ShortDescription = vm.ShortDescription,
                 LongDescription = vm.LongDescription,
                 IsStateIssue = vm.IsStateIssue,
-                StateAbbrev = vm.StateAbbrev,
                 FundingGoal = vm.FundingGoal
             };
+
+            if (vm.IsStateIssue)
+            {
+                issue.StateAbbrev = vm.StateAbbrev;
+            }
+            return issue;
         }
     }
 }
