@@ -289,6 +289,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fund.css" />
+    <Content Include="Scripts\currency.js" />
     <Content Include="Scripts\Tests\tests.html" />
     <Content Include="Scripts\Tests\qunit.css" />
     <Content Include="favicon.ico" />
