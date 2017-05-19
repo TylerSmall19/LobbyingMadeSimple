@@ -3,17 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <title>QUnit Tests</title>
-    <link href="qunit.css" rel="stylesheet" />
-    <!-- Framework Scripts -->
-    <script src="qunit.js"></script>
-    <!-- Source Scripts To Test -->
-    <!-- Tests -->
+    <!--<link href="qunit.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.3.2.css">
 </head>
 <body>
-    <h1 id="qunit-header">Test</h1>
-    <div id="qunit-testrunner-toolbar"></div>
-    <h2 id="qunit-userAgent"></h2>
-    <div id="qunit-tests"></div>
-    <p id="qunit-testresult"></p>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <!-- Framework Scripts -->
+    <script src="../jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/qunit/qunit-2.3.2.js"></script>
+
+    <!-- Source Scripts To Test -->
+    <script src="../currency.js"></script>
+
+    <!-- Tests -->
+    <script src="currency.tests.js"></script>
 </body>
 </html>

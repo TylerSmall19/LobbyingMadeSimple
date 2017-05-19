@@ -3,6 +3,7 @@
 
     // Add commas when things first get loaded in
     addCommas($currencyFields);
+
     // Handle subsequent changes to the currency input fields
     $currencyFields.on('input', addCommas.bind(this, $currencyFields));
     $('.currency-form').on('submit', stripCurrencyFieldCommasBeforeSubmission);
@@ -27,9 +28,12 @@ function formatNumberToCurrency(numberString) {
 }
 
 function stripCurrencyFieldCommasBeforeSubmission(e) {
-    $(this)
-        .find('.currency-field')
-        .each(function (i, field) {
-            field.value = field.value.replace(/,/g, '');
-        });
+    var $fields = $(this).find('.currency-field');
+    removeCommasFromFields($fields);
+}
+
+function removeCommasFromFields(fields) {
+    fields.each(function (i, field) {
+        field.value = stripCommas(field.value);
+    });
 }
