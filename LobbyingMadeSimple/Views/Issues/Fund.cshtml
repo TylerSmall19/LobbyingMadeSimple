@@ -7,8 +7,6 @@
 
 <h2>Fund</h2>
 
-<hr />
-
 @foreach (FundViewModel vm in Model)
 {
     @Html.Partial("_FundIssue", vm)
@@ -16,5 +14,4 @@
 
 @section scripts{
     @Styles.Render("/Content/fund.css")
-    @Scripts.Render("/Scripts/progress-bar.js")
 }

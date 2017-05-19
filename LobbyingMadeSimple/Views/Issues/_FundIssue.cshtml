@@ -1,18 +1,38 @@
 ﻿@model LobbyingMadeSimple.Web.Models.FundViewModel
+<hr />
 
-<div id="@Model.Id">
-    <h2>@Model.Title @Html.ActionLink("Contribute", "Fund", "Contributions", new { id = Model.Id }, new { @class = "btn btn-primary" })</h2>
-    <p>@Model.ShortDescription</p>
-    @Html.ActionLink("Read More", "Details", new { id = Model.Id }, new { @class="btn btn-default" })
-    <p class="funding-info"><span class="funding-goal">$@Model.FundingRaised</span> / $@Model.FundingGoal</p> 
-    <div class="progress">
-        <div class="progress-bar progress-bar-custom" 
-                role="progressbar" 
-                aria-valuenow="@Model.GetPrettyFundingPercentage()" 
-                aria-valuemin="0" 
-                aria-valuemax="100" 
-                style="width: @Model.GetPrettyFundingPercentage();">
-            <span class="text-center">@Model.GetPrettyFundingPercentage()%</span>
+<div id="@Model.Id"  class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="col-sm-12">
+            <h2 class="issue-title">@Model.Title </h2>
+        </div>
+
+        <div class="detail-row col-sm-12">
+            <p class="issue-description hidden-xs">@Model.ShortDescription</p>
+        </div>
+    
+        <div class="col-sm-12">
+            
+            
+            <div class="progress col-sm-6 col-sm-offset-1">
+                <div class="progress-bar progress-bar-custom" 
+                        role="progressbar" 
+                        aria-valuenow="@Model.GetPrettyFundingPercentage()" 
+                        aria-valuemin="0" 
+                        aria-valuemax="100" 
+                        style="width: @Model.GetPrettyFundingPercentage();">
+
+                    <span class="funding-info"><span class="funding-goal">$@Model.FundingRaised</span> / $@Model.FundingGoal</span>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-4">
+            <div class="btn-group btn-group-justified">
+                @Html.ActionLink("Read More", "Details", new { id = Model.Id }, new { @class="btn btn-default" })
+                @Html.ActionLink("Contribute", "Fund", "Contributions", new { id = Model.Id }, new { @class = "btn btn-primary" })
+            </div>
         </div>
     </div>
 </div>
