@@ -1,4 +1,4 @@
-﻿@model LobbyingMadeSimple.Core.Issue
+﻿@model LobbyingMadeSimple.Web.Models.VotableHomeIssueViewModel
 @using LobbyingMadeSimple.Helpers
 
 <div class="issue">
@@ -7,15 +7,9 @@
         @Model.ShortDescription
     </p>
     <p class="details">
-        <span class="approval-rating @HtmlHelpers.GetCssClassForVotePercentage(Model.GetPrettyPercentage())">@Model.GetPrettyPercentage()%</span> | 
-        <span class="votes-needed">@Model.TotalVotes()</span><span class="votes"> Votes</span> | 
-        @if (Model.IsStateIssue)
-        {
-            <span>State Issue: @Model.StateAbbrev</span>
-        } else
-        {
-            <span>Federal Issue</span>
-        }
+        <span class="approval-rating @Model.ApprovalPercentageColor">@Model.ApprovalPercentage%</span> | 
+        <span class="votes-needed">@Model.VoteCount</span><span class="votes"> Votes</span> | 
+        @Model.IssueScope
     </p>
     @Html.Partial("_DetailsButton", Model)
 </div>
