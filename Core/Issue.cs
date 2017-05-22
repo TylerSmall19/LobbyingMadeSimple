@@ -93,7 +93,7 @@ namespace LobbyingMadeSimple.Core
         /// Used to get the total number of votes (both up and down) for an issue
         /// </summary>
         /// <returns>The number of votes for the issue after being totaled</returns>
-        public int TotalVotes()
+        public virtual int TotalVotes()
         {
             return UpvoteCount + DownVoteCount;
         }
