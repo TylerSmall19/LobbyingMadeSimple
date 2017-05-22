@@ -3,7 +3,7 @@
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Issues", "Index", "Issues")</li>
     <li>@Html.ActionLink("Vote", "Vote", "Issues")</li>
-    <li>@Html.ActionLink("Contribute", "Contribute", "Home")</li>
+    <li>@Html.ActionLink("Fund", "Fund", "Issues")</li>
     @if (Request.IsAuthenticated)
     {
        <li>@Html.ActionLink("Propose Issue", "Create", "Issues", null, new { @class="highlight" })</li>
