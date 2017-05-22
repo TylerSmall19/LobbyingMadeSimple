@@ -40,15 +40,15 @@
             <div class="col-md-5 btn-holder col-md-offset-1">
                 @using (Html.BeginRouteForm("VoteRoute",
                 new { issueId = issue.Id, voteType = "Up" },
-                FormMethod.Post, new { @class = "vote-btn" }))
+                FormMethod.Post, new { @class = "vote-btn btn-group" }))
                 {
-                    @Html.AntiForgeryToken()
                     <input class="btn up-vote btn-default @issue.UpvoteButtonColor" type="submit" value="I Agree">
+                    @Html.AntiForgeryToken()
                 }
 
                 @using (Html.BeginRouteForm("VoteRoute",
                 new { issueId = issue.Id, voteType = "Down" },
-                FormMethod.Post, new { @class="vote-btn" }))
+                FormMethod.Post, new { @class = "vote-btn btn-group" }))
                 {
                     @Html.AntiForgeryToken()
                     <input class="btn down-vote btn-default @issue.DownvoteButtonColor" type="submit" value="I Disagree">
