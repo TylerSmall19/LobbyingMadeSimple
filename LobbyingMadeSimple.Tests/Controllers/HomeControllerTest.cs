@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Controllers;
 using Moq;
 using LobbyingMadeSimple.Core.Interfaces;
+using System.Collections.Generic;
+using LobbyingMadeSimple.Core;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {
@@ -13,7 +15,9 @@ namespace LobbyingMadeSimple.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController(new Mock<IIssueRepository>().Object);
+            var repo = new Mock<IIssueRepository>();
+            repo.Setup(r => r.GetAllVotableIssuesSortedByVoteCount()).Returns(new List<Issue>());
+            HomeController controller = new HomeController(repo.Object);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;

@@ -1,5 +1,4 @@
 ﻿@model LobbyingMadeSimple.Web.Models.VotableHomeIssueViewModel
-@using LobbyingMadeSimple.Helpers
 
 <div class="issue">
     <h4>@Model.Title</h4>
@@ -11,5 +10,5 @@
         <span class="votes-needed">@Model.VoteCount</span><span class="votes"> Votes</span> | 
         @Model.IssueScope
     </p>
-    @Html.Partial("_DetailsButton", Model)
+    @Html.Partial("_DetailsButton", Model.Id)
 </div>

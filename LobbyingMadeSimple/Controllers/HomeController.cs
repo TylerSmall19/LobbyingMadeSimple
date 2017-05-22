@@ -1,6 +1,8 @@
 ﻿using LobbyingMadeSimple.Models;
 using System.Web.Mvc;
 using LobbyingMadeSimple.Core.Interfaces;
+using System.Collections.Generic;
+using LobbyingMadeSimple.Web.Models;
 
 namespace LobbyingMadeSimple.Controllers
 {
@@ -13,9 +15,13 @@ namespace LobbyingMadeSimple.Controllers
         }
         public ActionResult Index()
         {
+            var votableVms = new List<VotableHomeIssueViewModel>();
+            // Convert Issue entities into votableVms
+            _issueRepo.GetAllVotableIssuesSortedByVoteCount().ForEach(i => votableVms.Add(i));
+
             var viewModel = new HomePageViewModel()
             {
-                VotableIssues = _issueRepo.GetAllVotableIssuesSortedByVoteCount(),
+                VotableIssues = votableVms,
                 FundableIssues = _issueRepo.GetAllFundableIssuesSortedByDate()
             };
             
