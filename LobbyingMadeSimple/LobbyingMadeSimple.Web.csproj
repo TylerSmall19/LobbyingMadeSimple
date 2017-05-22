@@ -278,6 +278,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FundableHomeIssueViewModel.cs" />
     <Compile Include="Models\FundViewModel.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IssueViewModel.cs" />

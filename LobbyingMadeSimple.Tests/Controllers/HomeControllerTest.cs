@@ -17,6 +17,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Arrange
             var repo = new Mock<IIssueRepository>();
             repo.Setup(r => r.GetAllVotableIssuesSortedByVoteCount()).Returns(new List<Issue>());
+            repo.Setup(r => r.GetAllFundableIssuesSortedByDate()).Returns(new List<Issue>());
             HomeController controller = new HomeController(repo.Object);
 
             // Act

@@ -16,13 +16,16 @@ namespace LobbyingMadeSimple.Controllers
         public ActionResult Index()
         {
             var votableVms = new List<VotableHomeIssueViewModel>();
-            // Convert Issue entities into votableVms
+            var fundableVms = new List<FundableHomeIssueViewModel>();
+
+            // Convert Issue entities into vm collections
             _issueRepo.GetAllVotableIssuesSortedByVoteCount().ForEach(i => votableVms.Add(i));
+            _issueRepo.GetAllFundableIssuesSortedByDate().ForEach(i => fundableVms.Add(i));
 
             var viewModel = new HomePageViewModel()
             {
                 VotableIssues = votableVms,
-                FundableIssues = _issueRepo.GetAllFundableIssuesSortedByDate()
+                FundableIssues = fundableVms
             };
             
             return View(viewModel);
