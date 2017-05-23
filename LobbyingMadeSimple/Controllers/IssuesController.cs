@@ -145,8 +145,8 @@ namespace LobbyingMadeSimple.Controllers
         public ActionResult Vote()
         {
             List<Issue> issues = _repo.GetAllVotableIssuesSortedByDate();
-            List<IssueViewModel> issueVms = new List<IssueViewModel>();
-            issues.ForEach(i => issueVms.Add(i));
+            List<VoteViewModel> issueVms = new List<VoteViewModel>();
+            issues.ForEach(i => issueVms.Add(i.ConvertToVoteViewModel(User.Identity.GetUserId())));
 
             return View(issueVms);
         }
