@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LobbyingMadeSimple.Core.Interfaces;
 using Moq;
 using System.Collections.Generic;
@@ -7,11 +6,10 @@ using LobbyingMadeSimple.Controllers;
 using System.Web.Mvc;
 using System.Web;
 using System.Security.Principal;
-using System.Reflection;
-using System.Linq;
 using LobbyingMadeSimple.Core;
 using LobbyingMadeSimple.Web.Models;
 using DeepEqual.Syntax;
+using PagedList;
 
 namespace LobbyingMadeSimple.Tests.Controllers
 {
@@ -29,7 +27,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         [TestInitialize]
         public void TestInit()
         {
-            votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true && i.Author.Id == "AuthId");
+            votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true && i.Author.Id == "AuthId" && i.GetPrettyPercentage() == "67");
             fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true && i.Author.Id == "AuthId");
             newIssue = Mock.Of<IssueViewModel>();
             votableIssues = new List<Issue>() { votableIssue, votableIssue, votableIssue };
@@ -53,7 +51,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Details_finds_the_correct_issue_when_called()
+        public void Details_finds_the_correct_issue_when_called()
         {
             // Act
             var result = controller.Details(1) as ViewResult;
@@ -63,7 +61,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Details_returns_no_view_if_Issue_not_found()
+        public void Details_returns_no_view_if_Issue_not_found()
         {
             // Act
             var result = controller.Details(2) as ViewResult;
@@ -73,7 +71,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Details_returns_null_when_bad_request_id_is_passed()
+        public void Details_returns_null_when_bad_request_id_is_passed()
         {
             // Act 
             var result = controller.Details(null) as ViewResult;
@@ -83,7 +81,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Create_Get_returns_view()
+        public void Create_Get_returns_view()
         {
             // Act
             var result = controller.Create() as ViewResult;
@@ -94,7 +92,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Create_Post_creates_a_new_object_and_redirects_to_index_when_passed_valid_data()
+        public void Create_Post_creates_a_new_object_and_redirects_to_index_when_passed_valid_data()
         {
             // Act
             var result = controller.Create(newIssue) as RedirectToRouteResult;
@@ -105,7 +103,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Create_Post_renders_view_when_invalid_data_is_passed()
+        public void Create_Post_renders_view_when_invalid_data_is_passed()
         {
             // Arrange
             controller.ModelState.AddModelError("testError", "You shall NOT pass!");
@@ -119,7 +117,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Delete_Get_returns_correct_view_and_model_when_called_with_valid_data()
+        public void Delete_Get_returns_correct_view_and_model_when_called_with_valid_data()
         {
             // Act
             var result = controller.Delete(1) as ViewResult;
@@ -130,7 +128,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Delete_Get_returns_400_when_id_is_null()
+        public void Delete_Get_returns_400_when_id_is_null()
         {
             // Act
             var result = controller.Delete(null) as HttpStatusCodeResult;
@@ -140,7 +138,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Delete_Get_returns_404_when_issue_is_not_found()
+        public void Delete_Get_returns_404_when_issue_is_not_found()
         {
             // Act
             var result = controller.Delete(2) as HttpNotFoundResult;
@@ -150,7 +148,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_DeleteConfirmed_removes_and_redirects_when_issue_is_found()
+        public void DeleteConfirmed_removes_and_redirects_when_issue_is_found()
         {
             // Act 
             var result = controller.DeleteConfirmed(1) as RedirectToRouteResult;
@@ -161,7 +159,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_DeleteConfirmed_doesnt_delete_when_id_not_valid()
+        public void DeleteConfirmed_doesnt_delete_when_id_not_valid()
         {
             // Act
             var result = controller.DeleteConfirmed(2) as RedirectToRouteResult;
@@ -173,22 +171,23 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
-        public void IssuesController_Vote_sets_model_to_AllVotableIssues()
+        public void Vote_sets_model_to_AllVotableIssues()
         {
             // Arrange
-            var votableIssueVms = new List<IssueViewModel>();
-            votableIssues.ForEach(i => votableIssueVms.Add(i));
+            var votableIssueVms = new List<VoteViewModel>();
+            votableIssues.ForEach(i => votableIssueVms.Add(i.ConvertToVoteViewModel("test")));
 
             // Act
-            var result = controller.Vote() as ViewResult;
-            var resultModel = result.Model as List<IssueViewModel>;
+            var result = controller.Vote(1) as ViewResult;
+            var resultModel = result.Model;
 
             // Assert
-            resultModel.ShouldDeepEqual(votableIssueVms);
+            // This test will fail if page numbers are changed dramatically
+            resultModel.ShouldDeepEqual(votableIssueVms.ToPagedList(1, 12));
         }
         
         [TestMethod]
-        public void IssuesController_Fund_Get_returns_a_view_containing_all_fundable_issues()
+        public void Fund_Get_returns_a_view_containing_all_fundable_issues()
         {
             // Arrange
             var fundableIssueVms = new List<FundViewModel>();

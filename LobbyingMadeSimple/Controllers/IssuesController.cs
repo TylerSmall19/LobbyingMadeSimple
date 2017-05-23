@@ -143,7 +143,7 @@ namespace LobbyingMadeSimple.Controllers
         // GET: Issues/Vote
         [HttpGet]
         //[Authorize] TODO: Uncomment before production
-        public ActionResult Vote(int? page = 1)
+        public ActionResult Vote(int? page)
         {
             List<Issue> issues = _repo.GetAllVotableIssuesSortedByDate();
             List<VoteViewModel> issueVms = new List<VoteViewModel>();
