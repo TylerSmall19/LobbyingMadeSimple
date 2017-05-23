@@ -1,5 +1,6 @@
 ﻿@using LobbyingMadeSimple.Web.Models
-@model IEnumerable<FundViewModel>
+@using PagedList.Mvc
+@model PagedList.IPagedList<FundViewModel>
 
 @{
     ViewBag.Title = "Fund";
@@ -11,6 +12,15 @@
 {
     @Html.Partial("_FundIssue", vm)
 }
+<br />
+<div class="row">
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Fund",
+            new { page }))
+
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+</div>
 
 @section scripts{
     @Styles.Render("/Content/fund.css")

@@ -155,13 +155,15 @@ namespace LobbyingMadeSimple.Controllers
         }
 
         [HttpGet]
-        public ActionResult Fund()
+        public ActionResult Fund(int? page)
         {
             var fundableIssues = _repo.GetAllFundableIssuesSortedByDate();
             var fundableIssueVms = new List<FundViewModel>();
             fundableIssues.ForEach(i => fundableIssueVms.Add(i));
 
-            return View(fundableIssueVms);
+            var pageNumber = page ?? 1;
+            var pageSize = 15;
+            return View(fundableIssueVms.ToPagedList(pageNumber, pageSize));
         }
 
         protected override void Dispose(bool disposing)

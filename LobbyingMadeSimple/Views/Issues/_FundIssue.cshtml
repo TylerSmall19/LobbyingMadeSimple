@@ -12,15 +12,13 @@
         </div>
     
         <div class="col-sm-12">
-            
-            
             <div class="progress col-sm-6 col-sm-offset-1">
-                <div class="progress-bar progress-bar-custom" 
-                        role="progressbar" 
-                        aria-valuenow="@Model.GetPrettyFundingPercentage()" 
-                        aria-valuemin="0" 
-                        aria-valuemax="100" 
-                        style="width: @Model.GetPrettyFundingPercentage();">
+                <div class="progress-bar progress-bar-custom"
+                        role="progressbar"
+                        aria-valuenow='@Model.GetPrettyFundingPercentage()'
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style="width: @Model.GetPrettyFundingPercentage()%;">
 
                     <span class="funding-info"><span class="funding-goal">$@Model.FundingRaised</span> / $@Model.FundingGoal</span>
 

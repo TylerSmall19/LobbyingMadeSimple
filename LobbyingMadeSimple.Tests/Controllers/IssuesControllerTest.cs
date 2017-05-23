@@ -193,14 +193,15 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Arrange
             var fundableIssueVms = new List<FundViewModel>();
             fundableIssues.ForEach(i => fundableIssueVms.Add(i));
+            var pageNum = 1;
 
             // Act
-            var result = controller.Fund() as ViewResult;
-            var resultModel = result.Model as List<FundViewModel>;
+            var result = controller.Fund(pageNum) as ViewResult;
+            var resultModel = result.Model;
 
             // Assert
             Assert.AreEqual("", result.ViewName); // Using default view name Fund
-            resultModel.ShouldDeepEqual(fundableIssueVms);
+            resultModel.ShouldDeepEqual(fundableIssueVms.ToPagedList(pageNum, 15));
         }
     }
 }
