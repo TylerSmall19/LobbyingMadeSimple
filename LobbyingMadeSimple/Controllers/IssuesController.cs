@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Core;
 using LobbyingMadeSimple.Web.Models;
+using PagedList;
 
 namespace LobbyingMadeSimple.Controllers
 {
@@ -142,13 +143,15 @@ namespace LobbyingMadeSimple.Controllers
         // GET: Issues/Vote
         [HttpGet]
         //[Authorize] TODO: Uncomment before production
-        public ActionResult Vote()
+        public ActionResult Vote(int? page = 1)
         {
             List<Issue> issues = _repo.GetAllVotableIssuesSortedByDate();
             List<VoteViewModel> issueVms = new List<VoteViewModel>();
             issues.ForEach(i => issueVms.Add(i.ConvertToVoteViewModel(User.Identity.GetUserId())));
 
-            return View(issueVms);
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+            return View(issueVms.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]
