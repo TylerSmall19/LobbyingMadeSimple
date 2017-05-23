@@ -95,7 +95,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         public void Create_Post_creates_a_new_object_and_redirects_to_index_when_passed_valid_data()
         {
             // Act
-            var result = controller.Create(newIssue) as RedirectToRouteResult;
+            var result = controller.Create(new CreateViewModel()) as RedirectToRouteResult;
 
             // Assert
             _repo.Verify(r => r.Add(It.IsAny<Issue>()), Times.Once);
@@ -107,13 +107,14 @@ namespace LobbyingMadeSimple.Tests.Controllers
         {
             // Arrange
             controller.ModelState.AddModelError("testError", "You shall NOT pass!");
+            var createVm = new CreateViewModel();
 
             // Act
-            var result = controller.Create(newIssue) as ViewResult;
+            var result = controller.Create(createVm) as ViewResult;
 
             // Assert
             Assert.AreEqual("", result.ViewName); // Default View
-            Assert.AreEqual(newIssue, result.Model);
+            result.Model.ShouldDeepEqual(createVm);
         }
 
         [TestMethod]

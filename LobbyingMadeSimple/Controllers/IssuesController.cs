@@ -48,7 +48,7 @@ namespace LobbyingMadeSimple.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            return View(new IssueViewModel());
+            return View(new CreateViewModel());
         }
 
         // POST: Issues/Create
@@ -57,7 +57,7 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create(IssueViewModel vmIssue)
+        public ActionResult Create(CreateViewModel vmIssue)
         {
             Issue issue = vmIssue;
             issue.AuthorID = User.Identity.GetUserId();
