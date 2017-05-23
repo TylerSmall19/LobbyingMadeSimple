@@ -75,7 +75,7 @@ namespace LobbyingMadeSimple.Core
         /// </summary>
         /// <param name="uid">UserId to match in the search</param>
         /// <returns>The Vote instance found matching the ID from Issue's collection or null if non is found</returns>
-        public Vote GetVoteForUser(string uid)
+        public virtual Vote GetVoteForUser(string uid)
         {
             return Votes.Where(v => v.AuthorID == uid).FirstOrDefault();
         }

@@ -10,7 +10,7 @@ namespace LobbyingMadeSimple.Tests.Helpers
     public class HtmlHelpersTest
     {
         [TestMethod]
-        public void HtmlHelper_GetCssClassForVotePercentage_returns_correct_value_when_passing_percent()
+        public void GetCssClassForVotePercentage_returns_correct_value_when_passing_percent()
         {
             // Act
             string result = HtmlHelpers.GetCssClassForVotePercentage("67");
@@ -20,7 +20,7 @@ namespace LobbyingMadeSimple.Tests.Helpers
         }
 
         [TestMethod]
-        public void HtmlHelper_GetCssClassForVotePercentage_returns_correct_value_when_failing_percent()
+        public void GetCssClassForVotePercentage_returns_correct_value_when_failing_percent()
         {
             // Act
             string result = HtmlHelpers.GetCssClassForVotePercentage("66");
@@ -30,12 +30,11 @@ namespace LobbyingMadeSimple.Tests.Helpers
         }
 
         [TestMethod]
-        public void HtmlHelper_GetVoteButtonColor_returns_correct_color_when_vote_exists_and_is_upvote()
+        public void GetVoteButtonColor_returns_correct_color_when_vote_exists_and_is_upvote()
         {
             // Arrange
             string uid = "test";
-            var votes = new List<Vote>() { Mock.Of<Vote>(v => v.AuthorID == uid && v.IsUpvote == true) };
-            Issue issue = Mock.Of<Issue>(i => i.Votes == votes);
+            Issue issue = Mock.Of<Issue>(i => i.GetVoteForUser(uid) == Mock.Of<Vote>(v => v.IsUpvote == true));
 
             // Act
             string resultUpvote = HtmlHelpers.GetVoteButtonColor(uid, issue, true);
@@ -47,12 +46,11 @@ namespace LobbyingMadeSimple.Tests.Helpers
         }
 
         [TestMethod]
-        public void HtmlHelper_GetVoteButtonColor_returns_correct_color_when_vote_exists_and_is_downvote()
+        public void GetVoteButtonColor_returns_correct_color_when_vote_exists_and_is_downvote()
         {
             // Arrange
             string uid = "test";
-            var votes = new List<Vote>() { Mock.Of<Vote>(v => v.AuthorID == uid && v.IsUpvote == false) };
-            Issue issue = Mock.Of<Issue>(i => i.Votes == votes);
+            Issue issue = Mock.Of<Issue>(i => i.GetVoteForUser(uid) == Mock.Of<Vote>(v => v.IsUpvote == false));
 
             // Act
             string resultUpvote = HtmlHelpers.GetVoteButtonColor(uid, issue, true);
@@ -64,11 +62,11 @@ namespace LobbyingMadeSimple.Tests.Helpers
         }
 
         [TestMethod]
-        public void HtmlHelper_GetVoteButtonColor_returns_correct_color_when_vote_doesnt_exist()
+        public void GetVoteButtonColor_returns_correct_color_when_vote_doesnt_exist()
         {
             // Arrange
             string uid = "test";
-            Issue issue = Mock.Of<Issue>(i => i.Votes == new List<Vote>());
+            Issue issue = Mock.Of<Issue>();
 
             // Act
             string resultUpvote = HtmlHelpers.GetVoteButtonColor(uid, issue, true);

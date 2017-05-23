@@ -125,6 +125,7 @@
     <Compile Include="Models\IssueViewModelTest.cs" />
     <Compile Include="Models\FundViewModelTest.cs" />
     <Compile Include="Models\FundableHomeIssueViewModelTest.cs" />
+    <Compile Include="Models\VoteViewModelTest.cs" />
     <Compile Include="Models\VotableHomeIssueViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
