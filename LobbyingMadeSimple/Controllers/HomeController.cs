@@ -19,7 +19,7 @@ namespace LobbyingMadeSimple.Controllers
             var fundableVms = new List<FundableHomeIssueViewModel>();
 
             // Convert Issue entities into vm collections
-            _issueRepo.GetAllVotableIssuesSortedByVoteCount().ForEach(i => votableVms.Add(i));
+            _issueRepo.GetTopVotableIssues(15).ForEach(i => votableVms.Add(i));
             _issueRepo.GetAllFundableIssuesSortedByDate().ForEach(i => fundableVms.Add(i));
 
             var viewModel = new HomePageViewModel()

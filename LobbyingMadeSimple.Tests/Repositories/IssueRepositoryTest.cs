@@ -6,6 +6,7 @@ using System.Linq;
 using Moq;
 using LobbyingMadeSimple.Core;
 using LobbyingMadeSimple.DAL;
+using DeepEqual.Syntax;
 
 namespace LobbyingMadeSimple.Tests.Repositories
 {
@@ -35,7 +36,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
         }
 
         [TestMethod]
-        public void IssueRepo_GetAllVotableIssuesSortedByDate_returns_sorted_list_of_votable_issues()
+        public void GetAllVotableIssuesSortedByDate_returns_sorted_list_of_votable_issues()
         {
             // Arrange
             var firstIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2));
@@ -61,7 +62,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
         }
 
         [TestMethod]
-        public void IssueRepo_GetAllVotableIssuesSortedByDate_returns_empty_if_no_issues_are_found()
+        public void GetAllVotableIssuesSortedByDate_returns_empty_if_no_issues_are_found()
         {
             // Arrange
             IssueRepository mockRepo =
@@ -75,7 +76,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
         }
 
         [TestMethod]
-        public void IssueRepo_GetAllVotableIssuesSortedByVoteCount_returns_a_correctly_sorted_list()
+        public void GetAllVotableIssuesSortedByVoteCount_returns_a_correctly_sorted_list()
         {
             // Arrange
             var firstIssue = Mock.Of<Issue>(i => i.Votes.Count == 750);
@@ -101,7 +102,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
         }
 
         [TestMethod]
-        public void IssueRepo_GetAllVotableIssuesSortedByVoteCount_returns_empty_if_no_issues_are_found()
+        public void GetAllVotableIssuesSortedByVoteCount_returns_empty_if_no_issues_are_found()
         {
             // Arrange
             IssueRepository mockRepo = 
@@ -115,7 +116,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
         }
 
         [TestMethod]
-        public void IssueRepo_GetAllFundableIssues_returns_all_fundable_issues_from_db()
+        public void GetAllFundableIssues_returns_all_fundable_issues_from_db()
         {
             // Arrange
             Issue fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true);
@@ -141,7 +142,7 @@ namespace LobbyingMadeSimple.Tests.Repositories
         }
 
         [TestMethod]
-        public void IssueRepo_GetAllFundableIssuesSortedByDate_returns_all_fundable_issues_sorted_by_date()
+        public void GetAllFundableIssuesSortedByDate_returns_all_fundable_issues_sorted_by_date()
         {
             // Arrange
             Issue firstIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2));
@@ -158,6 +159,37 @@ namespace LobbyingMadeSimple.Tests.Repositories
             Assert.AreEqual(firstIssue, results[0]);
             Assert.AreEqual(secondIssue, results[1]);
             Assert.AreEqual(thirdIssue, results[2]);
+        }
+
+        [TestMethod]
+        public void GetTopVotableIssues_returns_a_list_of_x_items()
+        {
+            // Arrange Vote Counts
+            var vote = Mock.Of<Vote>();
+            var highVoteCount = new List<Vote>() { vote, vote, vote };
+            var midVoteCount = new List<Vote>() { vote, vote };
+            var lowVoteCount = new List<Vote>() { vote };
+            var noVoteCount = new List<Vote>();
+
+            // Arrange Issues
+            var count = 3;
+            Issue filteredIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2) && i.Votes == noVoteCount);
+            Issue issue3 = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2) && i.Votes == lowVoteCount);
+            Issue issue2 = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(1) && i.Votes == midVoteCount);
+            Issue issue1 = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now && i.Votes == highVoteCount);
+            
+            // Arrange Repo
+            var issueList = new List<Issue>() { issue1, issue2, issue3, filteredIssue };
+            var repo = Mock.Of<IssueRepository>(r => r.GetAllVotableIssuesSortedByVoteCount() == issueList);
+
+            // Arrange Ordered List
+            var orderedList = new List<Issue>() { issue1, issue2, issue3 };
+
+            // Act
+            var result = repo.GetTopVotableIssues(count);
+
+            // Assert
+            result.ShouldDeepEqual(orderedList);
         }
 
         [TestMethod]

@@ -51,7 +51,7 @@ namespace LobbyingMadeSimple.DAL
             return list;
         }
 
-        public List<Issue> GetAllVotableIssuesSortedByVoteCount()
+        public virtual List<Issue> GetAllVotableIssuesSortedByVoteCount()
         {
             var list = GetAllVotableIssues();
             list.Sort((x, y) => y.Votes.Count.CompareTo(x.Votes.Count));
@@ -80,6 +80,11 @@ namespace LobbyingMadeSimple.DAL
         {
             _db.Issues.Remove(issue);
             _db.SaveChanges();
+        }
+        public List<Issue> GetTopVotableIssues(int limit)
+        {
+            return GetAllVotableIssuesSortedByVoteCount()
+                .Take(limit).ToList();
         }
 
         private bool disposed = false;
