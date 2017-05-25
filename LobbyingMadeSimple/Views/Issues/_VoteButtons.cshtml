@@ -1,0 +1,15 @@
+﻿@using (Html.BeginRouteForm("VoteRoute",
+                            new { issueId = ViewData["Id"], voteType = "Up" },
+                            FormMethod.Post, new { @class = "vote-btn btn-group" }))
+{
+    <input class="btn up-vote btn-default @ViewData["UpvoteButtonColor"]" type="submit" value="I Agree">
+    @Html.AntiForgeryToken()
+}
+
+@using (Html.BeginRouteForm("VoteRoute",
+                            new { issueId = ViewData["Id"], voteType = "Down" },
+                            FormMethod.Post, new { @class = "vote-btn btn-group" }))
+{
+    @Html.AntiForgeryToken()
+    <input class="btn down-vote btn-default @ViewData["DownvoteButtonColor"]" type="submit" value="I Disagree">
+}

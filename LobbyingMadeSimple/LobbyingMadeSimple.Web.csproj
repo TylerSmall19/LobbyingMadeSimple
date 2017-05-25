@@ -373,6 +373,7 @@
     <Content Include="Views\Shared\_DetailsButton.cshtml" />
     <Content Include="Views\Issues\Fund.cshtml" />
     <Content Include="Views\Issues\_FundIssue.cshtml" />
+    <Content Include="Views\Issues\_VoteButtons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

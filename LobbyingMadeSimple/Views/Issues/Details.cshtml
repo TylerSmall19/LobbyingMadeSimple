@@ -1,4 +1,4 @@
-﻿@model LobbyingMadeSimple.Web.Models.IssueViewModel
+﻿@model LobbyingMadeSimple.Web.Models.DetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -6,53 +6,42 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Issue</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+<h2 class="text-center">@Model.Title</h2>
+<hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1 text-center" id="@Model.Id">
+        <p class="short-description">
+            @Model.ShortDescription
+        </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </dt>
+        <p class="long-description">
+            @Model.LongDescription
+        </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShortDescription)
-        </dd>
+        <div class="col-sm-6">
+            <p class="text-left">Affected State: @Model.IssueScope | 
+                Votes: @Model.VoteCount | 
+                Approval: <span class="vote-percentage">@Model.ApprovalPercentage</span>%
+            </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LongDescription)
-        </dt>
+            @Html.Partial("_VoteButtons", new ViewDataDictionary {
+                    { "Id", Model.Id },
+                    { "UpvoteButtonColor", Model.UpvoteButtonColor },
+                    { "DownvoteButtonColor", Model.DownvoteButtonColor } })
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LongDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsStateIssue)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsStateIssue)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StateAbbrev)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StateAbbrev)
-        </dd>
-
-    </dl>
+        <div class="col-sm-6">
+            <p class="text-right funding-details">Funding: @Model.FundingRaised / @Model.FundingGoal</p>
+        </div>
+    </div>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section scripts{
+    @Scripts.Render("/Scripts/voting.js")
+}

@@ -41,7 +41,7 @@ namespace LobbyingMadeSimple.Controllers
             {
                 return HttpNotFound();
             }
-            return View(issue); // TODO: Make a IssueDetailsViewModel
+            return View(issue.ConvertToDetailsViewModel(User.Identity.GetUserId()));
         }
 
         // GET: Issues/Create

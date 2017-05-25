@@ -54,18 +54,9 @@ namespace LobbyingMadeSimple.Tests.Models
                 && i.StateAbbrev == "MO"
                 && i.IsStateIssue == true
                 && i.FundingGoal == 50000.00
-                && i.CreatedAt == DateTime.Now
-                && i.UpdatedAt == DateTime.Now
                 && i.Id == 1
-                && i.AuthorID == "authorId"
                 && i.FundingRaised == 2500
-                && i.IsFundable == true
-                && i.IsVotableIssue == false
-                && i.VoteCountNeeded == 0
-                && i.Votes == new List<Vote>()
-                && i.Author.Id == "AuthorID"
                 && i.GetPrettyPercentage() == "60"
-                && i.VotesLeftUntilApproval() == 1500
                 && i.GetVoteForUser("test") == Mock.Of<Vote>(v => v.IsUpvote == true)
                 && i.TotalVotes() == 12
             );
