@@ -95,17 +95,19 @@ namespace LobbyingMadeSimple.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit(IssueViewModel issueVm)
+        public ActionResult Edit(EditViewModel vm)
         {
-            // TODO: Refactor this 
+            var issue = _repo.Find(vm.Id);
+            issue.MapFromEditVm(vm);
+
             if (ModelState.IsValid)
             {
-                _repo.Update(issueVm);
+                _repo.Update(issue);
 
                 return RedirectToAction("Index");
             }
 
-            return View(issueVm);
+            return View(vm);
         }
 
         // GET: Issues/Delete/5
