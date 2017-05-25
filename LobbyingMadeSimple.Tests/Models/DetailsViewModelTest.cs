@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using LobbyingMadeSimple.Web.Models;
 
 namespace LobbyingMadeSimple.Tests.Models
 {
@@ -7,9 +8,22 @@ namespace LobbyingMadeSimple.Tests.Models
     public class DetailsViewModelTest
     {
         [TestMethod]
-        public void Has_Tests()
+        public void DetailsViewModel_has_gettable_and_settable_properties()
         {
-            Assert.Fail("TODO: Fix Tests");
+            var vm = new DetailsViewModel()
+            {
+                Id = 1,
+                Title = "Title",
+                ShortDescription = "Short",
+                LongDescription = "Long",
+                VoteCount = 12,
+                IssueScope = "Federal",
+                ApprovalPercentage = "60",
+                FundingRaised = "150",
+                FundingGoal = "50000",
+                UpvoteButtonColor = "btn-success",
+                DownvoteButtonColor = "btn-default"
+            };
         }
     }
 }
