@@ -10,6 +10,7 @@ namespace LobbyingMadeSimple.Tests.Models
         [TestMethod]
         public void DetailsViewModel_has_gettable_and_settable_properties()
         {
+            // Act
             var vm = new DetailsViewModel()
             {
                 Id = 1,
@@ -24,6 +25,19 @@ namespace LobbyingMadeSimple.Tests.Models
                 UpvoteButtonColor = "btn-success",
                 DownvoteButtonColor = "btn-default"
             };
+
+            // Assert
+            Assert.AreEqual(1, vm.Id);
+            Assert.AreEqual("Title", vm.Title);
+            Assert.AreEqual("Short", vm.ShortDescription);
+            Assert.AreEqual("Long", vm.LongDescription);
+            Assert.AreEqual(12, vm.VoteCount);
+            Assert.AreEqual("Federal", vm.IssueScope);
+            Assert.AreEqual("60", vm.ApprovalPercentage);
+            Assert.AreEqual("150", vm.FundingRaised);
+            Assert.AreEqual("50000", vm.FundingGoal);
+            Assert.AreEqual("btn-success", vm.UpvoteButtonColor);
+            Assert.AreEqual("btn-default", vm.DownvoteButtonColor);
         }
     }
 }
