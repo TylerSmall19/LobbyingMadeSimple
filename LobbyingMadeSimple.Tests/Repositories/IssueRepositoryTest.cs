@@ -173,14 +173,14 @@ namespace LobbyingMadeSimple.Tests.Repositories
 
             // Arrange Issues
             var count = 3;
-            Issue filteredIssue = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2) && i.Votes == noVoteCount);
-            Issue issue3 = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(2) && i.Votes == lowVoteCount);
-            Issue issue2 = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now.AddHours(1) && i.Votes == midVoteCount);
-            Issue issue1 = Mock.Of<Issue>(i => i.CreatedAt == DateTime.Now && i.Votes == highVoteCount);
+            Issue filteredIssue = Mock.Of<Issue>(i => i.Votes == noVoteCount);
+            Issue issue3 = Mock.Of<Issue>(i => i.Votes == lowVoteCount);
+            Issue issue2 = Mock.Of<Issue>(i => i.Votes == midVoteCount);
+            Issue issue1 = Mock.Of<Issue>(i => i.Votes == highVoteCount);
             
             // Arrange Repo
-            var issueList = new List<Issue>() { issue1, issue2, issue3, filteredIssue };
-            var repo = Mock.Of<IssueRepository>(r => r.GetAllVotableIssuesSortedByVoteCount() == issueList);
+            var issueList = new List<Issue>() { issue1, issue3, issue2, filteredIssue };
+            var repo = Mock.Of<IssueRepository>(r => r.GetAllVotableIssues() == issueList);
 
             // Arrange Ordered List
             var orderedList = new List<Issue>() { issue1, issue2, issue3 };
@@ -190,6 +190,22 @@ namespace LobbyingMadeSimple.Tests.Repositories
 
             // Assert
             result.ShouldDeepEqual(orderedList);
+        }
+
+        [TestMethod]
+        public void GetTopVotableIssues_returns_empty_list_when_no_issues_present()
+        {
+            // Arrange Repo
+            var repo = Mock.Of<IssueRepository>(r => r.GetAllVotableIssues() == new List<Issue>());
+
+            // Arrange Ordered List
+            var expectation = new List<Issue>();
+
+            // Act
+            var result = repo.GetTopVotableIssues(15);
+
+            // Assert
+            result.ShouldDeepEqual(expectation);
         }
 
         [TestMethod]

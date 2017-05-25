@@ -51,7 +51,7 @@ namespace LobbyingMadeSimple.DAL
             return list;
         }
 
-        public virtual List<Issue> GetAllVotableIssuesSortedByVoteCount()
+        public List<Issue> GetAllVotableIssuesSortedByVoteCount()
         {
             var list = GetAllVotableIssues();
             list.Sort((x, y) => y.Votes.Count.CompareTo(x.Votes.Count));
