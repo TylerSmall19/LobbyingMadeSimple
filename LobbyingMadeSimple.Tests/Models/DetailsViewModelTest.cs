@@ -8,7 +8,7 @@ namespace LobbyingMadeSimple.Tests.Models
     public class DetailsViewModelTest
     {
         [TestMethod]
-        public void DetailsViewModel_has_gettable_and_settable_properties()
+        public void Has_gettable_and_settable_properties()
         {
             // Act
             var vm = new DetailsViewModel()
