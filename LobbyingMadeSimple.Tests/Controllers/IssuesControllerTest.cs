@@ -125,7 +125,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
 
             // Assert
             Assert.AreEqual("", result.ViewName); // Default View
-            Assert.AreEqual(votableIssue, result.Model);
+            result.Model.ShouldDeepEqual(votableIssue.ConvertToDetailsViewModel(""));
         }
 
         [TestMethod]
