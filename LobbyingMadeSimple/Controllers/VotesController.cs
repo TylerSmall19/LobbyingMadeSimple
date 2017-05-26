@@ -76,7 +76,7 @@ namespace LobbyingMadeSimple.Controllers
                     var data = new
                     {
                         votePercent = votePercent,
-                        neededVotes = issue.VotesLeftUntilApproval(),
+                        votes = issue.TotalVotes(),
                         issueId = issue.Id,
                         wasUpvote = isUpvote,
                         votePercentageCssClass = HtmlHelpers.GetCssClassForVotePercentage(votePercent),

@@ -11,11 +11,11 @@ namespace LobbyingMadeSimple.Web.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }
-        public int VotesLeftUntilApproval { get; set; }
         public string ApprovalPercentage { get; set; }
         public string ApprovalPercentageColor { get; set; }
         public string UpvoteButtonColor { get; set; }
         public string DownvoteButtonColor { get; set; }
+        public int VoteCount { get; set; }
     }
 
     public static class IssueExtensionMethods
@@ -27,11 +27,11 @@ namespace LobbyingMadeSimple.Web.Models
                 Id = issue.Id,
                 Title = issue.Title,
                 ShortDescription = issue.ShortDescription,
-                VotesLeftUntilApproval = issue.VotesLeftUntilApproval(),
                 ApprovalPercentage = issue.GetPrettyPercentage(),
                 ApprovalPercentageColor = Helpers.HtmlHelpers.GetCssClassForVotePercentage(issue.GetPrettyPercentage()),
                 DownvoteButtonColor = Helpers.HtmlHelpers.GetVoteButtonColor(Uid, issue, false),
-                UpvoteButtonColor = Helpers.HtmlHelpers.GetVoteButtonColor(Uid, issue, true)
+                UpvoteButtonColor = Helpers.HtmlHelpers.GetVoteButtonColor(Uid, issue, true),
+                VoteCount = issue.TotalVotes()
             };
         }
     }

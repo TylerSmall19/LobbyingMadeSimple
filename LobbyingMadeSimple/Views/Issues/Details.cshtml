@@ -21,7 +21,7 @@
 
         <div class="col-sm-6">
             <p class="text-left">Affected State: @Model.IssueScope | 
-                Votes: @Model.VoteCount | 
+                Votes: <span class="vote-count-display">@Model.VoteCount</span> | 
                 Approval: <span class="vote-percentage">@Model.ApprovalPercentage</span>%
             </p>
 

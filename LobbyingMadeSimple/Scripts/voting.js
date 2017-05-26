@@ -16,7 +16,7 @@ function vote(e) {
 function voteSuccess(resp) {
     // Capture the variables needed for selection
     var id = resp.issueId;
-    var voteCount = resp.neededVotes;
+    var voteCount = resp.votes;
     var selector = '#' + id;
     var votePercent = resp.votePercent;
 

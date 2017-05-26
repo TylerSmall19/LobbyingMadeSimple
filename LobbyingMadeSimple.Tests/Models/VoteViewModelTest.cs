@@ -21,7 +21,7 @@ namespace LobbyingMadeSimple.Tests.Models
                 ApprovalPercentage = "60",
                 ShortDescription = "Short",
                 ApprovalPercentageColor = "text-success",
-                VotesLeftUntilApproval = 40,
+                VoteCount = 1460,
                 UpvoteButtonColor = "btn-success",
                 DownvoteButtonColor = "btn-danger",
             };
@@ -32,7 +32,7 @@ namespace LobbyingMadeSimple.Tests.Models
             Assert.AreEqual("60", vm.ApprovalPercentage);
             Assert.AreEqual("Short", vm.ShortDescription);
             Assert.AreEqual("text-success", vm.ApprovalPercentageColor);
-            Assert.AreEqual(40, vm.VotesLeftUntilApproval);
+            Assert.AreEqual(1460, vm.VoteCount);
             Assert.AreEqual("btn-success", vm.UpvoteButtonColor);
             Assert.AreEqual("btn-danger", vm.DownvoteButtonColor);
         }
@@ -72,7 +72,7 @@ namespace LobbyingMadeSimple.Tests.Models
             Assert.AreEqual("60", vm.ApprovalPercentage);
             Assert.AreEqual("Short", vm.ShortDescription);
             Assert.AreEqual("text-danger", vm.ApprovalPercentageColor);
-            Assert.AreEqual(1500, vm.VotesLeftUntilApproval);
+            Assert.AreEqual(40, vm.VoteCount);
             Assert.AreEqual("btn-success", vm.UpvoteButtonColor);
             Assert.AreEqual("btn-default", vm.DownvoteButtonColor);
         }
