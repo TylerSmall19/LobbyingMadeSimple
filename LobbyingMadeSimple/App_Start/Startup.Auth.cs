@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using LobbyingMadeSimple.Core;
 using LobbyingMadeSimple.DAL;
+using Microsoft.Owin.Security.Google;
 
 namespace LobbyingMadeSimple
 {
@@ -58,11 +59,11 @@ namespace LobbyingMadeSimple
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = System.Configuration.ConfigurationManager.AppSettings["GoogClientID"],
+                ClientSecret = System.Configuration.ConfigurationManager.AppSettings["GoogClientSecret"]
+            });
         }
     }
 }
