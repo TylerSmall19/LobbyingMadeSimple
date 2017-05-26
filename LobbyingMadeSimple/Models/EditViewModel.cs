@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using LobbyingMadeSimple.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace LobbyingMadeSimple.Web.Models
 {
     public class EditViewModel
     {
         public int Id { get; set; }
+        [Required]
+        [MaxLength(60, ErrorMessage = "Must be fewer than 60 characters")]
         public string Title { get; set; }
+        [Required]
+        [MaxLength(150, ErrorMessage = "Must be fewer than 150 characters")]
+        [Display(Name = "Summary")]
         public string ShortDescription { get; set; }
+        [Required]
+        [Display(Name = "Details")]
         public string LongDescription { get; set; }
 
         public static implicit operator EditViewModel(Issue issue)

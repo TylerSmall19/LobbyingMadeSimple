@@ -1,4 +1,4 @@
-﻿@model LobbyingMadeSimple.Web.Models.IssueViewModel
+﻿@model LobbyingMadeSimple.Web.Models.EditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -42,24 +42,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsStateIssue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsStateIssue)
-                    @Html.ValidationMessageFor(model => model.IsStateIssue, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StateAbbrev, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StateAbbrev, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StateAbbrev, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -69,6 +51,7 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
 </div>
 
 @section Scripts {
