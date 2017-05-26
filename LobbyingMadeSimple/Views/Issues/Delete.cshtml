@@ -1,4 +1,4 @@
-﻿@model LobbyingMadeSimple.Core.Issue
+﻿@model LobbyingMadeSimple.Web.Models.DetailsViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -10,15 +10,7 @@
 <div>
     <h4>Issue</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.StateName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.StateName)
-        </dd>
-
+    <dl class="dl-horizontal" id="@Model.Id">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -44,21 +36,44 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IsStateIssue)
+            @Html.DisplayNameFor(model => model.IssueScope)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IsStateIssue)
+            @Html.DisplayFor(model => model.IssueScope)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StateAbbrev)
+            @Html.DisplayNameFor(model => model.FundingRaised)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StateAbbrev)
+            $@Html.DisplayFor(model => model.FundingRaised)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.FundingGoal)
+        </dt>
+
+        <dd>
+            $@Html.DisplayFor(model => model.FundingGoal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VoteCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VoteCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovalPercentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovalPercentage)%
+        </dd>
     </dl>
 
     @using (Html.BeginForm()) {

@@ -127,7 +127,7 @@ namespace LobbyingMadeSimple.Controllers
                 return HttpNotFound();
             }
 
-            return View(issue);
+            return View(issue.ConvertToDetailsViewModel(User.Identity.GetUserId()));
         }
 
         // POST: Issues/Delete/5
