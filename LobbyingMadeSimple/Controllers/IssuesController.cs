@@ -86,7 +86,7 @@ namespace LobbyingMadeSimple.Controllers
                 return HttpNotFound();
             }
 
-            return View((IssueViewModel)issue);
+            return View((EditViewModel)issue);
         }
 
         // POST: Issues/Edit/5

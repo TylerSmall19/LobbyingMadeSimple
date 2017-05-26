@@ -81,6 +81,69 @@ namespace LobbyingMadeSimple.Tests.Controllers
         }
 
         [TestMethod]
+        public void Edit_Get_returns_an_EditViewModel_for_the_correct_issue()
+        {
+            // Arrange
+            var editableIssue = Mock.Of<Issue>(i => i.Title == "Title" && i.Id == 1 && i.ShortDescription == "Short" && i.LongDescription == "Long");
+            _repo = new Mock<IIssueRepository>();
+            _repo.Setup(r => r.Find(1)).Returns(editableIssue);
+            var newController = new IssuesController(_repo.Object);
+
+            // Act
+            var result = newController.Edit(1) as ViewResult;
+
+            // Assert
+            result.Model.ShouldDeepEqual((EditViewModel)editableIssue);
+        }
+
+        [TestMethod]
+        public void Edit_Get_returns_a_404_when_no_issue_is_found()
+        {
+            // Act
+            var result = controller.Edit(4) as HttpNotFoundResult;
+
+            // Assert
+            Assert.AreEqual(404, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void Edit_Get_returns_404_when_negative_id_is_passed()
+        {
+            // Act
+            var result = controller.Edit(-1) as HttpStatusCodeResult;
+
+            // Assert
+            Assert.AreEqual(404, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void Edit_Post_returns_a_redirect_when_values_are_valid()
+        {
+            // Arrange
+            var vm = Mock.Of<EditViewModel>(v => v.Id == 1 && v.Title == "Title" && v.ShortDescription == "Short" && v.LongDescription == "Long");
+
+            // Act
+            var result = controller.Edit(vm) as RedirectToRouteResult;
+
+            // Assert
+            Assert.AreEqual("Index", result.RouteValues["Action"]);
+        }
+
+        [TestMethod]
+        public void Edit_Post_returns_a_view_when_ModelState_is_invalid()
+        {
+            // Arrange
+            controller.ModelState.AddModelError("", "");
+            var vm = Mock.Of<EditViewModel>(v => v.Id == 1 && v.Title == "Title" && v.ShortDescription == "Short" && v.LongDescription == "Long");
+
+            // Act
+            var result = controller.Edit(vm) as ViewResult;
+
+            // Assert
+            result.Model.ShouldDeepEqual(vm);
+        }
+
+        [TestMethod]
         public void Create_Get_returns_view()
         {
             // Act
