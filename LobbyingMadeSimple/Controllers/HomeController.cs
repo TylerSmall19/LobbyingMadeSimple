@@ -1,5 +1,4 @@
-﻿using LobbyingMadeSimple.Models;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using LobbyingMadeSimple.Core.Interfaces;
 using System.Collections.Generic;
 using LobbyingMadeSimple.Web.Models;

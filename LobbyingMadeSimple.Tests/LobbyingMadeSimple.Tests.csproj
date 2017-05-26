@@ -131,6 +131,7 @@
     <Compile Include="Models\CreateViewModelTest.cs" />
     <Compile Include="Models\DetailsViewModelTest.cs" />
     <Compile Include="Models\EditViewModelTest.cs" />
+    <Compile Include="Models\HomepageViewModelTest.cs" />
     <Compile Include="Models\VoteViewModelTest.cs" />
     <Compile Include="Models\VotableHomeIssueViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

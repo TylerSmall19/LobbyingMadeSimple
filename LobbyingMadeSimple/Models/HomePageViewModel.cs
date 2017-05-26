@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using LobbyingMadeSimple.Web.Models;
 
-namespace LobbyingMadeSimple.Models
+namespace LobbyingMadeSimple.Web.Models
 {
     public class HomePageViewModel
     {
