@@ -375,6 +375,7 @@
     <Content Include="Views\Issues\Fund.cshtml" />
     <Content Include="Views\Issues\_FundIssue.cshtml" />
     <Content Include="Views\Issues\_VoteButtons.cshtml" />
+    <Content Include="Scripts\Tests\voting.tests.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
