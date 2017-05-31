@@ -284,7 +284,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
             var result = controller.FundIssue(1) as ViewResult;
 
             // Assert
-            Assert.IsInstanceOfType(result.Model, typeof(FundIssueViewModel));
+            Assert.IsInstanceOfType(result.Model, typeof(FundViewModel));
         }
 
         [TestMethod]
@@ -292,7 +292,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         {
             // Act
             var result = controller.FundIssue(1) as ViewResult;
-            var model = result.Model as FundIssueViewModel;
+            var model = result.Model as FundViewModel;
 
             // Assert
             Assert.AreEqual(1, model.Id);
@@ -315,12 +315,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
             var issue = Mock.Of<Issue>(i => i.Id == 3 && i.Title == "Test Title" && i.ShortDescription == "Short Desc");
             _repo.Setup(r => r.Find(3)).Returns(issue);
             controller = new IssuesController(_repo.Object);
-            var issueVm = new FundIssueViewModel
-            {
-                Title = issue.Title,
-                Id = issue.Id,
-                ShortDescription = issue.ShortDescription
-            };
+            FundViewModel issueVm = issue;
 
             // Act
             var result = controller.FundIssue(3) as ViewResult;

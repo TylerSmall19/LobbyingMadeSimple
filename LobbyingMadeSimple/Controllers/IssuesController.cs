@@ -169,17 +169,11 @@ namespace LobbyingMadeSimple.Controllers
         }
 
         [HttpGet]
-        [ActionName("Fund")]
+        [ActionName("Contribute")]
         public ActionResult FundIssue(int id)
         {
             var issue = _repo.Find(id);
-            var model = new FundIssueViewModel
-            {
-                Id = issue.Id,
-                Title = issue.Title,
-                ShortDescription = issue.ShortDescription
-            };
-            return View(model);
+            return View((FundViewModel)issue);
         }
 
         protected override void Dispose(bool disposing)
