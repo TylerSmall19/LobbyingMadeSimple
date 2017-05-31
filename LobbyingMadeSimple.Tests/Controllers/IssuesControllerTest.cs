@@ -323,5 +323,15 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Assert
             result.Model.ShouldDeepEqual(issueVm);
         }
+
+        [TestMethod]
+        public void FundIssue_Get_returns_404_when_not_found()
+        {
+            // Act
+            var result = controller.FundIssue(5) as HttpNotFoundResult;
+
+            // Assert
+            Assert.AreEqual(404, result.StatusCode);
+        }
     }
 }

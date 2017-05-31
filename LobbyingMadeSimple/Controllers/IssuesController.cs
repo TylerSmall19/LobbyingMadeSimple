@@ -169,10 +169,15 @@ namespace LobbyingMadeSimple.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ActionName("Contribute")]
         public ActionResult FundIssue(int id)
         {
             var issue = _repo.Find(id);
+            if (issue == null)
+            {
+                return new HttpNotFoundResult();
+            }
             return View((FundViewModel)issue);
         }
 
