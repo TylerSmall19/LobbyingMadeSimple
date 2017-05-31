@@ -27,7 +27,7 @@ namespace LobbyingMadeSimple.Tests.Controllers
         [TestInitialize]
         public void TestInit()
         {
-            votableIssue = Mock.Of<Issue>(i => i.IsVotableIssue == true && i.Author.Id == "AuthId" && i.GetPrettyPercentage() == "67");
+            votableIssue = Mock.Of<Issue>(i => i.Id == 1 && i.IsVotableIssue == true && i.Author.Id == "AuthId" && i.GetPrettyPercentage() == "67");
             fundableIssue = Mock.Of<Issue>(i => i.IsFundable == true && i.Author.Id == "AuthId");
             newIssue = Mock.Of<IssueViewModel>();
             votableIssues = new List<Issue>() { votableIssue, votableIssue, votableIssue };
@@ -265,6 +265,68 @@ namespace LobbyingMadeSimple.Tests.Controllers
             // Assert
             Assert.AreEqual("", result.ViewName); // Using default view name Fund
             resultModel.ShouldDeepEqual(fundableIssueVms.ToPagedList(pageNum, 15));
+        }
+
+        [TestMethod]
+        public void FundIssue_Get_Returns_a_view()
+        {
+            // Act
+            var result = controller.FundIssue(1) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void FundIssue_Get_sets_the_model_to_a_FundIssueViewModel()
+        {
+            // Act
+            var result = controller.FundIssue(1) as ViewResult;
+
+            // Assert
+            Assert.IsInstanceOfType(result.Model, typeof(FundIssueViewModel));
+        }
+
+        [TestMethod]
+        public void FundIssue_Get_returns_the_correct_model_based_on_id()
+        {
+            // Act
+            var result = controller.FundIssue(1) as ViewResult;
+            var model = result.Model as FundIssueViewModel;
+
+            // Assert
+            Assert.AreEqual(1, model.Id);
+        }
+
+        [TestMethod]
+        public void FundIssue_Get_makes_a_call_to_find_on_the_issues_repo()
+        {
+            // Act
+            controller.FundIssue(1);
+
+            // Assert
+            _repo.Verify(r => r.Find(1), Times.Once);
+        }
+
+        [TestMethod]
+        public void FundIssue_Get_maps_the_found_issue_to_the_vm()
+        {
+            // Arrange
+            var issue = Mock.Of<Issue>(i => i.Id == 3 && i.Title == "Test Title" && i.ShortDescription == "Short Desc");
+            _repo.Setup(r => r.Find(3)).Returns(issue);
+            controller = new IssuesController(_repo.Object);
+            var issueVm = new FundIssueViewModel
+            {
+                Title = issue.Title,
+                Id = issue.Id,
+                ShortDescription = issue.ShortDescription
+            };
+
+            // Act
+            var result = controller.FundIssue(3) as ViewResult;
+
+            // Assert
+            result.Model.ShouldDeepEqual(issueVm);
         }
     }
 }

@@ -168,6 +168,20 @@ namespace LobbyingMadeSimple.Controllers
             return View(fundableIssueVms.ToPagedList(pageNumber, pageSize));
         }
 
+        [HttpGet]
+        [ActionName("Fund")]
+        public ActionResult FundIssue(int id)
+        {
+            var issue = _repo.Find(id);
+            var model = new FundIssueViewModel
+            {
+                Id = issue.Id,
+                Title = issue.Title,
+                ShortDescription = issue.ShortDescription
+            };
+            return View(model);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -288,6 +288,7 @@
     <Compile Include="Models\DetailsViewModel.cs" />
     <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\FundableHomeIssueViewModel.cs" />
+    <Compile Include="Models\FundIssueViewModel.cs" />
     <Compile Include="Models\FundViewModel.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IssueViewModel.cs" />
