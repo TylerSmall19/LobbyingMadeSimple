@@ -21,26 +21,17 @@ function voteSuccess(resp) {
     var votePercent = resp.votePercent;
 
     // Remove button colors from each button in the voted issue's div
-    $(selector + " input").each(function (i, item) {
-        $(item)
-            .removeClass("btn-primary btn-danger btn-success");
-    });
+    removeVoteButtonColors(selector + " .vote-btn");
 
-    // Remove the color from the percentage
-    $(selector + " .vote-percentage-string")
-        .removeClass("text-success text-danger")
-        .addClass(resp.votePercentageCssClass);
+    // Remove the color from the percentage (Chainable)
+    changePercentageColors(selector + " .vote-percentage-string", resp.votePercentageCssClass);
 
-    if (resp.wasUpvote) {
-        // Turn button green
-        $(selector + " input.up-vote").addClass("btn-success");
-    } else {
-        // Turn button red
-        $(selector + " input.down-vote").addClass("btn-danger");
-    }
+    // Color the button that was clicked
+    colorVoteButton(resp.wasUpvote, selector);
 
     // Update Vote Total
     $(selector + " .vote-count-display").text(voteCount);
+
     // Update percentage display
     $(selector + " .vote-percentage").text(votePercent);
 }
@@ -50,5 +41,33 @@ function voteFailed(xhr) {
 
     if (!resp.isVotable) {
         $('#' + resp.issueId).remove();
+    }
+}
+
+// Helper functions
+function removeVoteButtonColors(selector) {
+    $(selector).each(function (i, item) {
+        $(item)
+            .removeClass("btn-primary btn-danger btn-success");
+    });
+}
+
+function removePercentageColors(selector) {
+    var $sel = $(selector);
+    $sel.removeClass("text-success text-failure");
+    return $sel;
+}
+
+function changePercentageColors(selector, color) {
+    removePercentageColors(selector).addClass(color);
+}
+
+function colorVoteButton(wasUpvote, selector) {
+    if (wasUpvote) {
+        // Turn upvote button green
+        $(selector + " input.up-vote").addClass("btn-success");
+    } else {
+        // Turn downvote button red
+        $(selector + " input.down-vote").addClass("btn-danger");
     }
 }

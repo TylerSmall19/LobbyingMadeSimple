@@ -2,7 +2,7 @@
                             new { issueId = ViewData["Id"], voteType = "Up" },
                             FormMethod.Post, new { @class = "vote-btn btn-group" }))
 {
-    <input class="btn up-vote btn-default @ViewData["UpvoteButtonColor"]" type="submit" value="I Agree">
+    <input class="btn vote-btn up-vote btn-default @ViewData["UpvoteButtonColor"]" type="submit" value="I Agree">
     @Html.AntiForgeryToken()
 }
 
@@ -11,5 +11,5 @@
                             FormMethod.Post, new { @class = "vote-btn btn-group" }))
 {
     @Html.AntiForgeryToken()
-    <input class="btn down-vote btn-default @ViewData["DownvoteButtonColor"]" type="submit" value="I Disagree">
+    <input class="btn vote-btn down-vote btn-default @ViewData["DownvoteButtonColor"]" type="submit" value="I Disagree">
 }
