@@ -11,20 +11,7 @@
             <p class="issue-description hidden-xs">@Model.ShortDescription</p>
         </div>
     
-        <div class="col-sm-12">
-            <div class="progress col-sm-6 col-sm-offset-1">
-                <div class="progress-bar progress-bar-custom"
-                        role="progressbar"
-                        aria-valuenow='@Model.GetPrettyFundingPercentage()'
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="width: @Model.GetPrettyFundingPercentage()%;">
-
-                    <span class="funding-info"><span class="funding-goal">$@Model.FundingRaised</span> / $@Model.FundingGoal</span>
-
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_FundableProgressBar", Model)
 
         <div class="col-sm-offset-2 col-sm-4">
             <div class="btn-group btn-group-justified">

@@ -377,6 +377,7 @@
     <Content Include="Views\Issues\_FundIssue.cshtml" />
     <Content Include="Views\Issues\_VoteButtons.cshtml" />
     <Content Include="Scripts\Tests\voting.tests.js" />
+    <Content Include="Views\Issues\_FundableProgressBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
