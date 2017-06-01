@@ -1,0 +1,17 @@
+﻿@model LobbyingMadeSimple.Web.Models.FundViewModel
+
+@{
+    ViewBag.Title = "FundIssue";
+}
+
+<h2>FundIssue</h2>
+
+<h3>@Model.Title</h3>
+
+<p>@Model.ShortDescription</p>
+
+@Html.Partial("_FundableProgressBar", Model)
+
+@section styles {
+    @Styles.Render("/Content/fundable-progress-bar.css")    
+}
