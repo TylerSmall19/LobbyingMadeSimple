@@ -301,6 +301,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\contribute.css" />
     <Content Include="Content\fund.css" />
     <Content Include="Content\fundable-progress-bar.css" />
     <Content Include="Content\PagedList.css" />

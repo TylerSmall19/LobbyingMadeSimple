@@ -3,15 +3,19 @@
 @{
     ViewBag.Title = "FundIssue";
 }
+<div class="row" id="@Model.Id">
+    <h2>FundIssue</h2>
+    
+    <hr />
 
-<h2>FundIssue</h2>
+    <h1 class="text-center">@Model.Title</h1>
 
-<h3>@Model.Title</h3>
+    <p class="text-center short-description">@Model.ShortDescription</p>
 
-<p>@Model.ShortDescription</p>
-
-@Html.Partial("_FundableProgressBar", Model)
+    @Html.Partial("_FundableProgressBar", Model)
+</div>
 
 @section styles {
     @Styles.Render("/Content/fundable-progress-bar.css")    
+    @Styles.Render("/Content/contribute.css")
 }
