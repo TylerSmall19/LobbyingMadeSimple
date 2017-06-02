@@ -305,7 +305,10 @@
     <Content Include="Content\fund.css" />
     <Content Include="Content\fundable-progress-bar.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Scripts\braintree-dropin.js" />
+    <Content Include="Scripts\contribute.js" />
     <Content Include="Scripts\currency.js" />
+    <Content Include="Scripts\Tests\contribute.tests.js" />
     <Content Include="Scripts\Tests\currency.tests.js" />
     <Content Include="Scripts\Tests\tests.html" />
     <Content Include="favicon.ico" />

@@ -1,3 +1,18 @@
 ﻿.short-description{
     font-size: 1.4em;
 }
+
+#contribute-btn{
+    display: inline;
+}
+
+#amount{
+    display: inline;
+    text-align: center;
+    width: 150px;
+    font-size: 1.7em;
+}
+
+.error-text{
+    font-size: 1.4em;
+}

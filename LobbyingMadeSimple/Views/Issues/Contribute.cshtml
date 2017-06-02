@@ -13,9 +13,32 @@
     <p class="text-center short-description">@Model.ShortDescription</p>
 
     @Html.Partial("_FundableProgressBar", Model)
+
+    <noscript>
+        <p class="text-info error-text">Javascript is required for making contributions. Please enable Javascript and refresh the page.</p>
+    </noscript>
+
+    <div class="col-sm-6 col-md-offset-3 text-center">
+        <div id="error-catcher"></div>
+        <input id="amount" class="currency-field form-control" type="text" value="1" />
+        <button id="contribute-btn" class="btn btn-primary form-inline" style="display:inline;">Contribute</button>
+    </div>
+
+    <div class="col-sm-10 col-sm-offset-1">
+        <form>
+            <div id="dropin-container"></div>
+            <button id="submit-button" class="btn btn-success hidden">Submit</button>
+        </form>
+    </div>
 </div>
 
 @section styles {
     @Styles.Render("/Content/fundable-progress-bar.css")    
     @Styles.Render("/Content/contribute.css")
+}
+@section scripts{
+    <script src="https://js.braintreegateway.com/web/dropin/1.1.0/js/dropin.min.js"></script>
+    @Scripts.Render("/Scripts/braintree-dropin.js")
+    @Scripts.Render("/Scripts/contribute.js")
+    @Scripts.Render("/Scripts/currency.js")
 }
