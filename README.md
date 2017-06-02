@@ -1,0 +1,2 @@
+# LobbyingMadeSimple
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/69704666a4584373a8a46551ea307704)](https://www.codacy.com/app/intrasolarmusic/LobbyingMadeSimple?utm_source=github.com&utm_medium=referral&utm_content=TylerSmall19/LobbyingMadeSimple&utm_campaign=badger)
