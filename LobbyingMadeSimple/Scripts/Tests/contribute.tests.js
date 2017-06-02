@@ -1,4 +1,8 @@
 ﻿QUnit.module('Contribute', function () {
+    var e = {
+        preventDefault() { }
+    };
+
     QUnit.module('validateValue() invalid data', function (hooks) {
         var $fixture;
 
@@ -12,7 +16,7 @@
 
         QUnit.test('Adds an error message paragraph', function (assert) {
             // Act
-            validateValue();
+            validateValue(e);
 
             // Assert
             assert.equal($('.error-text', $fixture).length, 1, 'Error text exists');
@@ -20,7 +24,7 @@
 
         QUnit.test('Displays an error message inside the error paragraph', function (assert) {
             // Act
-            validateValue();
+            validateValue(e);
 
             // Assert
             assert.ok($('.error-text')[0].innerText, 'Error message is not blank');
@@ -28,8 +32,8 @@
 
         QUnit.test('Doesn\'t add duplicate error paragraphs', function (assert) {
             // Act
-            validateValue();
-            validateValue();
+            validateValue(e);
+            validateValue(e);
 
             // Assert
             assert.equal($('.error-text', $fixture).length, 1, 'Only one error-text paragraph is present');
@@ -69,7 +73,7 @@
 
         QUnit.test('Does not add an error if the value is >= 0', function (assert) {
             // Act
-            validateValue();
+            validateValue(e);
 
             // Assert
             assert.equal($('.error-text', $fixture).length, 0, 'Error text does not exist');
@@ -80,7 +84,7 @@
             assert.notOk(dropinCalled, 'Dropin not yet called');
 
             // Act
-            validateValue();
+            validateValue(e);
 
             // Assert
             assert.ok(dropinCalled, 'Dropin boolean set to true');
@@ -91,7 +95,7 @@
             $fixture.append('<button id="contribute-btn"></button>');
 
             // Act
-            validateValue();
+            validateValue(e);
 
             // Assert
             assert.ok($('#contribute-btn').hasClass('hidden'), 'Contribute-btn is hidden');
@@ -105,7 +109,7 @@
             assert.equal($('input', $fixture).length, 1, 'Input added successfully');
 
             // Act
-            validateValue();
+            validateValue(e);
 
             // Assert
             assert.ok(dropinCalled, 'addBraintreeDropin called');

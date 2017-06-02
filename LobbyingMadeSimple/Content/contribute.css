@@ -7,12 +7,15 @@
 }
 
 #amount{
-    display: inline;
-    text-align: center;
-    width: 150px;
     font-size: 1.7em;
 }
 
 .error-text{
     font-size: 1.4em;
+}
+
+.static-form-holder {
+    width: 241px;
+    margin: 0 auto;
+    text-align: center;
 }

@@ -4,7 +4,8 @@ function bindEventListeners() {
     $('#contribute-btn').on('click', validateValue);
 }
 
-function validateValue() {
+function validateValue(e) {
+    e.preventDefault();
     var $amount = $('#amount');
     // stripCommas defined in currency.js
     var val = stripCommas($amount.val());
