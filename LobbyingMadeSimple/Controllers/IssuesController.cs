@@ -156,6 +156,7 @@ namespace LobbyingMadeSimple.Controllers
             return View(issueVms.ToPagedList(pageNumber, pageSize));
         }
 
+        // GET: Issues/Fund
         [HttpGet]
         public ActionResult Fund(int? page)
         {
@@ -168,6 +169,7 @@ namespace LobbyingMadeSimple.Controllers
             return View(fundableIssueVms.ToPagedList(pageNumber, pageSize));
         }
 
+        // GET: Issues/Contribute
         [HttpGet]
         [Authorize]
         [ActionName("Contribute")]
