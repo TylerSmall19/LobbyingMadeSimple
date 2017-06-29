@@ -6,6 +6,9 @@ using LobbyingMadeSimple.Core.Interfaces;
 using LobbyingMadeSimple.Core;
 using LobbyingMadeSimple.Web.Models;
 using PagedList;
+using Braintree;
+using System;
+using System.Configuration;
 
 namespace LobbyingMadeSimple.Controllers
 {
@@ -169,7 +172,7 @@ namespace LobbyingMadeSimple.Controllers
             return View(fundableIssueVms.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: Issues/Contribute
+        // GET: Issues/Contribute/Id
         [HttpGet]
         [Authorize]
         [ActionName("Contribute")]
@@ -181,6 +184,55 @@ namespace LobbyingMadeSimple.Controllers
                 return new HttpNotFoundResult();
             }
             return View((FundViewModel)issue);
+        }
+
+        // Post: Issues/Contribute/Id
+        [HttpPost]
+        [Authorize]
+        [ActionName("Contribute")]
+        public ActionResult FundIssue(int id, FormCollection collection)
+        {
+            var issue = _repo.Find(id);
+            if (issue == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                var gateway = new BraintreeGateway
+                {
+                    Environment = Braintree.Environment.SANDBOX,
+                    MerchantId = ConfigurationManager.AppSettings["BraintreeMerchantId"],
+                    PublicKey = ConfigurationManager.AppSettings["BraintreePublicKey"],
+                    PrivateKey = ConfigurationManager.AppSettings["BraintreePrivateKey"]
+                };
+                
+                string nonceFromTheClient = collection["nonce"];
+                decimal amount = Decimal.Parse(collection["amount"]);
+
+                var request = new TransactionRequest
+                {
+                    Amount = amount,
+                    PaymentMethodNonce = nonceFromTheClient,
+                    Options = new TransactionOptionsRequest
+                    {
+                        SubmitForSettlement = true
+                    }
+                };
+
+                Result<Transaction> result = gateway.Transaction.Sale(request);
+                
+                if (result.IsSuccess())
+                {
+                    return new JsonResult { Data = new { resp = amount, isSuccess = true } };
+                }
+                else
+                {
+                    return new JsonResult { Data = new { resp = amount, isSuccess = false, reason = result.Message } };
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         protected override void Dispose(bool disposing)
