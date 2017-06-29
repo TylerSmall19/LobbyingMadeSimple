@@ -18,10 +18,11 @@
                     //console.log(err);
                     return;
                 }
+                // stripCommas from currency.js
+                var amount = parseInt(stripCommas($('#amount').val()), 10);;
                 $('#dropin-container').prepend('<span id="checkout-status">We\'re processing your payment. Hold tight!</span>');
-                $.post(window.location.href, payload, function (resp) { console.log(resp); });
+                $.post(window.location.href, { nonce: payload.nonce, amount: amount }, function (resp) { console.log(resp); });
                 $('#submit-button').hide();
-                console.log(payload);
             });
         });
     });
