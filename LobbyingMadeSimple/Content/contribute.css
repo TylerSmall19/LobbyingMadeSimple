@@ -19,3 +19,7 @@
     margin: 0 auto;
     text-align: center;
 }
+
+[data-braintree-id="toggle"] {
+    display: none;
+}
