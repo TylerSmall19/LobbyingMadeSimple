@@ -10,6 +10,7 @@
 
         $('#submit-button').removeClass('hidden');
         $('#submit-button').on('click', function (e) {
+            e.preventDefault();
 
             instance.requestPaymentMethod(function (err, payload) {
                 // Submit payload.nonce to your server
@@ -17,10 +18,11 @@
                     //console.log(err);
                     return;
                 }
-
-                //console.log(payload);
+                $('#dropin-container').prepend('<span id="checkout-status">We\'re processing your payment. Hold tight!</span>');
+                $.post(window.location.href, payload, function (resp) { console.log(resp); });
+                $('#submit-button').hide();
+                console.log(payload);
             });
-            e.preventDefault();
         });
     });
 }
